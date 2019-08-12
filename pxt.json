@@ -1,7 +1,7 @@
 {
-    "name": "BitBot",
-    "version": "1.2.1",
-    "description": "A BitBot package for pxt-microbit",
+    "name": "Strawbees",
+    "version": "0.0.0",
+    "description": "A Strawbees package for pxt-microbit",
     "license": "MIT",
     "dependencies": {
         "core": "*",
