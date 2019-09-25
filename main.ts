@@ -1,14 +1,4 @@
 /**
-* Neopixel labels
-*/
-enum SBNeopixelLabels {
-    //% block="A"
-    NeopixelA = 0,
-    //% block="B"
-    NeopixelB = 1
-}
-
-/**
  * Servo lables
  */
 enum SBServoLabels {
@@ -16,6 +6,16 @@ enum SBServoLabels {
     Servo1 = 0,
     //% block="2"
     Servo2 = 1
+}
+
+/**
+* Neopixel labels
+*/
+enum SBNeopixelLabels {
+    //% block="A"
+    NeopixelA = 0,
+    //% block="B"
+    NeopixelB = 1
 }
 
 /**
@@ -137,93 +137,6 @@ enum SBEasingLabels {
  */
 //% weight=100 color="#f443b0" icon="\u24C8" blockGap=8
 namespace strawbees {
-    ////////////////////////////////////////////////////////////////////////////
-    // Neopixels
-    ////////////////////////////////////////////////////////////////////////////
-    let _neo: neopixel.Strip;
-    /**
-     * Access (and create if needed) a neopixel strip.
-     * Default to brightness 40.
-     */
-    function neo(): neopixel.Strip {
-        if (!_neo) {
-            _neo = neopixel.create(DigitalPin.P8, 2, NeoPixelMode.RGB);
-            _neo.setBrightness(40);
-        }
-        return _neo;
-    }
-
-    /**
-     * Sets the color of an individual neopixel by specifying the amount of
-     * `red`, `green` and `blue` in the color. The amounts range from `0%` to
-     * `100%`.
-     * @param neopixelLabel Which neopixel to set the color.
-     * @param red Amount of red in color ranging from `0%` to `100%`.
-     * @param green Amount of green in color ranging from `0%` to `100%`.
-     * @param blue Amount of blue in color ranging from `0%` to `100%`.
-     */
-    //% blockId="sb_setNeopixelColorRGB"
-    //% block="set neopixel %neopixelLabel to red %red\\% green %green\\% blue %blue\\%"
-    //% neopixelLabel.shadow=sb_neopixelLabels
-    //% red.min=0 red.max=100 red.defl=100
-    //% green.min=0 green.max=100 green.defl=0
-    //% blue.min=0 blue.max=100 blue.defl=0
-    //% inlineInputMode=inline
-    export function setNeopixelColorRGB(neopixelLabel: number, red: number, green: number, blue: number): void {
-        neo().setPixelColor(neopixelLabel, getHexColorFromRGB(red, green, blue));
-        neo().show();
-    }
-
-    /**
-     * Sets the color of an individual neopixel by specifying the amount of
-     * `hue`, `saturation` and `brightness` in the color. The amounts range from
-     * `0%` to `100%`.
-     * @param neopixelLabel Which neopixel to set the color.
-     * @param hue Hue of the color ranging from `0%` to `100%`.
-     * @param saturation Saturation of the color ranging from `0%` to `100%`.
-     * @param brightness Brightness of the color ranging from `0%` to `100%`.
-     */
-    //% blockId="sb_setNeopixelColorHSB"
-    //% block="set neopixel %neopixelLabel to hue %hue\\% saturation %saturation\\% brightness %brightness\\%"
-    //% neopixelLabel.shadow=sb_neopixelLabels
-    //% hue.min=0 hue.max=100 hue.defl=0
-    //% saturation.min=0 saturation.max=100 saturation.defl=100
-    //% brightness.min=0 brightness.max=100 brightness.defl=100
-    //% inlineInputMode=inline
-    export function setNeopixelColorHSB(neopixelLabel: number, hue: number, saturation: number, brightness: number): void {
-        neo().setPixelColor(neopixelLabel, getHexColorFromHSB(hue, saturation, brightness));
-        neo().show();
-    }
-
-    /**
-     * Sets the color of an individual neopixel by specifying the color by name.
-     * @param neopixelLabel Which neopixel to set the color.
-     * @param colorLabel The name of the color from a list of color labels.
-     */
-    //% blockId="sb_setNeopixelColorLabel"
-    //% block="set neopixel %neopixelLabel to %colorLabel"
-    //% neopixelLabel.shadow=sb_neopixelLabels
-    //% colorLabel.shadow=sb_colorLabels
-    //% inlineInputMode=inline
-    export function setNeopixelColorLabel(neopixelLabel: number, colorLabel: number): void {
-        neo().setPixelColor(neopixelLabel, colorLabel);
-        neo().show();
-    }
-
-    /**
-     * Sets the brightness of all the neopixels by specifying a value ranging
-     * from `0%` to `100%`.
-     * @param brightness Brightness of the neopixels from `0%` to `100%`.
-     */
-    //% blockId="sb_setNeopixelsBrightness"
-    //% block="set neopixels brightness to %brightness\\%"
-    //% brightness.min=0 brightness.max=100
-    //% advanced=true
-    export function setNeopixelsBrightness(brightness: number): void {
-        neo().setBrightness((brightness / 100) * 255);
-        neo().show();
-    }
-
     ////////////////////////////////////////////////////////////////////////////
     // Servos
     ////////////////////////////////////////////////////////////////////////////
@@ -389,6 +302,94 @@ namespace strawbees {
     export function turnOffServo(servoLabel: number) {
         servo(servoLabel).stop();
     }
+
+    ////////////////////////////////////////////////////////////////////////////
+    // Neopixels
+    ////////////////////////////////////////////////////////////////////////////
+    let _neo: neopixel.Strip;
+    /**
+     * Access (and create if needed) a neopixel strip.
+     * Default to brightness 40.
+     */
+    function neo(): neopixel.Strip {
+        if (!_neo) {
+            _neo = neopixel.create(DigitalPin.P8, 2, NeoPixelMode.RGB);
+            _neo.setBrightness(40);
+        }
+        return _neo;
+    }
+
+    /**
+     * Sets the color of an individual neopixel by specifying the amount of
+     * `red`, `green` and `blue` in the color. The amounts range from `0%` to
+     * `100%`.
+     * @param neopixelLabel Which neopixel to set the color.
+     * @param red Amount of red in color ranging from `0%` to `100%`.
+     * @param green Amount of green in color ranging from `0%` to `100%`.
+     * @param blue Amount of blue in color ranging from `0%` to `100%`.
+     */
+    //% blockId="sb_setNeopixelColorRGB"
+    //% block="set neopixel %neopixelLabel to red %red\\% green %green\\% blue %blue\\%"
+    //% neopixelLabel.shadow=sb_neopixelLabels
+    //% red.min=0 red.max=100 red.defl=100
+    //% green.min=0 green.max=100 green.defl=0
+    //% blue.min=0 blue.max=100 blue.defl=0
+    //% inlineInputMode=inline
+    export function setNeopixelColorRGB(neopixelLabel: number, red: number, green: number, blue: number): void {
+        neo().setPixelColor(neopixelLabel, getHexColorFromRGB(red, green, blue));
+        neo().show();
+    }
+
+    /**
+     * Sets the color of an individual neopixel by specifying the amount of
+     * `hue`, `saturation` and `brightness` in the color. The amounts range from
+     * `0%` to `100%`.
+     * @param neopixelLabel Which neopixel to set the color.
+     * @param hue Hue of the color ranging from `0%` to `100%`.
+     * @param saturation Saturation of the color ranging from `0%` to `100%`.
+     * @param brightness Brightness of the color ranging from `0%` to `100%`.
+     */
+    //% blockId="sb_setNeopixelColorHSB"
+    //% block="set neopixel %neopixelLabel to hue %hue\\% saturation %saturation\\% brightness %brightness\\%"
+    //% neopixelLabel.shadow=sb_neopixelLabels
+    //% hue.min=0 hue.max=100 hue.defl=0
+    //% saturation.min=0 saturation.max=100 saturation.defl=100
+    //% brightness.min=0 brightness.max=100 brightness.defl=100
+    //% inlineInputMode=inline
+    export function setNeopixelColorHSB(neopixelLabel: number, hue: number, saturation: number, brightness: number): void {
+        neo().setPixelColor(neopixelLabel, getHexColorFromHSB(hue, saturation, brightness));
+        neo().show();
+    }
+
+    /**
+     * Sets the color of an individual neopixel by specifying the color by name.
+     * @param neopixelLabel Which neopixel to set the color.
+     * @param colorLabel The name of the color from a list of color labels.
+     */
+    //% blockId="sb_setNeopixelColorLabel"
+    //% block="set neopixel %neopixelLabel to %colorLabel"
+    //% neopixelLabel.shadow=sb_neopixelLabels
+    //% colorLabel.shadow=sb_colorLabels
+    //% inlineInputMode=inline
+    export function setNeopixelColorLabel(neopixelLabel: number, colorLabel: number): void {
+        neo().setPixelColor(neopixelLabel, colorLabel);
+        neo().show();
+    }
+
+    /**
+     * Sets the brightness of all the neopixels by specifying a value ranging
+     * from `0%` to `100%`.
+     * @param brightness Brightness of the neopixels from `0%` to `100%`.
+     */
+    //% blockId="sb_setNeopixelsBrightness"
+    //% block="set neopixels brightness to %brightness\\%"
+    //% brightness.min=0 brightness.max=100
+    //% advanced=true
+    export function setNeopixelsBrightness(brightness: number): void {
+        neo().setBrightness((brightness / 100) * 255);
+        neo().show();
+    }
+
     ////////////////////////////////////////////////////////////////////////////
     // More
     ////////////////////////////////////////////////////////////////////////////
@@ -495,9 +496,9 @@ namespace strawbees {
         return getHexColorFromRGB(r * 100, g * 100, b * 100);
     }
     /**
-     * Samples the vale of a periodic wave functione. The wave is time bounded
-     * an has as the origin the start of the running time. It can be configured
-     * by specifying it's length (in seconds), amplitude and offset.
+     * Samples the vale of a periodic wave function. The wave starts at the
+     * beginning of the running time. It can be configured by specifying it's
+     * length (in seconds), amplitude and offset.
      * @param waveTypeLabel The type of the wave.
      * @param length The length (or period) of the wave, in seconds.
      * @param amplitude The amplitude of the wave.

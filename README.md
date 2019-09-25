@@ -1,30 +1,5 @@
 # Strawbees Package for Makecode micro:bit
 
-## Controlling neopixels
-
-```blocks
-/*
- * Sets the neopixel A (above the A button) to red, by specifing the color as
- * percentages of red, green and blue.
- */
-strawbees.setNeopixelColorRGB(strawbees.neopixelLabels(SBNeopixelLabels.NeopixelA), 100, 0, 0)
-
-/*
- * Sets the neopixel B (above the B button) to red, by specifing the color as
- * percentages of hue, saturation and brightness.
- */
-strawbees.setNeopixelColorHSB(strawbees.neopixelLabels(SBNeopixelLabels.NeopixelB), 100, 0, 0)
-
-/*
- * Sets neopixels A and B, to yellow and green respectively, by selecting the
- * colors ny name from a pre-defined list.
- * percentages of red, green and blue.
- */
-strawbees.setNeopixelColorLabel(strawbees.neopixelLabels(SBNeopixelLabels.NeopixelA), strawbees.colorLabels(SBColorLabels.Yellow))
-strawbees.setNeopixelColorLabel(strawbees.neopixelLabels(SBNeopixelLabels.NeopixelB), strawbees.colorLabels(SBColorLabels.Green))
-
-```   
-
 ## Controlling servos
 
 ```blocks
@@ -56,6 +31,31 @@ strawbees.setContinuousServoSpeed(strawbees.servoLabels(SBServoLabels.Servo2), -
  */
 strawbees.turnOffServo(strawbees.servoLabels(SBServoLabels.Servo1))
 strawbees.turnOffServo(strawbees.servoLabels(SBServoLabels.Servo2))
+```  
+
+## Controlling neopixels
+
+```blocks
+/*
+ * Sets the neopixel A (above the A button) to red, by specifing the color as
+ * percentages of red, green and blue.
+ */
+strawbees.setNeopixelColorRGB(strawbees.neopixelLabels(SBNeopixelLabels.NeopixelA), 100, 0, 0)
+
+/*
+ * Sets the neopixel B (above the B button) to red, by specifing the color as
+ * percentages of hue, saturation and brightness.
+ */
+strawbees.setNeopixelColorHSB(strawbees.neopixelLabels(SBNeopixelLabels.NeopixelB), 0, 100, 100)
+
+/*
+ * Sets neopixels A and B, to yellow and green respectively, by selecting the
+ * colors ny name from a pre-defined list.
+ * percentages of red, green and blue.
+ */
+strawbees.setNeopixelColorLabel(strawbees.neopixelLabels(SBNeopixelLabels.NeopixelA), strawbees.colorLabels(SBColorLabels.Yellow))
+strawbees.setNeopixelColorLabel(strawbees.neopixelLabels(SBNeopixelLabels.NeopixelB), strawbees.colorLabels(SBColorLabels.Green))
+
 ```   
 
 ## Supported targets

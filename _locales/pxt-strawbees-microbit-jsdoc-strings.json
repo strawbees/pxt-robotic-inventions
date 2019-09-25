@@ -49,7 +49,7 @@
   "strawbees.transitionServoAngle|param|servoLabel": "The servo to set the position to.",
   "strawbees.turnOffServo": "Turns a servo off so that no force will be applied and the horn can be\nrotated manually. This saves battery.",
   "strawbees.turnOffServo|param|servoLabel": "The servo to turn off.",
-  "strawbees.wave": "Samples the vale of a periodic wave functione. The wave is time bounded\nan has as the origin the start of the running time. It can be configured\nby specifying it's length (in seconds), amplitude and offset.",
+  "strawbees.wave": "Samples the vale of a periodic wave function. The wave starts at the\nbeginning of the running time. It can be configured by specifying it's\nlength (in seconds), amplitude and offset.",
   "strawbees.waveTypeLabels": "A label of a wave type.",
   "strawbees.waveTypeLabels|param|label": "Wave type label.",
   "strawbees.wave|param|amplitude": "The amplitude of the wave.",
