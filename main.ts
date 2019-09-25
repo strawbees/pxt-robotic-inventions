@@ -133,7 +133,7 @@ enum SBEasingLabels {
 }
 
 /**
- * Custom blocks
+ * Controls the Strawbees integration board.
  */
 //% weight=100 color="#f443b0" icon="\u24C8" blockGap=8
 namespace strawbees {
@@ -229,17 +229,17 @@ namespace strawbees {
     ////////////////////////////////////////////////////////////////////////////
     class Servo extends servos.Servo {
         private _pin: AnalogPin;
-        public _angle: number;
+        private _targetAngle: number;
         constructor(pin: AnalogPin) {
             super();
             this._pin = pin;
         }
-        angle(): number {
-            return this._angle;
+        targetAngle(): number {
+            return this._targetAngle;
         }
         protected internalSetAngle(angle: number): number {
             pins.servoWritePin(this._pin, angle);
-            this._angle = angle;
+            this._targetAngle = angle;
             return angle;
         }
         protected internalSetPulse(micros: number): void {
@@ -314,7 +314,7 @@ namespace strawbees {
             return;
         }
         let dt = 50;
-        let angle = servo(servoLabel).angle();
+        let angle = servo(servoLabel).targetAngle();
         let change = degrees - angle;
         let start = input.runningTime();
         let elapsed = 0;
@@ -394,7 +394,6 @@ namespace strawbees {
     ////////////////////////////////////////////////////////////////////////////
     /**
      * A label of a neopixel.
-     *
      * @param label Neopixel label.
      */
     //% blockId="sb_neopixelLabels" block=%label
@@ -405,7 +404,6 @@ namespace strawbees {
 
     /**
      * A label of a servo.
-     *
      * @param label Servo label.
      */
     //% blockId="sb_servoLabels" block=%label
@@ -416,7 +414,6 @@ namespace strawbees {
 
     /**
      * A label of a color.
-     *
      * @param label Color label.
      */
     //% blockId="sb_colorLabels" block=%label
@@ -427,7 +424,6 @@ namespace strawbees {
 
     /**
      * A label of a wave type.
-     *
      * @param label Wave type label.
      */
     //% blockId="sb_waveTypeLabels" block=%label
@@ -438,7 +434,6 @@ namespace strawbees {
 
     /**
     * A label of a easing equation.
-    *
     * @param label Easing equation label.
     */
     //% blockId="sb_easingLabels" block=%label
@@ -499,7 +494,15 @@ namespace strawbees {
         }
         return getHexColorFromRGB(r * 100, g * 100, b * 100);
     }
-
+    /**
+     * Samples the vale of a periodic wave functione. The wave is time bounded
+     * an has as the origin the start of the running time. It can be configured
+     * by specifying it's length (in seconds), amplitude and offset.
+     * @param waveTypeLabel The type of the wave.
+     * @param length The length (or period) of the wave, in seconds.
+     * @param amplitude The amplitude of the wave.
+     * @param offset The offset of the wave.
+     */
     //% blockId="sb_wave"
     //% block="wave type %waveTypeLabel length %length seconds amplitude %amplitude offset %offset"
     //% waveTypeLabel.shadow=sb_waveTypeLabels
