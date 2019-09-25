@@ -1,21 +1,20 @@
 {
-    "name": "Strawbees",
+    "name": "pxt-strawbees-microbit",
     "version": "0.0.0",
-    "description": "A Strawbees package for pxt-microbit",
-    "license": "MIT",
+    "description": "",
     "dependencies": {
         "core": "*",
+        "servo": "*",
         "neopixel": "github:microsoft/pxt-neopixel#v0.6.12"
     },
     "files": [
         "README.md",
-        "main.ts",
-        "_locales/no/bitbot-strings.json",
-        "_locales/no/bitbot-jsdoc-strings.json"
+        "main.ts"
     ],
     "testFiles": [
-        "tests.ts"
+        "test.ts"
     ],
-    "yotta": {},
-    "public": true
+    "public": false,
+    "preferredEditor": "tsprj",
+    "installedVersion": "workspace:b4d24cc5-e385-42f4-60ab-dd393b74ea81"
 }
