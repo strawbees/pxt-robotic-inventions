@@ -1,23 +1,23 @@
 {
 	/*
-	 * Set the angle of a servo connected to the slot "1" to 90°
+	 * Set the angle of a servo connected to the socket "1" to 90°
 	 */
 	strawbees.setServoAngle(strawbees.servoLabels(SBServoLabels.Servo1), 90)
 
 	/*
-	 * Transitions the angle a servo connected to the slot "1" to 180°, over 2
+	 * Transitions the angle a servo connected to the socket "1" to 180°, over 2
 	 * seconds using a "bounce out" easing equation.
 	 */
 	strawbees.transitionServoAngle(strawbees.servoLabels(SBServoLabels.Servo1), 90, 2, SBEasingLabels.OutBounce)
 
 	/*
-	 * Sets a continuous servo connected to the slot "2" to full speed in the
+	 * Sets a continuous servo connected to the socket "2" to full speed in the
 	 * clockwise direction (100%).
 	 */
 	strawbees.setContinuousServoSpeed(strawbees.servoLabels(SBServoLabels.Servo2), 100)
 
 	/*
-	 * Sets a continuous servo connected to the slot "2" to half-full speed in the
+	 * Sets a continuous servo connected to the socket "2" to half speed in the
 	 * counter-clockwise direction (-100%).
 	 */
 	strawbees.setContinuousServoSpeed(strawbees.servoLabels(SBServoLabels.Servo2), -100)
