@@ -141,26 +141,28 @@ namespace strawbees {
     // Servos
     ////////////////////////////////////////////////////////////////////////////
     class Servo extends servos.Servo {
-        private _pin: AnalogPin;
+        private _analogPin: AnalogPin;
+        private _digitalPin: DigitalPin;
         private _targetAngle: number;
-        constructor(pin: AnalogPin) {
+        constructor(analogPin: AnalogPin, digitalPin: DigitalPin) {
             super();
-            this._pin = pin;
+            this._analogPin = analogPin;
+            this._digitalPin = digitalPin;
         }
         targetAngle(): number {
             return this._targetAngle;
         }
         protected internalSetAngle(angle: number): number {
-            pins.servoWritePin(this._pin, angle);
+            pins.servoWritePin(this._analogPin, angle);
             this._targetAngle = angle;
             return angle;
         }
         protected internalSetPulse(micros: number): void {
-            pins.servoSetPulse(this._pin, micros);
+            pins.servoSetPulse(this._analogPin, micros);
         }
         protected internalStop() {
-            pins.analogReadPin(this._pin);
-            //pins.setPull(this._pin, PinPullMode.PullNone);
+            pins.analogReadPin(this._analogPin);
+            pins.setPull(this._digitalPin, PinPullMode.PullNone);
         }
     }
     let _servo1: Servo;
@@ -173,14 +175,14 @@ namespace strawbees {
         switch (servoLabel) {
             case 0:
                 if (!_servo1) {
-                    _servo1 = new Servo(AnalogPin.P13);
+                    _servo1 = new Servo(AnalogPin.P13, DigitalPin.P13);
                     _servo1.setAngle(90);
                     pins.servoWritePin(AnalogPin.P13, 90);
                 }
                 return _servo1;
             case 1:
                 if (!_servo2) {
-                    _servo2 = new Servo(AnalogPin.P14);
+                    _servo2 = new Servo(AnalogPin.P14, DigitalPin.P14);
                     _servo2.setAngle(90);
                     pins.servoWritePin(AnalogPin.P14, 90);
                 }
