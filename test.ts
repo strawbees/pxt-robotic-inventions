@@ -29,22 +29,22 @@
 	strawbees.turnOffServo(strawbees.servoLabels(SBServoLabels.Servo2))
 
 	/*
-	 * Sets the neopixel A (above the A button) to red, by specifing the color as
+	 * Sets the neoPixel A (above the A button) to red, by specifing the color as
 	 * percentages of red, green and blue.
 	 */
-	strawbees.setNeopixelColorRGB(strawbees.neopixelLabels(SBNeopixelLabels.NeopixelA), 100, 0, 0)
+	strawbees.setNeoPixelColorRGB(strawbees.neoPixelLabels(SBNeoPixelLabels.NeoPixelA), 100, 0, 0)
 
 	/*
-	 * Sets the neopixel B (above the B button) to red, by specifing the color as
+	 * Sets the neoPixel B (above the B button) to red, by specifing the color as
 	 * percentages of hue, saturation and brightness.
 	 */
-	strawbees.setNeopixelColorHSB(strawbees.neopixelLabels(SBNeopixelLabels.NeopixelB), 0, 100, 100)
+	strawbees.setNeoPixelColorHSB(strawbees.neoPixelLabels(SBNeoPixelLabels.NeoPixelB), 0, 100, 100)
 
 	/*
-	 * Sets neopixels A and B, to yellow and green respectively, by selecting the
+	 * Sets neoPixels A and B, to yellow and green respectively, by selecting the
 	 * colors ny name from a pre-defined list.
 	 * percentages of red, green and blue.
 	 */
-	strawbees.setNeopixelColorLabel(strawbees.neopixelLabels(SBNeopixelLabels.NeopixelA), strawbees.colorLabels(SBColorLabels.Yellow))
-	strawbees.setNeopixelColorLabel(strawbees.neopixelLabels(SBNeopixelLabels.NeopixelB), strawbees.colorLabels(SBColorLabels.Green))
+	strawbees.setNeoPixelColorLabel(strawbees.neoPixelLabels(SBNeoPixelLabels.NeoPixelA), strawbees.colorLabels(SBColorLabels.Yellow))
+	strawbees.setNeoPixelColorLabel(strawbees.neoPixelLabels(SBNeoPixelLabels.NeoPixelB), strawbees.colorLabels(SBColorLabels.Green))
 }
