@@ -399,7 +399,7 @@ namespace strawbees {
      * A label of a NeoPixel.
      * @param label NeoPixel label.
      */
-    //% blockId="sb_neoPixelLabels" block=%label
+    //% blockId="sb_neoPixelLabels" block="NeoPixel:%label"
     //% advanced=true
     export function neoPixelLabels(label: SBNeoPixelLabels): SBNeoPixelLabels {
         return label;
@@ -409,7 +409,7 @@ namespace strawbees {
      * A label of a servo.
      * @param label Servo label.
      */
-    //% blockId="sb_servoLabels" block=%label
+    //% blockId="sb_servoLabels" block="servo:%label"
     //% advanced=true
     export function servoLabels(label: SBServoLabels): SBServoLabels {
         return label;
@@ -419,7 +419,7 @@ namespace strawbees {
      * A label of a color.
      * @param label Color label.
      */
-    //% blockId="sb_colorLabels" block=%label
+    //% blockId="sb_colorLabels" block="color:%label"
     //% advanced=true
     export function colorLabels(label: SBColorLabels): SBColorLabels {
         return label;
@@ -429,7 +429,7 @@ namespace strawbees {
      * A label of a wave type.
      * @param label Wave type label.
      */
-    //% blockId="sb_waveTypeLabels" block=%label
+    //% blockId="sb_waveTypeLabels" block="wave type:%label"
     //% advanced=true
     export function waveTypeLabels(label: SBWaveTypeLabels): SBWaveTypeLabels {
         return label;
@@ -439,7 +439,7 @@ namespace strawbees {
     * A label of a easing equation.
     * @param label Easing equation label.
     */
-    //% blockId="sb_easingLabels" block=%label
+    //% blockId="sb_easingLabels" block="easing equation:%label"
     //% advanced=true
     export function easingLabels(label: SBEasingLabels): SBEasingLabels {
         return label;
