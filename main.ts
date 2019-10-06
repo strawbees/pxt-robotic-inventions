@@ -1,11 +1,11 @@
 /**
- * Servo lables
+ * Servo labels
  */
 enum SBServoLabels {
-    //% block="1"
-    Servo1 = 0,
-    //% block="2"
-    Servo2 = 1
+    //% block="A"
+    ServoA = 0,
+    //% block="B"
+    ServoB = 1
 }
 
 /**
@@ -71,65 +71,65 @@ enum SBEasingLabels {
     //% block="linear"
     Linear = 0,
     //% block="sine in"
-    InSine = 1,
+    SineIn = 1,
     //% block="sine out"
-    OutSine = 2,
+    SineOut = 2,
     //% block="sine in out"
-    InOutSine = 3,
+    SineInOut = 3,
     //% block="quad in"
-    InQuad = 4,
+    QuadIn = 4,
     //% block="quad out"
-    OutQuad = 5,
+    QuadOut = 5,
     //% block="quad in out"
-    InOutQuad = 6,
+    QuadInOut = 6,
     //% block="cubic in"
-    InCubic = 7,
+    CubicIn = 7,
     //% block="cubic out"
-    OutCubic = 8,
+    CubicOut = 8,
     //% block="cubic in out"
-    InOutCubic = 9,
+    CubicInOut = 9,
     //% block="quart in"
-    InQuart = 10,
+    QuartIn = 10,
     //% block="quart out"
-    OutQuart = 11,
+    QuartOut = 11,
     //% block="quart in out"
-    InOutQuart = 12,
+    QuartInOut = 12,
     //% block="quint in"
-    InQuint = 13,
+    QuintIn = 13,
     //% block="quint out"
-    OutQuint = 14,
+    QuintOut = 14,
     //% block="quint int out"
-    InOutQuint = 15,
+    QuintInOut = 15,
     //% block="expo in"
-    InExpo = 16,
+    ExpoIn = 16,
     //% block="expo out"
-    OutExpo = 17,
+    ExpoOut = 17,
     //% block="expo in out"
-    InOutExpo = 18,
+    ExpoInOut = 18,
     //% block="circ in"
-    InCirc = 19,
+    CircIn = 19,
     //% block="circ out"
-    OutCirc = 20,
+    CircOut = 20,
     //% block="circ in out"
-    InOutCirc = 21,
+    CircInOut = 21,
     //% block="back in"
-    InBack = 22,
+    BackIn = 22,
     //% block="back out"
-    OutBack = 23,
+    BackOut = 23,
     //% block="back in out"
-    InOutBack = 24,
+    BackInOut = 24,
     //% block="elastic in"
-    InElastic = 25,
+    ElasticIn = 25,
     //% block="elastic out"
-    OutElastic = 26,
+    ElasticOut = 26,
     //% block="elastic in out"
-    InOutElastic = 27,
+    ElasticInOut = 27,
     //% block="bounce in"
-    InBounce = 28,
+    BounceIn = 28,
     //% block="bounce out"
-    OutBounce = 29,
+    BounceOut = 29,
     //% block="bounce in out"
-    InOutBounce = 30
+    BounceInOut = 30
 }
 
 /**
@@ -143,30 +143,35 @@ namespace strawbees {
     class Servo extends servos.Servo {
         private _analogPin: AnalogPin;
         private _digitalPin: DigitalPin;
-        private _targetAngle: number;
+        private _pulse: number;
         constructor(analogPin: AnalogPin, digitalPin: DigitalPin) {
             super();
             this._analogPin = analogPin;
             this._digitalPin = digitalPin;
         }
-        targetAngle(): number {
-            return this._targetAngle;
+        pulse(): number {
+            return this._pulse;
         }
-        protected internalSetAngle(angle: number): number {
-            pins.servoWritePin(this._analogPin, angle);
-            this._targetAngle = angle;
-            return angle;
+        positionToPulse(position: number): number {
+            return 600 + position * 1400;
+        }
+        speedToPulse(speed: number): number {
+            if (speed < 0) {
+                return 1300 - 125 + speed * 375;
+            }
+            return 1300 + 125 + speed * 375;
         }
         protected internalSetPulse(micros: number): void {
             pins.servoSetPulse(this._analogPin, micros);
+            this._pulse = micros;
         }
         protected internalStop() {
             pins.analogReadPin(this._analogPin);
             pins.setPull(this._digitalPin, PinPullMode.PullNone);
         }
     }
-    let _servo1: Servo;
-    let _servo2: Servo;
+    let _servoA: Servo;
+    let _servoB: Servo;
     /**
      * Access (and create if needed) a servo instace.
      * @param id the id of the servo. eg. SBServoLabels.Left
@@ -174,122 +179,123 @@ namespace strawbees {
     function servo(servoLabel: number): Servo {
         switch (servoLabel) {
             case 0:
-                if (!_servo1) {
-                    _servo1 = new Servo(AnalogPin.P13, DigitalPin.P13);
-                    _servo1.setAngle(90);
-                    pins.servoWritePin(AnalogPin.P13, 90);
+                if (!_servoA) {
+                    _servoA = new Servo(AnalogPin.P13, DigitalPin.P13);
+                    _servoA.setPulse(1300);
+                    pins.servoSetPulse(AnalogPin.P13, 1300);
                 }
-                return _servo1;
+                return _servoA;
             case 1:
-                if (!_servo2) {
-                    _servo2 = new Servo(AnalogPin.P14, DigitalPin.P14);
-                    _servo2.setAngle(90);
-                    pins.servoWritePin(AnalogPin.P14, 90);
+                if (!_servoB) {
+                    _servoB = new Servo(AnalogPin.P14, DigitalPin.P14);
+                    _servoB.setPulse(1300);
+                    pins.servoSetPulse(AnalogPin.P14, 1300);
                 }
-                return _servo2;
+                return _servoB;
         }
         return null;
     }
     /**
-     * Sets the position of a servo by specifying the angle (in degrees).
+     * Sets the position of a servo by specifying a value ranging from `0%` to
+     * `100%`.
      * @param servoLabel The servo to set the position to.
-     * @param degrees The angle to be set from `0°` to `180°`.
+     * @param position The position ranging from `0%` to `100%`.
      */
-    //% blockId=sb_setServoAngle
-    //% block="set servo %servoLabel angle to %degrees°"
+    //% blockId=sb_setServoPosition
+    //% block="set servo %servoLabel position to %position||%"
     //% servoLabel.shadow=sb_servoLabels
-    //% degrees.shadow=protractorPicker
-    //% degrees.min=0 degrees.max=180 degrees.defl=90
+    //% position.min=0 position.max=100 position.defl=50
     //% duration.defl=0
     //% inlineInputMode=inline
-    export function setServoAngle(servoLabel: number, degrees: number): void {
-        servo(servoLabel).setAngle(degrees);
+    export function setServoPosition(servoLabel: SBServoLabels, position: number): void {
+        servo(servoLabel).setPulse(servo(servoLabel).positionToPulse(position));
     }
 
     /**
-     * Transtions the position of a servo to the angle (in degrees) over a
-     * duration of time (in seconds). The "shape" of the transtion is specified
-     * by choosing one of the easing functions by name.
+     * Transtions the position of a servo over a duration of time (in seconds).
+     * The "shape" of the transtion is specified by choosing one of the easing
+     * functions by name.
      * @param servoLabel The servo to set the position to.
-     * @param degrees The angle to be set from `0°` to `180°`.
+     * @param position The position ranging from `0%` to `100%`.
      * @param duration The duration of the transition.
      * @param easingLabel The "shape" of the transition.
      */
-    //% blockId=sb_transitionServoAngle
-    //% block="transition servo %servoLabel angle to %degrees° over %duration seconds %easingLabel"
+    //% blockId=sb_transitionServoPosition
+    //% block="transition servo %servoLabel position to %position||% over %duration seconds %easingLabel"
     //% servoLabel.shadow=sb_servoLabels
-    //% degrees.shadow=protractorPicker degrees.min=0 degrees.max=180 degrees.defl=90
+    //% position.min=0 position.max=100 position.defl=100
     //% duration.min=0 duration.defl=1
     //% easingLabel.shadow=sb_easingLabels
     //% inlineInputMode=inline
-    export function transitionServoAngle(servoLabel: number, degrees: number, duration: number, easingLabel: number): void {
+    export function transitionServoPosition(servoLabel: SBServoLabels, position: number, duration: number, easingLabel: SBEasingLabels): void {
         duration *= 1000; // convert to ms
         if (duration < 100) {
-            servo(servoLabel).setAngle(degrees);
+            servo(servoLabel).setPulse(servo(servoLabel).positionToPulse(position));
             return;
         }
         let dt = 50;
-        let angle = servo(servoLabel).targetAngle();
-        let change = degrees - angle;
+        let pulse = servo(servoLabel).positionToPulse(position)
+        let currentPulse = servo(servoLabel).pulse();
+        let change = pulse - currentPulse;
         let start = input.runningTime();
         let elapsed = 0;
         while (elapsed < duration) {
             let target;
             switch (easingLabel) {
-                case SBEasingLabels.InSine: target = easeInSine(elapsed, angle, change, duration); break;
-                case SBEasingLabels.OutSine: target = easeOutSine(elapsed, angle, change, duration); break;
-                case SBEasingLabels.InOutSine: target = easeInOutSine(elapsed, angle, change, duration); break;
-                case SBEasingLabels.InQuad: target = easeInQuad(elapsed, angle, change, duration); break;
-                case SBEasingLabels.OutQuad: target = easeOutQuad(elapsed, angle, change, duration); break;
-                case SBEasingLabels.InOutQuad: target = easeInOutQuad(elapsed, angle, change, duration); break;
-                case SBEasingLabels.InCubic: target = easeInCubic(elapsed, angle, change, duration); break;
-                case SBEasingLabels.OutCubic: target = easeOutCubic(elapsed, angle, change, duration); break;
-                case SBEasingLabels.InOutCubic: target = easeInOutCubic(elapsed, angle, change, duration); break;
-                case SBEasingLabels.InQuart: target = easeInQuart(elapsed, angle, change, duration); break;
-                case SBEasingLabels.OutQuart: target = easeOutQuart(elapsed, angle, change, duration); break;
-                case SBEasingLabels.InOutQuart: target = easeInOutQuart(elapsed, angle, change, duration); break;
-                case SBEasingLabels.InQuint: target = easeInQuint(elapsed, angle, change, duration); break;
-                case SBEasingLabels.OutQuint: target = easeOutQuint(elapsed, angle, change, duration); break;
-                case SBEasingLabels.InOutQuint: target = easeInOutQuint(elapsed, angle, change, duration); break;
-                case SBEasingLabels.InExpo: target = easeInExpo(elapsed, angle, change, duration); break;
-                case SBEasingLabels.OutExpo: target = easeOutExpo(elapsed, angle, change, duration); break;
-                case SBEasingLabels.InOutExpo: target = easeInOutExpo(elapsed, angle, change, duration); break;
-                case SBEasingLabels.InCirc: target = easeInCirc(elapsed, angle, change, duration); break;
-                case SBEasingLabels.OutCirc: target = easeOutCirc(elapsed, angle, change, duration); break;
-                case SBEasingLabels.InOutCirc: target = easeInOutCirc(elapsed, angle, change, duration); break;
-                case SBEasingLabels.InBack: target = easeInBack(elapsed, angle, change, duration); break;
-                case SBEasingLabels.OutBack: target = easeOutBack(elapsed, angle, change, duration); break;
-                case SBEasingLabels.InOutBack: target = easeInOutBack(elapsed, angle, change, duration); break;
-                case SBEasingLabels.InElastic: target = easeInElastic(elapsed, angle, change, duration); break;
-                case SBEasingLabels.OutElastic: target = easeOutElastic(elapsed, angle, change, duration); break;
-                case SBEasingLabels.InOutElastic: target = easeInOutElastic(elapsed, angle, change, duration); break;
-                case SBEasingLabels.InBounce: target = easeInBounce(elapsed, angle, change, duration); break;
-                case SBEasingLabels.OutBounce: target = easeOutBounce(elapsed, angle, change, duration); break;
-                case SBEasingLabels.InOutBounce: target = easeInOutBounce(elapsed, angle, change, duration); break;
+                case SBEasingLabels.SineIn: target = easeSineIn(elapsed, currentPulse, change, duration); break;
+                case SBEasingLabels.SineOut: target = easeSineOut(elapsed, currentPulse, change, duration); break;
+                case SBEasingLabels.SineInOut: target = easeSineInOut(elapsed, currentPulse, change, duration); break;
+                case SBEasingLabels.QuadIn: target = easeQuadIn(elapsed, currentPulse, change, duration); break;
+                case SBEasingLabels.QuadOut: target = easeQuadOut(elapsed, currentPulse, change, duration); break;
+                case SBEasingLabels.QuadInOut: target = easeQuadInOut(elapsed, currentPulse, change, duration); break;
+                case SBEasingLabels.CubicIn: target = easeCubicIn(elapsed, currentPulse, change, duration); break;
+                case SBEasingLabels.CubicOut: target = easeCubicOut(elapsed, currentPulse, change, duration); break;
+                case SBEasingLabels.CubicInOut: target = easeCubicInOut(elapsed, currentPulse, change, duration); break;
+                case SBEasingLabels.QuartIn: target = easeQuartIn(elapsed, currentPulse, change, duration); break;
+                case SBEasingLabels.QuartOut: target = easeQuartOut(elapsed, currentPulse, change, duration); break;
+                case SBEasingLabels.QuartInOut: target = easeQuartInOut(elapsed, currentPulse, change, duration); break;
+                case SBEasingLabels.QuintIn: target = easeQuintIn(elapsed, currentPulse, change, duration); break;
+                case SBEasingLabels.QuintOut: target = easeQuintOut(elapsed, currentPulse, change, duration); break;
+                case SBEasingLabels.QuintInOut: target = easeQuintInOut(elapsed, currentPulse, change, duration); break;
+                case SBEasingLabels.ExpoIn: target = easeExpoIn(elapsed, currentPulse, change, duration); break;
+                case SBEasingLabels.ExpoOut: target = easeExpoOut(elapsed, currentPulse, change, duration); break;
+                case SBEasingLabels.ExpoInOut: target = easeExpoInOut(elapsed, currentPulse, change, duration); break;
+                case SBEasingLabels.CircIn: target = easeCircIn(elapsed, currentPulse, change, duration); break;
+                case SBEasingLabels.CircOut: target = easeCircOut(elapsed, currentPulse, change, duration); break;
+                case SBEasingLabels.CircInOut: target = easeCircInOut(elapsed, currentPulse, change, duration); break;
+                case SBEasingLabels.BackIn: target = easeBackIn(elapsed, currentPulse, change, duration); break;
+                case SBEasingLabels.BackOut: target = easeBackOut(elapsed, currentPulse, change, duration); break;
+                case SBEasingLabels.BackInOut: target = easeBackInOut(elapsed, currentPulse, change, duration); break;
+                case SBEasingLabels.ElasticIn: target = easeElasticIn(elapsed, currentPulse, change, duration); break;
+                case SBEasingLabels.ElasticOut: target = easeElasticOut(elapsed, currentPulse, change, duration); break;
+                case SBEasingLabels.ElasticInOut: target = easeElasticInOut(elapsed, currentPulse, change, duration); break;
+                case SBEasingLabels.BounceIn: target = easeBounceIn(elapsed, currentPulse, change, duration); break;
+                case SBEasingLabels.BounceOut: target = easeBounceOut(elapsed, currentPulse, change, duration); break;
+                case SBEasingLabels.BounceInOut: target = easeBounceInOut(elapsed, currentPulse, change, duration); break;
                 case SBEasingLabels.Linear:
                 default:
-                    target = easeLinear(elapsed, angle, change, duration);
+                    target = easeLinear(elapsed, currentPulse, change, duration);
                     break;
             }
-            servo(servoLabel).setAngle(target);
+            servo(servoLabel).setPulse(target);
             basic.pause(dt);
             elapsed = input.runningTime() - start;
         }
-        servo(servoLabel).setAngle(degrees);
+        servo(servoLabel).setPulse(pulse);
     }
 
     /**
      * Sets the speed of a continuous servo in a arbitrary range from `-100%` to
      * `100%`.
      * @param servoLabel The continuous servo to set the speed to.
-     * @param speed The speed from `-100%` to `100%`.
+     * @param speed The speed ranging from `-100%` to `100%`.
      */
     //% blockId=sb_setContinuousServoSpeed block="set continuous servo %servoLabel speed to %speed\\%"
     //% servoLabel.shadow=sb_servoLabels
     //% speed.shadow=speedPicker
     //% inlineInputMode=inline
-    export function setContinuousServoSpeed(servoLabel: number, speed: number): void {
-        servo(servoLabel).run(speed);
+    export function setContinuousServoSpeed(servoLabel: SBServoLabels, speed: number): void {
+        servo(servoLabel).setPulse(servo(servoLabel).speedToPulse(speed));
     }
 
     /**
@@ -301,7 +307,7 @@ namespace strawbees {
     //% block="turn off servo %servoLabel"
     //% servoLabel.shadow=sb_servoLabels
     //% inlineInputMode=inline
-    export function turnOffServo(servoLabel: number) {
+    export function turnOffServo(servoLabel: SBServoLabels) {
         servo(servoLabel).stop();
     }
 
@@ -337,7 +343,7 @@ namespace strawbees {
     //% green.min=0 green.max=100 green.defl=0
     //% blue.min=0 blue.max=100 blue.defl=0
     //% inlineInputMode=inline
-    export function setNeoPixelColorRGB(neoPixelLabel: number, red: number, green: number, blue: number): void {
+    export function setNeoPixelColorRGB(neoPixelLabel: SBNeoPixelLabels, red: number, green: number, blue: number): void {
         neo().setPixelColor(neoPixelLabel, getHexColorFromRGB(red, green, blue));
         neo().show();
     }
@@ -358,7 +364,7 @@ namespace strawbees {
     //% saturation.min=0 saturation.max=100 saturation.defl=100
     //% brightness.min=0 brightness.max=100 brightness.defl=100
     //% inlineInputMode=inline
-    export function setNeoPixelColorHSB(neoPixelLabel: number, hue: number, saturation: number, brightness: number): void {
+    export function setNeoPixelColorHSB(neoPixelLabel: SBNeoPixelLabels, hue: number, saturation: number, brightness: number): void {
         neo().setPixelColor(neoPixelLabel, getHexColorFromHSB(hue, saturation, brightness));
         neo().show();
     }
@@ -373,7 +379,7 @@ namespace strawbees {
     //% neoPixelLabel.shadow=sb_neoPixelLabels
     //% colorLabel.shadow=sb_colorLabels
     //% inlineInputMode=inline
-    export function setNeoPixelColorLabel(neoPixelLabel: number, colorLabel: number): void {
+    export function setNeoPixelColorLabel(neoPixelLabel: SBNeoPixelLabels, colorLabel: SBColorLabels): void {
         neo().setPixelColor(neoPixelLabel, colorLabel);
         neo().show();
     }
@@ -399,7 +405,7 @@ namespace strawbees {
      * A label of a NeoPixel.
      * @param label NeoPixel label.
      */
-    //% blockId="sb_neoPixelLabels" block="NeoPixel:%label"
+    //% blockId="sb_neoPixelLabels" block="%label"
     //% advanced=true
     export function neoPixelLabels(label: SBNeoPixelLabels): SBNeoPixelLabels {
         return label;
@@ -409,7 +415,7 @@ namespace strawbees {
      * A label of a servo.
      * @param label Servo label.
      */
-    //% blockId="sb_servoLabels" block="servo:%label"
+    //% blockId="sb_servoLabels" block="%label"
     //% advanced=true
     export function servoLabels(label: SBServoLabels): SBServoLabels {
         return label;
@@ -419,7 +425,7 @@ namespace strawbees {
      * A label of a color.
      * @param label Color label.
      */
-    //% blockId="sb_colorLabels" block="color:%label"
+    //% blockId="sb_colorLabels" block="%label"
     //% advanced=true
     export function colorLabels(label: SBColorLabels): SBColorLabels {
         return label;
@@ -429,7 +435,7 @@ namespace strawbees {
      * A label of a wave type.
      * @param label Wave type label.
      */
-    //% blockId="sb_waveTypeLabels" block="wave type:%label"
+    //% blockId="sb_waveTypeLabels" block="%label"
     //% advanced=true
     export function waveTypeLabels(label: SBWaveTypeLabels): SBWaveTypeLabels {
         return label;
@@ -439,7 +445,7 @@ namespace strawbees {
     * A label of a easing equation.
     * @param label Easing equation label.
     */
-    //% blockId="sb_easingLabels" block="easing equation:%label"
+    //% blockId="sb_easingLabels" block="%label"
     //% advanced=true
     export function easingLabels(label: SBEasingLabels): SBEasingLabels {
         return label;
@@ -512,7 +518,7 @@ namespace strawbees {
     //% length.defl=1
     //% inlineInputMode=inline
     //% advanced=true
-    export function wave(waveTypeLabel: number, length: number, amplitude: number, offset: number): number {
+    export function wave(waveTypeLabel: SBWaveTypeLabels, length: number, amplitude: number, offset: number): number {
         let time = (input.runningTime() / 1000) % length;
         let progress = (time / length);
         let result
@@ -577,78 +583,78 @@ namespace strawbees {
     export function easeLinear(t: number, b: number, c: number, d: number): number {
         return c * (t / d) + b;
     }
-    export function easeInQuad(t: number, b: number, c: number, d: number): number {
+    export function easeQuadIn(t: number, b: number, c: number, d: number): number {
         return c * (t /= d) * t + b;
     }
-    export function easeOutQuad(t: number, b: number, c: number, d: number): number {
+    export function easeQuadOut(t: number, b: number, c: number, d: number): number {
         return -c * (t /= d) * (t - 2) + b;
     }
-    export function easeInOutQuad(t: number, b: number, c: number, d: number): number {
+    export function easeQuadInOut(t: number, b: number, c: number, d: number): number {
         if ((t /= d / 2) < 1) return c / 2 * t * t + b;
         return -c / 2 * ((--t) * (t - 2) - 1) + b;
     }
-    export function easeInCubic(t: number, b: number, c: number, d: number): number {
+    export function easeCubicIn(t: number, b: number, c: number, d: number): number {
         return c * (t /= d) * t * t + b;
     }
-    export function easeOutCubic(t: number, b: number, c: number, d: number): number {
+    export function easeCubicOut(t: number, b: number, c: number, d: number): number {
         return c * ((t = t / d - 1) * t * t + 1) + b;
     }
-    export function easeInOutCubic(t: number, b: number, c: number, d: number): number {
+    export function easeCubicInOut(t: number, b: number, c: number, d: number): number {
         if ((t /= d / 2) < 1) return c / 2 * t * t * t + b;
         return c / 2 * ((t -= 2) * t * t + 2) + b;
     }
-    export function easeInQuart(t: number, b: number, c: number, d: number): number {
+    export function easeQuartIn(t: number, b: number, c: number, d: number): number {
         return c * (t /= d) * t * t * t + b;
     }
-    export function easeOutQuart(t: number, b: number, c: number, d: number): number {
+    export function easeQuartOut(t: number, b: number, c: number, d: number): number {
         return -c * ((t = t / d - 1) * t * t * t - 1) + b;
     }
-    export function easeInOutQuart(t: number, b: number, c: number, d: number): number {
+    export function easeQuartInOut(t: number, b: number, c: number, d: number): number {
         if ((t /= d / 2) < 1) return c / 2 * t * t * t * t + b;
         return -c / 2 * ((t -= 2) * t * t * t - 2) + b;
     }
-    export function easeInQuint(t: number, b: number, c: number, d: number): number {
+    export function easeQuintIn(t: number, b: number, c: number, d: number): number {
         return c * (t /= d) * t * t * t * t + b;
     }
-    export function easeOutQuint(t: number, b: number, c: number, d: number): number {
+    export function easeQuintOut(t: number, b: number, c: number, d: number): number {
         return c * ((t = t / d - 1) * t * t * t * t + 1) + b;
     }
-    export function easeInOutQuint(t: number, b: number, c: number, d: number): number {
+    export function easeQuintInOut(t: number, b: number, c: number, d: number): number {
         if ((t /= d / 2) < 1) return c / 2 * t * t * t * t * t + b;
         return c / 2 * ((t -= 2) * t * t * t * t + 2) + b;
     }
-    export function easeInSine(t: number, b: number, c: number, d: number): number {
+    export function easeSineIn(t: number, b: number, c: number, d: number): number {
         return -c * Math.cos(t / d * (Math.PI / 2)) + c + b;
     }
-    export function easeOutSine(t: number, b: number, c: number, d: number): number {
+    export function easeSineOut(t: number, b: number, c: number, d: number): number {
         return c * Math.sin(t / d * (Math.PI / 2)) + b;
     }
-    export function easeInOutSine(t: number, b: number, c: number, d: number): number {
+    export function easeSineInOut(t: number, b: number, c: number, d: number): number {
         return -c / 2 * (Math.cos(Math.PI * t / d) - 1) + b;
     }
-    export function easeInExpo(t: number, b: number, c: number, d: number): number {
+    export function easeExpoIn(t: number, b: number, c: number, d: number): number {
         return (t == 0) ? b : c * Math.pow(2, 10 * (t / d - 1)) + b;
     }
-    export function easeOutExpo(t: number, b: number, c: number, d: number): number {
+    export function easeExpoOut(t: number, b: number, c: number, d: number): number {
         return (t == d) ? b + c : c * (-Math.pow(2, -10 * t / d) + 1) + b;
     }
-    export function easeInOutExpo(t: number, b: number, c: number, d: number): number {
+    export function easeExpoInOut(t: number, b: number, c: number, d: number): number {
         if (t == 0) return b;
         if (t == d) return b + c;
         if ((t /= d / 2) < 1) return c / 2 * Math.pow(2, 10 * (t - 1)) + b;
         return c / 2 * (-Math.pow(2, -10 * --t) + 2) + b;
     }
-    export function easeInCirc(t: number, b: number, c: number, d: number): number {
+    export function easeCircIn(t: number, b: number, c: number, d: number): number {
         return -c * (Math.sqrt(1 - (t /= d) * t) - 1) + b;
     }
-    export function easeOutCirc(t: number, b: number, c: number, d: number): number {
+    export function easeCircOut(t: number, b: number, c: number, d: number): number {
         return c * Math.sqrt(1 - (t = t / d - 1) * t) + b;
     }
-    export function easeInOutCirc(t: number, b: number, c: number, d: number): number {
+    export function easeCircInOut(t: number, b: number, c: number, d: number): number {
         if ((t /= d / 2) < 1) return -c / 2 * (Math.sqrt(1 - t * t) - 1) + b;
         return c / 2 * (Math.sqrt(1 - (t -= 2) * t) + 1) + b;
     }
-    export function easeInElastic(t: number, b: number, c: number, d: number): number {
+    export function easeElasticIn(t: number, b: number, c: number, d: number): number {
         let s = 1.70158;
         let p = 0;
         let a = c;
@@ -658,7 +664,7 @@ namespace strawbees {
         else s = p / (2 * Math.PI) * Math.asin(c / a);
         return -(a * Math.pow(2, 10 * (t -= 1)) * Math.sin((t * d - s) * (2 * Math.PI) / p)) + b;
     }
-    export function easeOutElastic(t: number, b: number, c: number, d: number): number {
+    export function easeElasticOut(t: number, b: number, c: number, d: number): number {
         let s = 1.70158;
         let p = 0;
         let a = c;
@@ -667,7 +673,7 @@ namespace strawbees {
         else s = p / (2 * Math.PI) * Math.asin(c / a);
         return a * Math.pow(2, -10 * t) * Math.sin((t * d - s) * (2 * Math.PI) / p) + c + b;
     }
-    export function easeInOutElastic(t: number, b: number, c: number, d: number): number {
+    export function easeElasticInOut(t: number, b: number, c: number, d: number): number {
         let s = 1.70158;
         let p = 0;
         let a = c;
@@ -677,23 +683,23 @@ namespace strawbees {
         if (t < 1) return -.5 * (a * Math.pow(2, 10 * (t -= 1)) * Math.sin((t * d - s) * (2 * Math.PI) / p)) + b;
         return a * Math.pow(2, -10 * (t -= 1)) * Math.sin((t * d - s) * (2 * Math.PI) / p) * .5 + c + b;
     }
-    export function easeInBack(t: number, b: number, c: number, d: number): number {
+    export function easeBackIn(t: number, b: number, c: number, d: number): number {
         let s = 1.70158;
         return c * (t /= d) * t * ((s + 1) * t - s) + b;
     }
-    export function easeOutBack(t: number, b: number, c: number, d: number): number {
+    export function easeBackOut(t: number, b: number, c: number, d: number): number {
         let s = 1.70158;
         return c * ((t = t / d - 1) * t * ((s + 1) * t + s) + 1) + b;
     }
-    export function easeInOutBack(t: number, b: number, c: number, d: number): number {
+    export function easeBackInOut(t: number, b: number, c: number, d: number): number {
         let s = 1.70158;
         if ((t /= d / 2) < 1) return c / 2 * (t * t * (((s *= (1.525)) + 1) * t - s)) + b;
         return c / 2 * ((t -= 2) * t * (((s *= (1.525)) + 1) * t + s) + 2) + b;
     }
-    export function easeInBounce(t: number, b: number, c: number, d: number): number {
-        return c - easeOutBounce(d - t, 0, c, d) + b;
+    export function easeBounceIn(t: number, b: number, c: number, d: number): number {
+        return c - easeBounceOut(d - t, 0, c, d) + b;
     }
-    export function easeOutBounce(t: number, b: number, c: number, d: number): number {
+    export function easeBounceOut(t: number, b: number, c: number, d: number): number {
         if ((t /= d) < (1 / 2.75)) {
             return c * (7.5625 * t * t) + b;
         } else if (t < (2 / 2.75)) {
@@ -704,8 +710,8 @@ namespace strawbees {
             return c * (7.5625 * (t -= (2.625 / 2.75)) * t + .984375) + b;
         }
     }
-    export function easeInOutBounce(t: number, b: number, c: number, d: number): number {
-        if (t < d / 2) return easeInBounce(t * 2, 0, c, d) * .5 + b;
-        return easeOutBounce(t * 2 - d, 0, c, d) * .5 + c * .5 + b;
+    export function easeBounceInOut(t: number, b: number, c: number, d: number): number {
+        if (t < d / 2) return easeBounceIn(t * 2, 0, c, d) * .5 + b;
+        return easeBounceOut(t * 2 - d, 0, c, d) * .5 + c * .5 + b;
     }
 }
