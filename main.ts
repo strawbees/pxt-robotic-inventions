@@ -202,7 +202,7 @@ namespace strawbees {
      * @param position The position ranging from `0%` to `100%`.
      */
     //% blockId=sb_setServoPosition
-    //% block="set servo %servoLabel position to %position||%"
+    //% block="set servo %servoLabel position to %position %"
     //% servoLabel.shadow=sb_servoLabels
     //% position.min=0 position.max=100 position.defl=50
     //% duration.defl=0
@@ -221,7 +221,7 @@ namespace strawbees {
      * @param easingLabel The "shape" of the transition.
      */
     //% blockId=sb_transitionServoPosition
-    //% block="transition servo %servoLabel position to %position||% over %duration seconds %easingLabel"
+    //% block="transition servo %servoLabel position to %position % over %duration seconds %easingLabel"
     //% servoLabel.shadow=sb_servoLabels
     //% position.min=0 position.max=100 position.defl=100
     //% duration.min=0 duration.defl=1
@@ -290,7 +290,7 @@ namespace strawbees {
      * @param servoLabel The continuous servo to set the speed to.
      * @param speed The speed ranging from `-100%` to `100%`.
      */
-    //% blockId=sb_setContinuousServoSpeed block="set continuous servo %servoLabel speed to %speed\\%"
+    //% blockId=sb_setContinuousServoSpeed block="set continuous servo %servoLabel speed to %speed %"
     //% servoLabel.shadow=sb_servoLabels
     //% speed.shadow=speedPicker
     //% inlineInputMode=inline
