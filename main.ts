@@ -163,14 +163,14 @@ namespace strawbees {
         setPosition(position: number): void {
             this._position = position;
             // just for simulator
-            this.setAngle((position / 100) * 180);
+            super.setAngle((position / 100) * 180);
             // specific for our hardware
-            this.setPulse(600 + (position / 100) * 1400);
+            super.setPulse(600 + (position / 100) * 1400);
         }
         setSpeed(speed: number): void {
             this._speed = speed;
             // just for simulator
-            this.setAngle(((speed + 100) / 200) * 180);
+            super.setAngle(((speed + 100) / 200) * 180);
             // specific for our hardware
             let pulse
             if (speed < 0) {
@@ -178,7 +178,7 @@ namespace strawbees {
             } else {
                 pulse = 1300 + 125 + (speed / 100) * 375;
             }
-            this.setPulse(pulse);
+            super.setPulse(pulse);
         }
         protected internalSetAngle(angle: number): number {
             return angle;
