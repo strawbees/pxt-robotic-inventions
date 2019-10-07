@@ -413,21 +413,6 @@ namespace strawbees {
         neo().show();
     }
 
-    // /**
-    //  * Sets the brightness of all the NeoPixels by specifying a value ranging
-    //  * from `0%` to `100%`. The brightness will not be applied imediately, only
-    //  * in the next time a color is set.
-    //  * @param brightness Brightness of the NeoPixels from `0%` to `100%`.
-    //  */
-    // //% blockId="sb_setNeoPixelsBrightness"
-    // //% block="set NeoPixels brightness to %brightness\\%"
-    // //% brightness.min=0 brightness.max=100 brightness.defl=30
-    // //% advanced=true
-    // export function setNeoPixelsBrightness(brightness: number): void {
-    //     neo().setBrightness((brightness / 100) * 255);
-    //     neo().show();
-    // }
-
     ////////////////////////////////////////////////////////////////////////////
     // More
     ////////////////////////////////////////////////////////////////////////////
