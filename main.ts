@@ -153,13 +153,13 @@ namespace strawbees {
             return this._pulse;
         }
         static positionToPulse(position: number): number {
-            return 600 + position * 1400;
+            return 600 + (position / 100) * 1400;
         }
         static speedToPulse(speed: number): number {
             if (speed < 0) {
-                return 1300 - 125 + speed * 375;
+                return 1300 - 125 + (speed / 100) * 375;
             }
-            return 1300 + 125 + speed * 375;
+            return 1300 + 125 + (speed / 100) * 375;
         }
         protected internalSetPulse(micros: number): void {
             pins.servoSetPulse(this._analogPin, micros);
