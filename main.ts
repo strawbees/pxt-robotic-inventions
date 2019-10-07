@@ -163,14 +163,14 @@ namespace strawbees {
         setPosition(position: number): void {
             this._position = position;
             // just for simulator
-            this.setAngle((position / 100) * 180);
+            //this.setAngle((position / 100) * 180);
             // specific for our hardware
             this.setPulse(600 + (position / 100) * 1400);
         }
         setSpeed(speed: number): void {
             this._speed = speed;
             // just for simulator
-            this.setAngle(((speed + 100) / 200) * 180);
+            //this.setAngle(((speed + 100) / 200) * 180);
             // specific for our hardware
             let pulse
             if (speed < 0) {
@@ -352,6 +352,8 @@ namespace strawbees {
         if (!_neo) {
             _neo = neopixel.create(DigitalPin.P8, 2, NeoPixelMode.RGB);
             _neo.setBrightness(20);
+            _neo.setPixelColor(0, 0x000000);
+            _neo.setPixelColor(1, 0x000000);
         }
         return _neo;
     }
