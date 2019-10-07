@@ -207,6 +207,7 @@ namespace strawbees {
     //% position.min=0 position.max=100 position.defl=50
     //% duration.defl=0
     //% inlineInputMode=inline
+    //% parts=microservo trackArgs=0
     export function setServoPosition(servoLabel: number, position: number): void {
         servo(servoLabel).setPulse(Servo.positionToPulse(position));
     }
@@ -227,6 +228,7 @@ namespace strawbees {
     //% duration.min=0 duration.defl=1
     //% easingLabel.shadow=sb_easingLabels
     //% inlineInputMode=inline
+    //% parts=microservo trackArgs=0
     export function transitionServoPosition(servoLabel: number, position: number, duration: number, easingLabel: number): void {
         duration *= 1000; // convert to ms
         if (duration < 100) {
@@ -294,6 +296,7 @@ namespace strawbees {
     //% servoLabel.shadow=sb_servoLabels
     //% speed.shadow=speedPicker
     //% inlineInputMode=inline
+    //% parts=microservo trackArgs=0
     export function setContinuousServoSpeed(servoLabel: number, speed: number): void {
         servo(servoLabel).setPulse(Servo.speedToPulse(speed));
     }
@@ -307,6 +310,7 @@ namespace strawbees {
     //% block="turn off servo %servoLabel"
     //% servoLabel.shadow=sb_servoLabels
     //% inlineInputMode=inline
+    //% parts=microservo trackArgs=0
     export function turnOffServo(servoLabel: number) {
         servo(servoLabel).stop();
     }
