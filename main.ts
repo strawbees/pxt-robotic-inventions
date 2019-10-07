@@ -144,6 +144,8 @@ namespace strawbees {
         private _analogPin: AnalogPin;
         private _digitalPin: DigitalPin;
         private _pulse: number;
+        private _position: number;
+        private _speed: number;
         constructor(analogPin: AnalogPin, digitalPin: DigitalPin) {
             super();
             this._analogPin = analogPin;
@@ -152,24 +154,41 @@ namespace strawbees {
         pulse(): number {
             return this._pulse;
         }
-        static positionToPulse(position: number): number {
-            return 600 + (position / 100) * 1400;
+        position(): number {
+            return this._position;
         }
-        static speedToPulse(speed: number): number {
+        speed(): number {
+            return this._speed;
+        }
+        setPosition(position: number): void {
+            this._position = position;
+            // just for simulator
+            this.setAngle((position / 100) * 180);
+            // specific for our hardware
+            this.setPulse(600 + (position / 100) * 1400);
+        }
+        setSpeed(speed: number): void {
+            this._speed = speed;
+            // just for simulator
+            this.setAngle(((speed + 100) / 200) * 180);
+            // specific for our hardware
+            let pulse
             if (speed < 0) {
-                return 1300 - 125 + (speed / 100) * 375;
+                pulse =  1300 - 125 + (speed / 100) * 375;
+            } else {
+                pulse = 1300 + 125 + (speed / 100) * 375;
             }
-            return 1300 + 125 + (speed / 100) * 375;
+            this.setPulse(pulse);
         }
         protected internalSetAngle(angle: number): number {
             return angle;
         }
         protected internalSetPulse(micros: number): void {
-            pins.servoSetPulse(this._analogPin, micros);
             this._pulse = micros;
+            pins.servoSetPulse(this._analogPin, micros);
         }
         protected internalStop() {
-            pins.analogReadPin(this._analogPin);
+            pins.digitalReadPin(this._digitalPin);
             pins.setPull(this._digitalPin, PinPullMode.PullNone);
         }
     }
@@ -183,8 +202,10 @@ namespace strawbees {
         switch (servoLabel) {
             case 0:
                 if (!_servoA) {
-                    _servoA = new SBServo(AnalogPin.P13, DigitalPin.P13);
+                    _servoA = new SBServo(AnalogPin.P14, DigitalPin.P14);
                     pins.servoWritePin(AnalogPin.P13, 90); // just to trigger the simulator
+                    _servoA.setPosition(50);
+                    _servoA.setSpeed(0);
                     _servoA.setPulse(1300);
                 }
                 return _servoA;
@@ -192,6 +213,8 @@ namespace strawbees {
                 if (!_servoB) {
                     _servoB = new SBServo(AnalogPin.P14, DigitalPin.P14);
                     pins.servoWritePin(AnalogPin.P14, 90); // just to trigger the simulator
+                    _servoB.setPosition(50);
+                    _servoB.setSpeed(0);
                     _servoB.setPulse(1300);
                 }
                 return _servoB;
@@ -212,8 +235,7 @@ namespace strawbees {
     //% inlineInputMode=inline
     //% parts=microservo trackArgs=0
     export function setServoPosition(servoLabel: number, position: number): void {
-        servo(servoLabel).setPulse(SBServo.positionToPulse(position));
-        servo(servoLabel).setAngle((position / 100) * 180);
+        servo(servoLabel).setPosition(position);
     }
 
     /**
@@ -235,59 +257,58 @@ namespace strawbees {
     //% parts=microservo trackArgs=0
     export function transitionServoPosition(servoLabel: number, position: number, duration: number, easingLabel: number): void {
         duration *= 1000; // convert to ms
-        if (duration < 100) {
-            servo(servoLabel).setPulse(SBServo.positionToPulse(position));
+        if (duration < 15) {
+            servo(servoLabel).setPosition(position);
             return;
         }
-        let dt = 50;
-        let pulse = SBServo.positionToPulse(position)
-        let currentPulse = servo(servoLabel).pulse();
-        let change = pulse - currentPulse;
+        let dt = 15;
+        let currentPostition = servo(servoLabel).position();
+        let change = position - currentPostition;
         let start = input.runningTime();
         let elapsed = 0;
         while (elapsed < duration) {
-            let target;
+            let targetPosition;
             switch (easingLabel) {
-                case SBEasingLabels.SineIn: target = easeSineIn(elapsed, currentPulse, change, duration); break;
-                case SBEasingLabels.SineOut: target = easeSineOut(elapsed, currentPulse, change, duration); break;
-                case SBEasingLabels.SineInOut: target = easeSineInOut(elapsed, currentPulse, change, duration); break;
-                case SBEasingLabels.QuadIn: target = easeQuadIn(elapsed, currentPulse, change, duration); break;
-                case SBEasingLabels.QuadOut: target = easeQuadOut(elapsed, currentPulse, change, duration); break;
-                case SBEasingLabels.QuadInOut: target = easeQuadInOut(elapsed, currentPulse, change, duration); break;
-                case SBEasingLabels.CubicIn: target = easeCubicIn(elapsed, currentPulse, change, duration); break;
-                case SBEasingLabels.CubicOut: target = easeCubicOut(elapsed, currentPulse, change, duration); break;
-                case SBEasingLabels.CubicInOut: target = easeCubicInOut(elapsed, currentPulse, change, duration); break;
-                case SBEasingLabels.QuartIn: target = easeQuartIn(elapsed, currentPulse, change, duration); break;
-                case SBEasingLabels.QuartOut: target = easeQuartOut(elapsed, currentPulse, change, duration); break;
-                case SBEasingLabels.QuartInOut: target = easeQuartInOut(elapsed, currentPulse, change, duration); break;
-                case SBEasingLabels.QuintIn: target = easeQuintIn(elapsed, currentPulse, change, duration); break;
-                case SBEasingLabels.QuintOut: target = easeQuintOut(elapsed, currentPulse, change, duration); break;
-                case SBEasingLabels.QuintInOut: target = easeQuintInOut(elapsed, currentPulse, change, duration); break;
-                case SBEasingLabels.ExpoIn: target = easeExpoIn(elapsed, currentPulse, change, duration); break;
-                case SBEasingLabels.ExpoOut: target = easeExpoOut(elapsed, currentPulse, change, duration); break;
-                case SBEasingLabels.ExpoInOut: target = easeExpoInOut(elapsed, currentPulse, change, duration); break;
-                case SBEasingLabels.CircIn: target = easeCircIn(elapsed, currentPulse, change, duration); break;
-                case SBEasingLabels.CircOut: target = easeCircOut(elapsed, currentPulse, change, duration); break;
-                case SBEasingLabels.CircInOut: target = easeCircInOut(elapsed, currentPulse, change, duration); break;
-                case SBEasingLabels.BackIn: target = easeBackIn(elapsed, currentPulse, change, duration); break;
-                case SBEasingLabels.BackOut: target = easeBackOut(elapsed, currentPulse, change, duration); break;
-                case SBEasingLabels.BackInOut: target = easeBackInOut(elapsed, currentPulse, change, duration); break;
-                case SBEasingLabels.ElasticIn: target = easeElasticIn(elapsed, currentPulse, change, duration); break;
-                case SBEasingLabels.ElasticOut: target = easeElasticOut(elapsed, currentPulse, change, duration); break;
-                case SBEasingLabels.ElasticInOut: target = easeElasticInOut(elapsed, currentPulse, change, duration); break;
-                case SBEasingLabels.BounceIn: target = easeBounceIn(elapsed, currentPulse, change, duration); break;
-                case SBEasingLabels.BounceOut: target = easeBounceOut(elapsed, currentPulse, change, duration); break;
-                case SBEasingLabels.BounceInOut: target = easeBounceInOut(elapsed, currentPulse, change, duration); break;
+                case SBEasingLabels.SineIn: targetPosition = easeSineIn(elapsed, currentPostition, change, duration); break;
+                case SBEasingLabels.SineOut: targetPosition = easeSineOut(elapsed, currentPostition, change, duration); break;
+                case SBEasingLabels.SineInOut: targetPosition = easeSineInOut(elapsed, currentPostition, change, duration); break;
+                case SBEasingLabels.QuadIn: targetPosition = easeQuadIn(elapsed, currentPostition, change, duration); break;
+                case SBEasingLabels.QuadOut: targetPosition = easeQuadOut(elapsed, currentPostition, change, duration); break;
+                case SBEasingLabels.QuadInOut: targetPosition = easeQuadInOut(elapsed, currentPostition, change, duration); break;
+                case SBEasingLabels.CubicIn: targetPosition = easeCubicIn(elapsed, currentPostition, change, duration); break;
+                case SBEasingLabels.CubicOut: targetPosition = easeCubicOut(elapsed, currentPostition, change, duration); break;
+                case SBEasingLabels.CubicInOut: targetPosition = easeCubicInOut(elapsed, currentPostition, change, duration); break;
+                case SBEasingLabels.QuartIn: targetPosition = easeQuartIn(elapsed, currentPostition, change, duration); break;
+                case SBEasingLabels.QuartOut: targetPosition = easeQuartOut(elapsed, currentPostition, change, duration); break;
+                case SBEasingLabels.QuartInOut: targetPosition = easeQuartInOut(elapsed, currentPostition, change, duration); break;
+                case SBEasingLabels.QuintIn: targetPosition = easeQuintIn(elapsed, currentPostition, change, duration); break;
+                case SBEasingLabels.QuintOut: targetPosition = easeQuintOut(elapsed, currentPostition, change, duration); break;
+                case SBEasingLabels.QuintInOut: targetPosition = easeQuintInOut(elapsed, currentPostition, change, duration); break;
+                case SBEasingLabels.ExpoIn: targetPosition = easeExpoIn(elapsed, currentPostition, change, duration); break;
+                case SBEasingLabels.ExpoOut: targetPosition = easeExpoOut(elapsed, currentPostition, change, duration); break;
+                case SBEasingLabels.ExpoInOut: targetPosition = easeExpoInOut(elapsed, currentPostition, change, duration); break;
+                case SBEasingLabels.CircIn: targetPosition = easeCircIn(elapsed, currentPostition, change, duration); break;
+                case SBEasingLabels.CircOut: targetPosition = easeCircOut(elapsed, currentPostition, change, duration); break;
+                case SBEasingLabels.CircInOut: targetPosition = easeCircInOut(elapsed, currentPostition, change, duration); break;
+                case SBEasingLabels.BackIn: targetPosition = easeBackIn(elapsed, currentPostition, change, duration); break;
+                case SBEasingLabels.BackOut: targetPosition = easeBackOut(elapsed, currentPostition, change, duration); break;
+                case SBEasingLabels.BackInOut: targetPosition = easeBackInOut(elapsed, currentPostition, change, duration); break;
+                case SBEasingLabels.ElasticIn: targetPosition = easeElasticIn(elapsed, currentPostition, change, duration); break;
+                case SBEasingLabels.ElasticOut: targetPosition = easeElasticOut(elapsed, currentPostition, change, duration); break;
+                case SBEasingLabels.ElasticInOut: targetPosition = easeElasticInOut(elapsed, currentPostition, change, duration); break;
+                case SBEasingLabels.BounceIn: targetPosition = easeBounceIn(elapsed, currentPostition, change, duration); break;
+                case SBEasingLabels.BounceOut: targetPosition = easeBounceOut(elapsed, currentPostition, change, duration); break;
+                case SBEasingLabels.BounceInOut: targetPosition = easeBounceInOut(elapsed, currentPostition, change, duration); break;
                 case SBEasingLabels.Linear:
                 default:
-                    target = easeLinear(elapsed, currentPulse, change, duration);
+                    targetPosition = easeLinear(elapsed, currentPostition, change, duration);
                     break;
             }
-            servo(servoLabel).setPulse(target);
+            servo(servoLabel).setPosition(targetPosition);
             basic.pause(dt);
             elapsed = input.runningTime() - start;
         }
-        servo(servoLabel).setPulse(pulse);
+        servo(servoLabel).setPosition(position);
     }
 
     /**
@@ -302,7 +323,7 @@ namespace strawbees {
     //% inlineInputMode=inline
     //% parts=microservo trackArgs=0
     export function setContinuousServoSpeed(servoLabel: number, speed: number): void {
-        servo(servoLabel).setPulse(SBServo.speedToPulse(speed));
+        servo(servoLabel).setSpeed(speed);
     }
 
     /**
@@ -330,7 +351,7 @@ namespace strawbees {
     function neo(): neopixel.Strip {
         if (!_neo) {
             _neo = neopixel.create(DigitalPin.P8, 2, NeoPixelMode.RGB);
-            _neo.setBrightness(40);
+            _neo.setBrightness(20);
         }
         return _neo;
     }
