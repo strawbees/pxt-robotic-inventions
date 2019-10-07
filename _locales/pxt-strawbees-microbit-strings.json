@@ -61,7 +61,6 @@
   "strawbees.setNeoPixelColorHSB|block": "set NeoPixel %neoPixelLabel to hue %hue\\% saturation %saturation\\% brightness %brightness\\%",
   "strawbees.setNeoPixelColorLabel|block": "set NeoPixel %neoPixelLabel to %colorLabel",
   "strawbees.setNeoPixelColorRGB|block": "set NeoPixel %neoPixelLabel to red %red\\% green %green\\% blue %blue\\%",
-  "strawbees.setNeoPixelsBrightness|block": "set NeoPixels brightness to %brightness\\%",
   "strawbees.setServoPosition|block": "set servo %servoLabel position to %position\\%",
   "strawbees.transitionServoPosition|block": "transition servo %servoLabel position to %position\\% over %duration seconds %easingLabel",
   "strawbees.turnOffServo|block": "turn off servo %servoLabel",

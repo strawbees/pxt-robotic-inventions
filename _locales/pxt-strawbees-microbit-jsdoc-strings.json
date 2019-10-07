@@ -37,8 +37,6 @@
   "strawbees.setNeoPixelColorRGB|param|green": "Amount of green in color ranging from `0%` to `100%`.",
   "strawbees.setNeoPixelColorRGB|param|neoPixelLabel": "Which NeoPixel to set the color.",
   "strawbees.setNeoPixelColorRGB|param|red": "Amount of red in color ranging from `0%` to `100%`.",
-  "strawbees.setNeoPixelsBrightness": "Sets the brightness of all the NeoPixels by specifying a value ranging\nfrom `0%` to `100%`.",
-  "strawbees.setNeoPixelsBrightness|param|brightness": "Brightness of the NeoPixels from `0%` to `100%`.",
   "strawbees.setServoPosition": "Sets the position of a servo by specifying a value ranging from `0%` to\n`100%`.",
   "strawbees.setServoPosition|param|position": "The position ranging from `0%` to `100%`.",
   "strawbees.setServoPosition|param|servoLabel": "The servo to set the position to.",
