@@ -163,14 +163,14 @@ namespace strawbees {
         setPosition(position: number): void {
             this._position = position;
             // just for simulator
-            //this.setAngle((position / 100) * 180);
+            this.setAngle((position / 100) * 180);
             // specific for our hardware
             this.setPulse(600 + (position / 100) * 1400);
         }
         setSpeed(speed: number): void {
             this._speed = speed;
             // just for simulator
-            //this.setAngle(((speed + 100) / 200) * 180);
+            this.setAngle(((speed + 100) / 200) * 180);
             // specific for our hardware
             let pulse
             if (speed < 0) {
@@ -344,19 +344,10 @@ namespace strawbees {
     // NeoPixels
     ////////////////////////////////////////////////////////////////////////////
     let _neo: neopixel.Strip;
-    /**
-     * Access (and create if needed) a NeoPixel strip.
-     * Default to brightness 40.
-     */
-    function neo(): neopixel.Strip {
-        if (!_neo) {
-            _neo = neopixel.create(DigitalPin.P8, 2, NeoPixelMode.RGB);
-            _neo.setBrightness(20);
-            _neo.setPixelColor(0, 0x000000);
-            _neo.setPixelColor(1, 0x000000);
-        }
-        return _neo;
-    }
+    _neo = neopixel.create(DigitalPin.P8, 2, NeoPixelMode.RGB);
+    _neo.setBrightness(20);
+    _neo.setPixelColor(0, 0x000000);
+    _neo.setPixelColor(1, 0x000000);
 
     /**
      * Sets the color of an individual NeoPixel by specifying the amount of
@@ -375,8 +366,8 @@ namespace strawbees {
     //% blue.min=0 blue.max=100 blue.defl=0
     //% inlineInputMode=inline
     export function setNeoPixelColorRGB(neoPixelLabel: number, red: number, green: number, blue: number): void {
-        neo().setPixelColor(neoPixelLabel, getHexColorFromRGB(red, green, blue));
-        neo().show();
+        _neo.setPixelColor(neoPixelLabel, getHexColorFromRGB(red, green, blue));
+        _neo.show();
     }
 
     /**
@@ -396,8 +387,8 @@ namespace strawbees {
     //% brightness.min=0 brightness.max=100 brightness.defl=100
     //% inlineInputMode=inline
     export function setNeoPixelColorHSB(neoPixelLabel: number, hue: number, saturation: number, brightness: number): void {
-        neo().setPixelColor(neoPixelLabel, getHexColorFromHSB(hue, saturation, brightness));
-        neo().show();
+        _neo.setPixelColor(neoPixelLabel, getHexColorFromHSB(hue, saturation, brightness));
+        _neo.show();
     }
 
     /**
@@ -411,8 +402,8 @@ namespace strawbees {
     //% colorLabel.shadow=sb_colorLabels
     //% inlineInputMode=inline
     export function setNeoPixelColorLabel(neoPixelLabel: number, colorLabel: number): void {
-        neo().setPixelColor(neoPixelLabel, colorLabel);
-        neo().show();
+        _neo.setPixelColor(neoPixelLabel, colorLabel);
+        _neo.show();
     }
 
     ////////////////////////////////////////////////////////////////////////////
