@@ -212,8 +212,8 @@ namespace strawbees {
     //% inlineInputMode=inline
     //% parts=microservo trackArgs=0
     export function setServoPosition(servoLabel: number, position: number): void {
-        servo(servoLabel).setAngle((position / 100) * 180);
         servo(servoLabel).setPulse(SBServo.positionToPulse(position));
+        servo(servoLabel).setAngle((position / 100) * 180);
     }
 
     /**
