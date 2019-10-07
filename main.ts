@@ -348,6 +348,7 @@ namespace strawbees {
     _neo.setBrightness(20);
     _neo.setPixelColor(0, 0x000000);
     _neo.setPixelColor(1, 0x000000);
+    _neo.show();
 
     /**
      * Sets the color of an individual NeoPixel by specifying the amount of
