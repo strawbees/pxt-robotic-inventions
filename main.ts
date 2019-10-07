@@ -152,10 +152,10 @@ namespace strawbees {
         pulse(): number {
             return this._pulse;
         }
-        positionToPulse(position: number): number {
+        static positionToPulse(position: number): number {
             return 600 + position * 1400;
         }
-        speedToPulse(speed: number): number {
+        static speedToPulse(speed: number): number {
             if (speed < 0) {
                 return 1300 - 125 + speed * 375;
             }
@@ -202,13 +202,13 @@ namespace strawbees {
      * @param position The position ranging from `0%` to `100%`.
      */
     //% blockId=sb_setServoPosition
-    //% block="set servo %servoLabel position to %position %"
+    //% block="set servo %servoLabel position to %position\\%"
     //% servoLabel.shadow=sb_servoLabels
     //% position.min=0 position.max=100 position.defl=50
     //% duration.defl=0
     //% inlineInputMode=inline
     export function setServoPosition(servoLabel: SBServoLabels, position: number): void {
-        servo(servoLabel).setPulse(servo(servoLabel).positionToPulse(position));
+        servo(servoLabel).setPulse(Servo.positionToPulse(position));
     }
 
     /**
@@ -221,7 +221,7 @@ namespace strawbees {
      * @param easingLabel The "shape" of the transition.
      */
     //% blockId=sb_transitionServoPosition
-    //% block="transition servo %servoLabel position to %position % over %duration seconds %easingLabel"
+    //% block="transition servo %servoLabel position to %position\\% over %duration seconds %easingLabel"
     //% servoLabel.shadow=sb_servoLabels
     //% position.min=0 position.max=100 position.defl=100
     //% duration.min=0 duration.defl=1
@@ -230,11 +230,11 @@ namespace strawbees {
     export function transitionServoPosition(servoLabel: SBServoLabels, position: number, duration: number, easingLabel: SBEasingLabels): void {
         duration *= 1000; // convert to ms
         if (duration < 100) {
-            servo(servoLabel).setPulse(servo(servoLabel).positionToPulse(position));
+            servo(servoLabel).setPulse(Servo.positionToPulse(position));
             return;
         }
         let dt = 50;
-        let pulse = servo(servoLabel).positionToPulse(position)
+        let pulse = Servo.positionToPulse(position)
         let currentPulse = servo(servoLabel).pulse();
         let change = pulse - currentPulse;
         let start = input.runningTime();
@@ -290,12 +290,12 @@ namespace strawbees {
      * @param servoLabel The continuous servo to set the speed to.
      * @param speed The speed ranging from `-100%` to `100%`.
      */
-    //% blockId=sb_setContinuousServoSpeed block="set continuous servo %servoLabel speed to %speed %"
+    //% blockId=sb_setContinuousServoSpeed block="set continuous servo %servoLabel speed to %speed\\%"
     //% servoLabel.shadow=sb_servoLabels
     //% speed.shadow=speedPicker
     //% inlineInputMode=inline
     export function setContinuousServoSpeed(servoLabel: SBServoLabels, speed: number): void {
-        servo(servoLabel).setPulse(servo(servoLabel).speedToPulse(speed));
+        servo(servoLabel).setPulse(Servo.speedToPulse(speed));
     }
 
     /**
