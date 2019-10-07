@@ -207,7 +207,7 @@ namespace strawbees {
     //% position.min=0 position.max=100 position.defl=50
     //% duration.defl=0
     //% inlineInputMode=inline
-    export function setServoPosition(servoLabel: SBServoLabels, position: number): void {
+    export function setServoPosition(servoLabel: number, position: number): void {
         servo(servoLabel).setPulse(Servo.positionToPulse(position));
     }
 
@@ -227,7 +227,7 @@ namespace strawbees {
     //% duration.min=0 duration.defl=1
     //% easingLabel.shadow=sb_easingLabels
     //% inlineInputMode=inline
-    export function transitionServoPosition(servoLabel: SBServoLabels, position: number, duration: number, easingLabel: SBEasingLabels): void {
+    export function transitionServoPosition(servoLabel: number, position: number, duration: number, easingLabel: number): void {
         duration *= 1000; // convert to ms
         if (duration < 100) {
             servo(servoLabel).setPulse(Servo.positionToPulse(position));
@@ -294,7 +294,7 @@ namespace strawbees {
     //% servoLabel.shadow=sb_servoLabels
     //% speed.shadow=speedPicker
     //% inlineInputMode=inline
-    export function setContinuousServoSpeed(servoLabel: SBServoLabels, speed: number): void {
+    export function setContinuousServoSpeed(servoLabel: number, speed: number): void {
         servo(servoLabel).setPulse(Servo.speedToPulse(speed));
     }
 
@@ -307,7 +307,7 @@ namespace strawbees {
     //% block="turn off servo %servoLabel"
     //% servoLabel.shadow=sb_servoLabels
     //% inlineInputMode=inline
-    export function turnOffServo(servoLabel: SBServoLabels) {
+    export function turnOffServo(servoLabel: number) {
         servo(servoLabel).stop();
     }
 
@@ -343,7 +343,7 @@ namespace strawbees {
     //% green.min=0 green.max=100 green.defl=0
     //% blue.min=0 blue.max=100 blue.defl=0
     //% inlineInputMode=inline
-    export function setNeoPixelColorRGB(neoPixelLabel: SBNeoPixelLabels, red: number, green: number, blue: number): void {
+    export function setNeoPixelColorRGB(neoPixelLabel: number, red: number, green: number, blue: number): void {
         neo().setPixelColor(neoPixelLabel, getHexColorFromRGB(red, green, blue));
         neo().show();
     }
@@ -364,7 +364,7 @@ namespace strawbees {
     //% saturation.min=0 saturation.max=100 saturation.defl=100
     //% brightness.min=0 brightness.max=100 brightness.defl=100
     //% inlineInputMode=inline
-    export function setNeoPixelColorHSB(neoPixelLabel: SBNeoPixelLabels, hue: number, saturation: number, brightness: number): void {
+    export function setNeoPixelColorHSB(neoPixelLabel: number, hue: number, saturation: number, brightness: number): void {
         neo().setPixelColor(neoPixelLabel, getHexColorFromHSB(hue, saturation, brightness));
         neo().show();
     }
@@ -379,7 +379,7 @@ namespace strawbees {
     //% neoPixelLabel.shadow=sb_neoPixelLabels
     //% colorLabel.shadow=sb_colorLabels
     //% inlineInputMode=inline
-    export function setNeoPixelColorLabel(neoPixelLabel: SBNeoPixelLabels, colorLabel: SBColorLabels): void {
+    export function setNeoPixelColorLabel(neoPixelLabel: number, colorLabel: number): void {
         neo().setPixelColor(neoPixelLabel, colorLabel);
         neo().show();
     }
@@ -407,7 +407,7 @@ namespace strawbees {
      */
     //% blockId="sb_neoPixelLabels" block="%label"
     //% advanced=true
-    export function neoPixelLabels(label: SBNeoPixelLabels): SBNeoPixelLabels {
+    export function neoPixelLabels(label: SBNeoPixelLabels): number {
         return label;
     }
 
@@ -417,7 +417,7 @@ namespace strawbees {
      */
     //% blockId="sb_servoLabels" block="%label"
     //% advanced=true
-    export function servoLabels(label: SBServoLabels): SBServoLabels {
+    export function servoLabels(label: SBServoLabels): number {
         return label;
     }
 
@@ -427,7 +427,7 @@ namespace strawbees {
      */
     //% blockId="sb_colorLabels" block="%label"
     //% advanced=true
-    export function colorLabels(label: SBColorLabels): SBColorLabels {
+    export function colorLabels(label: SBColorLabels): number {
         return label;
     }
 
@@ -437,7 +437,7 @@ namespace strawbees {
      */
     //% blockId="sb_waveTypeLabels" block="%label"
     //% advanced=true
-    export function waveTypeLabels(label: SBWaveTypeLabels): SBWaveTypeLabels {
+    export function waveTypeLabels(label: SBWaveTypeLabels): number {
         return label;
     }
 
@@ -447,7 +447,7 @@ namespace strawbees {
     */
     //% blockId="sb_easingLabels" block="%label"
     //% advanced=true
-    export function easingLabels(label: SBEasingLabels): SBEasingLabels {
+    export function easingLabels(label: SBEasingLabels): number {
         return label;
     }
 
