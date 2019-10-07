@@ -181,6 +181,7 @@ namespace strawbees {
             case 0:
                 if (!_servoA) {
                     _servoA = new Servo(AnalogPin.P13, DigitalPin.P13);
+                    pins.servoWritePin(AnalogPin.P13, 90); // just to trigger the simulator
                     _servoA.setPulse(1300);
                     pins.servoSetPulse(AnalogPin.P13, 1300);
                 }
@@ -188,6 +189,7 @@ namespace strawbees {
             case 1:
                 if (!_servoB) {
                     _servoB = new Servo(AnalogPin.P14, DigitalPin.P14);
+                    pins.servoWritePin(AnalogPin.P14, 90); // just to trigger the simulator
                     _servoB.setPulse(1300);
                     pins.servoSetPulse(AnalogPin.P14, 1300);
                 }
