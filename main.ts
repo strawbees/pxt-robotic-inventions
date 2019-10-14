@@ -346,8 +346,8 @@ namespace strawbees {
     let _neo: neopixel.Strip;
     _neo = neopixel.create(DigitalPin.P8, 2, NeoPixelMode.RGB);
     _neo.setBrightness(20);
-    _neo.setPixelColor(0, 0x000000);
-    _neo.setPixelColor(1, 0x000000);
+    _neo.clear();
+    basic.pause(10); // BUG: without this delay, Neopixel A gets green sometimes
     _neo.show();
 
     /**
