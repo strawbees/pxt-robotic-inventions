@@ -664,33 +664,34 @@ namespace strawbees {
         return c / 2 * (Math.sqrt(1 - (t -= 2) * t) + 1) + b;
     }
     export function easeElasticIn(t: number, b: number, c: number, d: number): number {
-        let s = 1.70158;
-        let p = 0;
-        let a = c;
         if (t == 0) return b;
-        if ((t /= d) == 1) return b + c; if (!p) p = d * .3;
-        if (a < Math.abs(c)) { a = c; s = p / 4; }
-        else s = p / (2 * Math.PI) * Math.asin(c / a);
-        return -(a * Math.pow(2, 10 * (t -= 1)) * Math.sin((t * d - s) * (2 * Math.PI) / p)) + b;
+        if ((t /= d) == 1) return b + c;
+        let p = d * .3;
+        let a = c;
+        let s = p / 4;
+        let postFix = a * Math.pow(2, 10 * (t -= 1));
+        return -(postFix * Math.sin((t * d - s) * (2 * Math.PI) / p)) + b;
     }
     export function easeElasticOut(t: number, b: number, c: number, d: number): number {
-        let s = 1.70158;
-        let p = 0;
+        if (t == 0) return b;
+        if ((t /= d) == 1) return b + c;
+        let p = d * .3;
         let a = c;
-        if (t == 0) return b; if ((t /= d) == 1) return b + c; if (!p) p = d * .3;
-        if (a < Math.abs(c)) { a = c; s = p / 4; }
-        else s = p / (2 * Math.PI) * Math.asin(c / a);
-        return a * Math.pow(2, -10 * t) * Math.sin((t * d - s) * (2 * Math.PI) / p) + c + b;
+        let s = p / 4;
+        return (a * Math.pow(2, -10 * t) * Math.sin((t * d - s) * (2 * Math.PI) / p) + c + b);
     }
     export function easeElasticInOut(t: number, b: number, c: number, d: number): number {
-        let s = 1.70158;
-        let p = 0;
+        if (t == 0) return b;
+        if ((t /= d / 2) == 2) return b + c;
+        let p = d * (.3 * 1.5);
         let a = c;
-        if (t == 0) return b; if ((t /= d / 2) == 2) return b + c; if (!p) p = d * (.3 * 1.5);
-        if (a < Math.abs(c)) { a = c; s = p / 4; }
-        else s = p / (2 * Math.PI) * Math.asin(c / a);
-        if (t < 1) return -.5 * (a * Math.pow(2, 10 * (t -= 1)) * Math.sin((t * d - s) * (2 * Math.PI) / p)) + b;
-        return a * Math.pow(2, -10 * (t -= 1)) * Math.sin((t * d - s) * (2 * Math.PI) / p) * .5 + c + b;
+        let s = p / 4;
+        if (t < 1) {
+            let postFix = a * Math.pow(2, 10 * (t -= 1)); // postIncrement is evil
+            return -.5 * (postFix * Math.sin((t * d - s) * (2 * Math.PI) / p)) + b;
+        }
+        let postFix = a * Math.pow(2, -10 * (t -= 1)); // postIncrement is evil
+        return postFix * Math.sin((t * d - s) * (2 * Math.PI) / p) * .5 + c + b;
     }
     export function easeBackIn(t: number, b: number, c: number, d: number): number {
         let s = 1.70158;
