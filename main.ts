@@ -232,6 +232,7 @@ namespace strawbees {
     //% inlineInputMode=inline
     //% parts=microservo trackArgs=0
     export function setServoPosition(servoLabel: number, position: number): void {
+        position = Math.constrain(position, 0, 100);
         servo(servoLabel).setPosition(position);
     }
 
@@ -253,6 +254,7 @@ namespace strawbees {
     //% inlineInputMode=inline
     //% parts=microservo trackArgs=0
     export function transitionServoPosition(servoLabel: number, position: number, duration: number, easingLabel: number): void {
+        position = Math.constrain(position, 0, 100);
         duration *= 1000; // convert to ms
         if (duration < 15) {
             servo(servoLabel).setPosition(position);
@@ -320,6 +322,7 @@ namespace strawbees {
     //% inlineInputMode=inline
     //% parts=microservo trackArgs=0
     export function setContinuousServoSpeed(servoLabel: number, speed: number): void {
+        speed = Math.constrain(speed, -100, 100);
         servo(servoLabel).setSpeed(speed);
     }
 
@@ -364,6 +367,9 @@ namespace strawbees {
     //% blue.min=0 blue.max=100 blue.defl=0
     //% inlineInputMode=inline
     export function setNeoPixelColorRGB(neoPixelLabel: number, red: number, green: number, blue: number): void {
+        red = Math.constrain(red, 0, 100);
+        green = Math.constrain(green, 0, 100);
+        blue = Math.constrain(blue, 0, 100);
         _neo.setPixelColor(neoPixelLabel, getHexColorFromRGB(red, green, blue));
         _neo.show();
     }
@@ -385,6 +391,9 @@ namespace strawbees {
     //% brightness.min=0 brightness.max=100 brightness.defl=100
     //% inlineInputMode=inline
     export function setNeoPixelColorHSB(neoPixelLabel: number, hue: number, saturation: number, brightness: number): void {
+        hue = Math.constrain(hue, 0, 100);
+        saturation = Math.constrain(saturation, 0, 100);
+        brightness = Math.constrain(brightness, 0, 100);
         _neo.setPixelColor(neoPixelLabel, getHexColorFromHSB(hue, saturation, brightness));
         _neo.show();
     }
