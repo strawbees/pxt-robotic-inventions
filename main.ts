@@ -161,26 +161,27 @@ namespace strawbees {
             return this._speed;
         }
         setPosition(position: number): void {
-            this._position = position;
+            this._position = position
             // just for simulator
-            super.setAngle((position / 100) * 180);
+            this.setAngle((this._position / 100) * 180);
             // specific for our hardware
-            super.setPulse(600 + (position / 100) * 1400);
+            this.setPulse(600 + (this._position / 100) * 1400);
         }
         setSpeed(speed: number): void {
-            this._speed = speed;
+            this._speed = speed
             // just for simulator
-            super.setAngle(((speed + 100) / 200) * 180);
+            this.setAngle(((this._speed + 100) / 200) * 180);
             // specific for our hardware
             let pulse
-            if (speed < 0) {
-                pulse =  1300 - 125 + (speed / 100) * 375;
+            if (this._speed < 0) {
+                pulse = 1300 - 125 + (this._speed / 100) * 375;
             } else {
-                pulse = 1300 + 125 + (speed / 100) * 375;
+                pulse = 1300 + 125 + (this._speed / 100) * 375;
             }
-            super.setPulse(pulse);
+            this.setPulse(pulse);
         }
         protected internalSetAngle(angle: number): number {
+            pins.servoWritePin(this._analogPin, angle);
             return angle;
         }
         protected internalSetPulse(micros: number): void {
@@ -192,31 +193,27 @@ namespace strawbees {
             pins.setPull(this._digitalPin, PinPullMode.PullNone);
         }
     }
-    let _servoA: SBServo;
-    let _servoB: SBServo;
+
+    let _servoA = new SBServo(AnalogPin.P13, DigitalPin.P13);
+    pins.servoWritePin(AnalogPin.P13, 90); // just to trigger the simulator
+    _servoA.setPosition(50);
+    _servoA.setSpeed(0);
+    _servoA.setPulse(1300);
+    let _servoB = new SBServo(AnalogPin.P14, DigitalPin.P14);
+    pins.servoWritePin(AnalogPin.P14, 90); // just to trigger the simulator
+    _servoB.setPosition(50);
+    _servoB.setSpeed(0);
+    _servoB.setPulse(1300);
+
     /**
-     * Access (and create if needed) a servo instace.
+     * Access a servo instace.
      * @param id the id of the servo. eg. SBServoLabels.Left
      */
     function servo(servoLabel: number): SBServo {
         switch (servoLabel) {
-            case 0:
-                if (!_servoA) {
-                    _servoA = new SBServo(AnalogPin.P14, DigitalPin.P14);
-                    pins.servoWritePin(AnalogPin.P13, 90); // just to trigger the simulator
-                    _servoA.setPosition(50);
-                    _servoA.setSpeed(0);
-                    _servoA.setPulse(1300);
-                }
+            case SBServoLabels.ServoA:
                 return _servoA;
-            case 1:
-                if (!_servoB) {
-                    _servoB = new SBServo(AnalogPin.P14, DigitalPin.P14);
-                    pins.servoWritePin(AnalogPin.P14, 90); // just to trigger the simulator
-                    _servoB.setPosition(50);
-                    _servoB.setSpeed(0);
-                    _servoB.setPulse(1300);
-                }
+            case SBServoLabels.ServoB:
                 return _servoB;
         }
         return null;
