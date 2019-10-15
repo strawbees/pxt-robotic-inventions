@@ -1,7 +1,7 @@
 /**
  * Servo labels
  */
-enum SBServoLabels {
+enum SBServo {
     //% block="A"
     ServoA = 0,
     //% block="B"
@@ -11,7 +11,7 @@ enum SBServoLabels {
 /**
 * NeoPixel labels
 */
-enum SBNeoPixelLabels {
+enum SBNeoPixel {
     //% block="A"
     NeoPixelA = 0,
     //% block="B"
@@ -21,7 +21,7 @@ enum SBNeoPixelLabels {
 /**
  * Color labels
  */
-enum SBColorLabels {
+enum SBColor {
     //% block="red"
     Red = 0xff0000,
     //% block="orange"
@@ -47,7 +47,7 @@ enum SBColorLabels {
 /**
  * Wave type labels
  */
-enum SBWaveTypeLabels {
+enum SBWaveType {
     //% block="sine"
     Sine = 0,
     //% block="cosine"
@@ -67,7 +67,7 @@ enum SBWaveTypeLabels {
 /**
  * Easing labels
  */
-enum SBEasingLabels {
+enum SBEasing {
     //% block="linear"
     Linear = 0,
     //% block="sine in"
@@ -135,12 +135,13 @@ enum SBEasingLabels {
 /**
  * Controls the Strawbees integration board.
  */
+ //% block="Strawbees"
 //% weight=100 color="#f443b0" icon="\u24C8" blockGap=8
-namespace strawbees {
+namespace sb {
     ////////////////////////////////////////////////////////////////////////////
     // Servos
     ////////////////////////////////////////////////////////////////////////////
-    class SBServo extends servos.Servo {
+    class ServoSB extends servos.Servo {
         private _analogPin: AnalogPin;
         private _digitalPin: DigitalPin;
         private _pulse: number;
@@ -194,12 +195,12 @@ namespace strawbees {
         }
     }
 
-    let _servoA = new SBServo(AnalogPin.P13, DigitalPin.P13);
+    let _servoA = new ServoSB(AnalogPin.P13, DigitalPin.P13);
     pins.servoWritePin(AnalogPin.P13, 90); // just to trigger the simulator
     _servoA.setPosition(50);
     _servoA.setSpeed(0);
     _servoA.setPulse(1300);
-    let _servoB = new SBServo(AnalogPin.P14, DigitalPin.P14);
+    let _servoB = new ServoSB(AnalogPin.P14, DigitalPin.P14);
     pins.servoWritePin(AnalogPin.P14, 90); // just to trigger the simulator
     _servoB.setPosition(50);
     _servoB.setSpeed(0);
@@ -207,13 +208,13 @@ namespace strawbees {
 
     /**
      * Access a servo instace.
-     * @param id the id of the servo. eg. SBServoLabels.Left
+     * @param id the id of the servo. eg. SBServo.Left
      */
-    function servo(servoLabel: number): SBServo {
-        switch (servoLabel) {
-            case SBServoLabels.ServoA:
+    function servoInstance(servo: number): ServoSB {
+        switch (servo) {
+            case SBServo.ServoA:
                 return _servoA;
-            case SBServoLabels.ServoB:
+            case SBServo.ServoB:
                 return _servoB;
         }
         return null;
@@ -221,123 +222,125 @@ namespace strawbees {
     /**
      * Sets the position of a servo by specifying a value ranging from `0%` to
      * `100%`.
-     * @param servoLabel The servo to set the position to.
+     * @param servo Which servo to set the position to.
      * @param position The position ranging from `0%` to `100%`.
      */
     //% blockId=sb_setServoPosition
-    //% block="set servo %servoLabel position to %position\\%"
-    //% servoLabel.shadow=sb_servoLabels
+    //% block="set servo %servo position to %position\\%"
+    //% servo.shadow=sb_servo
     //% position.min=0 position.max=100 position.defl=50
     //% duration.defl=0
     //% inlineInputMode=inline
     //% parts=microservo trackArgs=0
-    export function setServoPosition(servoLabel: number, position: number): void {
+    export function setServoPosition(servo: number, position: number): void {
         position = Math.constrain(position, 0, 100);
-        servo(servoLabel).setPosition(position);
+        servoInstance(servo).setPosition(position);
     }
 
     /**
      * Transtions the position of a servo over a duration of time (in seconds).
-     * The "shape" of the transtion is specified by choosing one of the easing
+     * The "shape" of the transition is specified by choosing one of the easing
      * functions by name.
-     * @param servoLabel The servo to set the position to.
+     * @param servo Which servo to set the position to.
      * @param position The position ranging from `0%` to `100%`.
      * @param duration The duration of the transition.
-     * @param easingLabel The "shape" of the transition.
+     * @param easing The "shape" of the transition.
      */
     //% blockId=sb_transitionServoPosition
-    //% block="transition servo %servoLabel position to %position\\% over %duration seconds %easingLabel"
-    //% servoLabel.shadow=sb_servoLabels
+    //% block="transition servo %servo position to %position\\% over %duration seconds %easing"
+    //% servo.shadow=sb_servo
     //% position.min=0 position.max=100 position.defl=100
     //% duration.min=0 duration.defl=1
-    //% easingLabel.shadow=sb_easingLabels
+    //% easing.shadow=sb_easing
     //% inlineInputMode=inline
     //% parts=microservo trackArgs=0
-    export function transitionServoPosition(servoLabel: number, position: number, duration: number, easingLabel: number): void {
+    export function transitionServoPosition(servo: number, position: number, duration: number, easing: number): void {
         position = Math.constrain(position, 0, 100);
         duration *= 1000; // convert to ms
         if (duration < 15) {
-            servo(servoLabel).setPosition(position);
+            servoInstance(servo).setPosition(position);
             return;
         }
         let dt = 15;
-        let currentPostition = servo(servoLabel).position();
+        let currentPostition = servoInstance(servo).position();
         let change = position - currentPostition;
         let start = input.runningTime();
         let elapsed = 0;
         while (elapsed < duration) {
             let targetPosition;
-            switch (easingLabel) {
-                case SBEasingLabels.SineIn: targetPosition = easeSineIn(elapsed, currentPostition, change, duration); break;
-                case SBEasingLabels.SineOut: targetPosition = easeSineOut(elapsed, currentPostition, change, duration); break;
-                case SBEasingLabels.SineInOut: targetPosition = easeSineInOut(elapsed, currentPostition, change, duration); break;
-                case SBEasingLabels.QuadIn: targetPosition = easeQuadIn(elapsed, currentPostition, change, duration); break;
-                case SBEasingLabels.QuadOut: targetPosition = easeQuadOut(elapsed, currentPostition, change, duration); break;
-                case SBEasingLabels.QuadInOut: targetPosition = easeQuadInOut(elapsed, currentPostition, change, duration); break;
-                case SBEasingLabels.CubicIn: targetPosition = easeCubicIn(elapsed, currentPostition, change, duration); break;
-                case SBEasingLabels.CubicOut: targetPosition = easeCubicOut(elapsed, currentPostition, change, duration); break;
-                case SBEasingLabels.CubicInOut: targetPosition = easeCubicInOut(elapsed, currentPostition, change, duration); break;
-                case SBEasingLabels.QuartIn: targetPosition = easeQuartIn(elapsed, currentPostition, change, duration); break;
-                case SBEasingLabels.QuartOut: targetPosition = easeQuartOut(elapsed, currentPostition, change, duration); break;
-                case SBEasingLabels.QuartInOut: targetPosition = easeQuartInOut(elapsed, currentPostition, change, duration); break;
-                case SBEasingLabels.QuintIn: targetPosition = easeQuintIn(elapsed, currentPostition, change, duration); break;
-                case SBEasingLabels.QuintOut: targetPosition = easeQuintOut(elapsed, currentPostition, change, duration); break;
-                case SBEasingLabels.QuintInOut: targetPosition = easeQuintInOut(elapsed, currentPostition, change, duration); break;
-                case SBEasingLabels.ExpoIn: targetPosition = easeExpoIn(elapsed, currentPostition, change, duration); break;
-                case SBEasingLabels.ExpoOut: targetPosition = easeExpoOut(elapsed, currentPostition, change, duration); break;
-                case SBEasingLabels.ExpoInOut: targetPosition = easeExpoInOut(elapsed, currentPostition, change, duration); break;
-                case SBEasingLabels.CircIn: targetPosition = easeCircIn(elapsed, currentPostition, change, duration); break;
-                case SBEasingLabels.CircOut: targetPosition = easeCircOut(elapsed, currentPostition, change, duration); break;
-                case SBEasingLabels.CircInOut: targetPosition = easeCircInOut(elapsed, currentPostition, change, duration); break;
-                case SBEasingLabels.BackIn: targetPosition = easeBackIn(elapsed, currentPostition, change, duration); break;
-                case SBEasingLabels.BackOut: targetPosition = easeBackOut(elapsed, currentPostition, change, duration); break;
-                case SBEasingLabels.BackInOut: targetPosition = easeBackInOut(elapsed, currentPostition, change, duration); break;
-                case SBEasingLabels.ElasticIn: targetPosition = easeElasticIn(elapsed, currentPostition, change, duration); break;
-                case SBEasingLabels.ElasticOut: targetPosition = easeElasticOut(elapsed, currentPostition, change, duration); break;
-                case SBEasingLabels.ElasticInOut: targetPosition = easeElasticInOut(elapsed, currentPostition, change, duration); break;
-                case SBEasingLabels.BounceIn: targetPosition = easeBounceIn(elapsed, currentPostition, change, duration); break;
-                case SBEasingLabels.BounceOut: targetPosition = easeBounceOut(elapsed, currentPostition, change, duration); break;
-                case SBEasingLabels.BounceInOut: targetPosition = easeBounceInOut(elapsed, currentPostition, change, duration); break;
-                case SBEasingLabels.Linear:
+            switch (easing) {
+                case SBEasing.SineIn: targetPosition = easeSineIn(elapsed, currentPostition, change, duration); break;
+                case SBEasing.SineOut: targetPosition = easeSineOut(elapsed, currentPostition, change, duration); break;
+                case SBEasing.SineInOut: targetPosition = easeSineInOut(elapsed, currentPostition, change, duration); break;
+                case SBEasing.QuadIn: targetPosition = easeQuadIn(elapsed, currentPostition, change, duration); break;
+                case SBEasing.QuadOut: targetPosition = easeQuadOut(elapsed, currentPostition, change, duration); break;
+                case SBEasing.QuadInOut: targetPosition = easeQuadInOut(elapsed, currentPostition, change, duration); break;
+                case SBEasing.CubicIn: targetPosition = easeCubicIn(elapsed, currentPostition, change, duration); break;
+                case SBEasing.CubicOut: targetPosition = easeCubicOut(elapsed, currentPostition, change, duration); break;
+                case SBEasing.CubicInOut: targetPosition = easeCubicInOut(elapsed, currentPostition, change, duration); break;
+                case SBEasing.QuartIn: targetPosition = easeQuartIn(elapsed, currentPostition, change, duration); break;
+                case SBEasing.QuartOut: targetPosition = easeQuartOut(elapsed, currentPostition, change, duration); break;
+                case SBEasing.QuartInOut: targetPosition = easeQuartInOut(elapsed, currentPostition, change, duration); break;
+                case SBEasing.QuintIn: targetPosition = easeQuintIn(elapsed, currentPostition, change, duration); break;
+                case SBEasing.QuintOut: targetPosition = easeQuintOut(elapsed, currentPostition, change, duration); break;
+                case SBEasing.QuintInOut: targetPosition = easeQuintInOut(elapsed, currentPostition, change, duration); break;
+                case SBEasing.ExpoIn: targetPosition = easeExpoIn(elapsed, currentPostition, change, duration); break;
+                case SBEasing.ExpoOut: targetPosition = easeExpoOut(elapsed, currentPostition, change, duration); break;
+                case SBEasing.ExpoInOut: targetPosition = easeExpoInOut(elapsed, currentPostition, change, duration); break;
+                case SBEasing.CircIn: targetPosition = easeCircIn(elapsed, currentPostition, change, duration); break;
+                case SBEasing.CircOut: targetPosition = easeCircOut(elapsed, currentPostition, change, duration); break;
+                case SBEasing.CircInOut: targetPosition = easeCircInOut(elapsed, currentPostition, change, duration); break;
+                case SBEasing.BackIn: targetPosition = easeBackIn(elapsed, currentPostition, change, duration); break;
+                case SBEasing.BackOut: targetPosition = easeBackOut(elapsed, currentPostition, change, duration); break;
+                case SBEasing.BackInOut: targetPosition = easeBackInOut(elapsed, currentPostition, change, duration); break;
+                case SBEasing.ElasticIn: targetPosition = easeElasticIn(elapsed, currentPostition, change, duration); break;
+                case SBEasing.ElasticOut: targetPosition = easeElasticOut(elapsed, currentPostition, change, duration); break;
+                case SBEasing.ElasticInOut: targetPosition = easeElasticInOut(elapsed, currentPostition, change, duration); break;
+                case SBEasing.BounceIn: targetPosition = easeBounceIn(elapsed, currentPostition, change, duration); break;
+                case SBEasing.BounceOut: targetPosition = easeBounceOut(elapsed, currentPostition, change, duration); break;
+                case SBEasing.BounceInOut: targetPosition = easeBounceInOut(elapsed, currentPostition, change, duration); break;
+                case SBEasing.Linear:
                 default:
                     targetPosition = easeLinear(elapsed, currentPostition, change, duration);
                     break;
             }
-            servo(servoLabel).setPosition(targetPosition);
+            servoInstance(servo).setPosition(targetPosition);
             basic.pause(dt);
             elapsed = input.runningTime() - start;
         }
-        servo(servoLabel).setPosition(position);
+        servoInstance(servo).setPosition(position);
     }
 
     /**
      * Sets the speed of a continuous servo in a arbitrary range from `-100%` to
-     * `100%`.
-     * @param servoLabel The continuous servo to set the speed to.
+     * `100%`. If the connected servo is not continuous, this will not work as
+     * expected.
+     * @param servo Which continuous servo to set the speed to.
      * @param speed The speed ranging from `-100%` to `100%`.
      */
-    //% blockId=sb_setContinuousServoSpeed block="set continuous servo %servoLabel speed to %speed\\%"
-    //% servoLabel.shadow=sb_servoLabels
+    //% blockId=sb_setContinuousServoSpeed block="set continuous servo %servo speed to %speed\\%"
+    //% servo.shadow=sb_servo
     //% speed.shadow=speedPicker
     //% inlineInputMode=inline
     //% parts=microservo trackArgs=0
-    export function setContinuousServoSpeed(servoLabel: number, speed: number): void {
+    export function setContinuousServoSpeed(servo: number, speed: number): void {
         speed = Math.constrain(speed, -100, 100);
-        servo(servoLabel).setSpeed(speed);
+        servoInstance(servo).setSpeed(speed);
     }
 
     /**
-     * Turns a servo off so that no force will be applied and the horn can be
-     * rotated manually. This saves battery.
-     * @param servoLabel The servo to turn off.
+     * Turns a servo off so that no force will be applied and it can be rotated
+     * manually. This saves battery.
+     * @param servo Which servo to turn off.
      */
     //% blockId=sb_turnOffServo
-    //% block="turn off servo %servoLabel"
-    //% servoLabel.shadow=sb_servoLabels
+    //% block="turn off servo %servo"
+    //% servo.shadow=sb_servo
     //% inlineInputMode=inline
     //% parts=microservo trackArgs=0
-    export function turnOffServo(servoLabel: number) {
-        servo(servoLabel).stop();
+    //% blockGap=32
+    export function turnOffServo(servo: number) {
+        servoInstance(servo).stop();
     }
 
     ////////////////////////////////////////////////////////////////////////////
@@ -351,66 +354,73 @@ namespace strawbees {
     _neo.show();
 
     /**
+     * Access the NeoPixel instace.
+     */
+    function neoInstance(): neopixel.Strip {
+        return _neo;
+    }
+
+    /**
      * Sets the color of an individual NeoPixel by specifying the amount of
-     * `red`, `green` and `blue` in the color. The amounts range from `0%` to
+     * red, green and blue in the color. The amounts range from `0%` to
      * `100%`.
-     * @param neoPixelLabel Which NeoPixel to set the color.
-     * @param red Amount of red in color ranging from `0%` to `100%`.
-     * @param green Amount of green in color ranging from `0%` to `100%`.
-     * @param blue Amount of blue in color ranging from `0%` to `100%`.
+     * @param neoPixel Which NeoPixel to set the color.
+     * @param red Amount of red in color ranging, from `0%` to `100%`.
+     * @param green Amount of green in color ranging, from `0%` to `100%`.
+     * @param blue Amount of blue in color ranging, from `0%` to `100%`.
      */
     //% blockId="sb_setNeoPixelColorRGB"
-    //% block="set NeoPixel %neoPixelLabel to red %red\\% green %green\\% blue %blue\\%"
-    //% neoPixelLabel.shadow=sb_neoPixelLabels
+    //% block="set NeoPixel %neoPixel to red %red\\% green %green\\% blue %blue\\%"
+    //% neoPixel.shadow=sb_neoPixel
     //% red.min=0 red.max=100 red.defl=100
     //% green.min=0 green.max=100 green.defl=0
     //% blue.min=0 blue.max=100 blue.defl=0
     //% inlineInputMode=inline
-    export function setNeoPixelColorRGB(neoPixelLabel: number, red: number, green: number, blue: number): void {
+    export function setNeoPixelColorRGB(neoPixel: number, red: number, green: number, blue: number): void {
         red = Math.constrain(red, 0, 100);
         green = Math.constrain(green, 0, 100);
         blue = Math.constrain(blue, 0, 100);
-        _neo.setPixelColor(neoPixelLabel, getHexColorFromRGB(red, green, blue));
-        _neo.show();
+        neoInstance().setPixelColor(neoPixel, getHexColorFromRGB(red, green, blue));
+        neoInstance().show();
     }
 
     /**
      * Sets the color of an individual NeoPixel by specifying the amount of
-     * `hue`, `saturation` and `brightness` in the color. The amounts range from
+     * hue, saturation and brightness in the color. The amounts range from
      * `0%` to `100%`.
-     * @param neoPixelLabel Which NeoPixel to set the color.
-     * @param hue Hue of the color ranging from `0%` to `100%`.
-     * @param saturation Saturation of the color ranging from `0%` to `100%`.
-     * @param brightness Brightness of the color ranging from `0%` to `100%`.
+     * @param neoPixel Which NeoPixel to set the color.
+     * @param hue Hue of the color, ranging from `0%` to `100%`.
+     * @param saturation Saturation of the color, ranging from `0%` to `100%`.
+     * @param brightness Brightness of the color, ranging from `0%` to `100%`.
      */
     //% blockId="sb_setNeoPixelColorHSB"
-    //% block="set NeoPixel %neoPixelLabel to hue %hue\\% saturation %saturation\\% brightness %brightness\\%"
-    //% neoPixelLabel.shadow=sb_neoPixelLabels
+    //% block="set NeoPixel %neoPixel to hue %hue\\% saturation %saturation\\% brightness %brightness\\%"
+    //% neoPixel.shadow=sb_neoPixel
     //% hue.min=0 hue.max=100 hue.defl=0
     //% saturation.min=0 saturation.max=100 saturation.defl=100
     //% brightness.min=0 brightness.max=100 brightness.defl=100
     //% inlineInputMode=inline
-    export function setNeoPixelColorHSB(neoPixelLabel: number, hue: number, saturation: number, brightness: number): void {
+    export function setNeoPixelColorHSB(neoPixel: number, hue: number, saturation: number, brightness: number): void {
         hue = Math.constrain(hue, 0, 100);
         saturation = Math.constrain(saturation, 0, 100);
         brightness = Math.constrain(brightness, 0, 100);
-        _neo.setPixelColor(neoPixelLabel, getHexColorFromHSB(hue, saturation, brightness));
-        _neo.show();
+        neoInstance().setPixelColor(neoPixel, getHexColorFromHSB(hue, saturation, brightness));
+        neoInstance().show();
     }
 
     /**
      * Sets the color of an individual NeoPixel by specifying the color by name.
-     * @param neoPixelLabel Which neoPixel to set the color.
-     * @param colorLabel The name of the color from a list of color labels.
+     * @param neoPixel Which neoPixel to set the color.
+     * @param color The name of the color from a list of color labels.
      */
-    //% blockId="sb_setNeoPixelColorLabel"
-    //% block="set NeoPixel %neoPixelLabel to %colorLabel"
-    //% neoPixelLabel.shadow=sb_neoPixelLabels
-    //% colorLabel.shadow=sb_colorLabels
+    //% blockId="sb_setNeoPixelColor"
+    //% block="set NeoPixel %neoPixel to %color"
+    //% neoPixel.shadow=sb_neoPixel
+    //% color.shadow=sb_color
     //% inlineInputMode=inline
-    export function setNeoPixelColorLabel(neoPixelLabel: number, colorLabel: number): void {
-        _neo.setPixelColor(neoPixelLabel, colorLabel);
-        _neo.show();
+    export function setNeoPixelColor(neoPixel: number, color: number): void {
+        neoInstance().setPixelColor(neoPixel, color);
+        neoInstance().show();
     }
 
     ////////////////////////////////////////////////////////////////////////////
@@ -420,19 +430,30 @@ namespace strawbees {
      * A label of a NeoPixel.
      * @param label NeoPixel label.
      */
-    //% blockId="sb_neoPixelLabels" block="%label"
-    //% advanced=true
-    export function neoPixelLabels(label: SBNeoPixelLabels): number {
+     //% blockId="sb_neoPixelLabel" block="NeoPixel %label"
+     //% advanced=true
+     export function neoPixelLabel(label: SBNeoPixel): number {
+         return label;
+     }
+    //% blockId="sb_neoPixel" block="%label"
+    //% blockHidden=true
+    export function neoPixel(label: SBNeoPixel): number {
         return label;
     }
+
 
     /**
      * A label of a servo.
      * @param label Servo label.
      */
-    //% blockId="sb_servoLabels" block="%label"
-    //% advanced=true
-    export function servoLabels(label: SBServoLabels): number {
+     //% blockId="sb_servoLabel" block="servo %label"
+     //% advanced=true
+     export function servoLabel(label: SBServo): number {
+         return label;
+     }
+    //% blockId="sb_servo" block="%label"
+    //% blockHidden=true
+    export function servo(label: SBServo): number {
         return label;
     }
 
@@ -440,9 +461,14 @@ namespace strawbees {
      * A label of a color.
      * @param label Color label.
      */
-    //% blockId="sb_colorLabels" block="%label"
-    //% advanced=true
-    export function colorLabels(label: SBColorLabels): number {
+     //% blockId="sb_colorLabel" block="color %label"
+     //% advanced=true
+     export function colorLabel(label: SBColor): number {
+         return label;
+     }
+    //% blockId="sb_color" block="%label"
+    //% blockHidden=true
+    export function color(label: SBColor): number {
         return label;
     }
 
@@ -450,19 +476,30 @@ namespace strawbees {
      * A label of a wave type.
      * @param label Wave type label.
      */
-    //% blockId="sb_waveTypeLabels" block="%label"
-    //% advanced=true
-    export function waveTypeLabels(label: SBWaveTypeLabels): number {
+     //% blockId="sb_waveTypeLabel" block="wave type %label"
+     //% advanced=true
+     export function waveTypeLabel(label: SBWaveType): number {
+         return label;
+     }
+    //% blockId="sb_waveType" block="%label"
+    //% blockHidden=true
+    export function waveType(label: SBWaveType): number {
         return label;
     }
 
     /**
-    * A label of a easing equation.
-    * @param label Easing equation label.
+    * A label of an easing function.
+    * @param label Easing function label.
     */
-    //% blockId="sb_easingLabels" block="%label"
+    //% blockId="sb_easingLabel" block="easing function %label"
     //% advanced=true
-    export function easingLabels(label: SBEasingLabels): number {
+    //% blockGap=32
+    export function easingLabel(label: SBEasing): number {
+        return label;
+    }
+    //% blockId="sb_easing" block="%label"
+    //% blockHidden=true
+    export function easing(label: SBEasing): number {
         return label;
     }
 
@@ -492,7 +529,7 @@ namespace strawbees {
      * @param brightness Brightness of the color ranging from `0` to `100`
      */
     //% blockId="sb_getHexColorFromHSB"
-    //% block="hue %hue saturation %saturation brightness %brightness"
+    //% block="hue %hue\\% saturation %saturation\\% brightness %brightness\\%"
     //% hue.min=0 hue.max=100
     //% saturation.min=0 saturation.max=100
     //% brightness.min=0 brightness.max=100
@@ -522,41 +559,41 @@ namespace strawbees {
      * Samples the vale of a periodic wave function. The wave starts at the
      * beginning of the running time. It can be configured by specifying it's
      * length (in seconds), amplitude and offset.
-     * @param waveTypeLabel The type of the wave.
+     * @param waveType The type of the wave.
      * @param length The length (or period) of the wave, in seconds.
      * @param amplitude The amplitude of the wave.
      * @param offset The offset of the wave.
      */
     //% blockId="sb_wave"
-    //% block="wave type %waveTypeLabel length %length seconds amplitude %amplitude offset %offset"
-    //% waveTypeLabel.shadow=sb_waveTypeLabels
+    //% block="wave type %waveType length %length seconds amplitude %amplitude offset %offset"
+    //% waveType.shadow=sb_waveType
     //% length.defl=1
     //% inlineInputMode=inline
     //% advanced=true
-    export function wave(waveTypeLabel: SBWaveTypeLabels, length: number, amplitude: number, offset: number): number {
+    export function wave(waveType: number, length: number, amplitude: number, offset: number): number {
         let time = (input.runningTime() / 1000) % length;
         let progress = (time / length);
         let result
-        switch (waveTypeLabel) {
-            case SBWaveTypeLabels.Sine:
+        switch (waveType) {
+            case SBWaveType.Sine:
                 result = Math.sin(progress * (Math.PI * 2));
                 break;
-            case SBWaveTypeLabels.Cosine:
+            case SBWaveType.Cosine:
                 result = Math.cos(progress * (Math.PI * 2));
                 break;
-            case SBWaveTypeLabels.Triangular:
+            case SBWaveType.Triangular:
                 result = 4 * (0.5 - Math.abs(progress % (2 * 0.5) - 0.5)) - 1;
                 break;
-            case SBWaveTypeLabels.RampUp:
+            case SBWaveType.RampUp:
                 result = progress * 2 - 1;
                 break;
-            case SBWaveTypeLabels.RampDown:
+            case SBWaveType.RampDown:
                 result = (progress * 2 - 1) * -1;
                 break;
-            case SBWaveTypeLabels.Square:
+            case SBWaveType.Square:
                 result = progress < 0.5 ? 1 : -1;
                 break;
-            case SBWaveTypeLabels.Pulse:
+            case SBWaveType.Pulse:
                 result = progress < 0.1 ? 1 : -1;
                 break;
         }
