@@ -243,7 +243,7 @@ namespace sb {
      * functions by name.
      * @param servo Which servo to set the position to.
      * @param position The position ranging from `0%` to `100%`.
-     * @param duration The duration of the transition.
+     * @param duration The duration of the transition, in seconds.
      * @param easing The "shape" of the transition.
      */
     //% blockId=sb_transitionServoPosition
