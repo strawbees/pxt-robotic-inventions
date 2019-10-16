@@ -41,7 +41,7 @@
   "sb.setServoPosition|param|position": "The position ranging from `0%` to `100%`.",
   "sb.setServoPosition|param|servo": "Which servo to set the position to.",
   "sb.transitionServoPosition": "Transtions the position of a servo over a duration of time (in seconds).\nThe \"shape\" of the transition is specified by choosing one of the easing\nfunctions by name.",
-  "sb.transitionServoPosition|param|duration": "The duration of the transition.",
+  "sb.transitionServoPosition|param|duration": "The duration of the transition, in seconds.",
   "sb.transitionServoPosition|param|easing": "The \"shape\" of the transition.",
   "sb.transitionServoPosition|param|position": "The position ranging from `0%` to `100%`.",
   "sb.transitionServoPosition|param|servo": "Which servo to set the position to.",
