@@ -2,7 +2,7 @@
 This package allows you to program the micro:bit to use it with the
 *[Strawbees Robotic Inventions for the micro:bit](https://strawbees.com)*.
 
-![Strawbees Robotic Inventions for the micro:bit](https://github.com/strawbees/pxt-strawbees-microbit/raw/master/icon.png)
+![Strawbees Robotic Inventions for the micro:bit](https://github.com/strawbees/pxt-strawbees-microbit/raw/master/icon.png?1)
 
 The kit allows you to control up to two servos (standard or continuous) and two
 built-in NeoPixels (a special type of LED that you can control the color).
