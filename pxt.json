@@ -1,7 +1,7 @@
 {
     "name": "pxt-strawbees-microbit",
     "version": "0.0.0",
-    "description": "Official Strawbees micro:bit Robotics package for Makecode.",
+    "description": "Strawbees Robotic Inventions for the micro:bit",
     "dependencies": {
         "core": "*",
         "servo": "*",
