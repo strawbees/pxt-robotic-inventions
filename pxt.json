@@ -1,5 +1,5 @@
 {
-    "name": "pxt-strawbees-microbit",
+    "name": "pxt-robotic-inventions",
     "version": "0.0.0",
     "description": "Strawbees Robotic Inventions for the micro:bit",
     "dependencies": {
