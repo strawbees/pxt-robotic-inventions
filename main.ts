@@ -5,7 +5,9 @@ enum SBServo {
     //% block="A"
     ServoA = 0,
     //% block="B"
-    ServoB = 1
+    ServoB = 1,
+    //% block="C"
+    ServoC = 2
 }
 
 /**
@@ -205,10 +207,15 @@ namespace sb {
     _servoB.setPosition(50);
     _servoB.setSpeed(0);
     _servoB.setPulse(1300);
+    let _servoC = new ServoSB(AnalogPin.P12, DigitalPin.P12);
+    pins.servoWritePin(AnalogPin.P12, 90); // just to trigger the simulator
+    _servoC.setPosition(50);
+    _servoC.setSpeed(0);
+    _servoC.setPulse(1300);
 
     /**
      * Access a servo instace.
-     * @param id the id of the servo. eg. SBServo.Left
+     * @param id the id of the servo. eg. SBServo.ServoA
      */
     function servoInstance(servo: number): ServoSB {
         switch (servo) {
@@ -216,6 +223,8 @@ namespace sb {
                 return _servoA;
             case SBServo.ServoB:
                 return _servoB;
+            case SBServo.ServoC:
+                return _servoC;
         }
         return null;
     }
