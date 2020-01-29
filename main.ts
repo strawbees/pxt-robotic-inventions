@@ -137,8 +137,8 @@ enum SBEasing {
 /**
  * Controls the Strawbees Robotic Inventions for the micro:bit board
  */
- //% block="Robotic Inventions"
-//% weight=100 color="#f443b0" icon="\u24C7" blockGap=8
+ //% block="Strawbees"
+//% weight=100 color="#f443b0" icon="\u24C8" blockGap=8
 namespace sb {
     ////////////////////////////////////////////////////////////////////////////
     // Servos
