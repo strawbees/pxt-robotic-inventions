@@ -44,6 +44,7 @@
   "SBNeoPixel.NeoPixelB|block": "B",
   "SBServo.ServoA|block": "A",
   "SBServo.ServoB|block": "B",
+  "SBServo.ServoC|block": "C",
   "SBWaveType.Cosine|block": "cosine",
   "SBWaveType.Pulse|block": "pulse",
   "SBWaveType.RampDown|block": "ramp down",
