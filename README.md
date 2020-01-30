@@ -4,8 +4,8 @@
 This package allows you to program the micro:bit to use it with the
 *[Strawbees Robotic Inventions for the micro:bit](https://strawbees.com/product/robotic-inventions-add-on_for-the-microbit-add-on-kit-single-pack/)*.
 
-The kit allows you to control up to two servos (standard or continuous) and two
-built-in NeoPixels (a special type of LED that you can control the color).
+The kit allows you to control up to three servos (standard or continuous) and
+two built-in NeoPixels (a special type of LED that you can control the color).
 
 If you want to learn how to use this kit in the classroom, please visit our
 [learning platform](https://learning.strawbees.com).
@@ -47,9 +47,7 @@ basic.forever(function () {
 # Coding Cards
 The easiest way to learn how to program with the kit is to try it! For that we
 have prepared a few examples that you can use to learn the basics and build
-upon. You can follow the examples below or [print them as coding cards posters](https://XXXX)
-to use directly in the class room. Just pick any card and try it out
-!
+upon. Just pick any card and try it out!
 
 ## Coding card 1
 Press a button to move the servo to a random position.
@@ -303,3 +301,5 @@ sb.setNeoPixelColor(sb.neoPixel(SBNeoPixel.NeoPixelB), sb.color(SBColor.Green))
 
 ## License
 MIT
+
+<script src="https://makecode.com/gh-pages-embed.js"></script><script>makeCodeRender("{{ site.makecode.home_url }}", "{{ site.github.owner_name }}/{{ site.github.repository_name }}");</script>
