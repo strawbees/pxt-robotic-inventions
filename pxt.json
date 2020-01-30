@@ -1,6 +1,6 @@
 {
-    "name": "strawbees-robotic-inventions",
-    "version": "0.0.5",
+    "name": "Strawbees Robotic Inventions",
+    "version": "0.0.6",
     "description": "Strawbees Robotic Inventions for the micro:bit",
     "dependencies": {
         "core": "*",
