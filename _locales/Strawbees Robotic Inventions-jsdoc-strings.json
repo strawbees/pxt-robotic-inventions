@@ -4,7 +4,7 @@
   "SBNeoPixel": "NeoPixel labels",
   "SBServo": "Servo labels",
   "SBWaveType": "Wave type labels",
-  "sb": "Controls the Strawbees integration board.",
+  "sb": "Controls the Strawbees Robotic Inventions for the micro:bit board",
   "sb.colorLabel": "A label of a color.",
   "sb.colorLabel|param|label": "Color label.",
   "sb.easingLabel": "A label of an easing function.",
