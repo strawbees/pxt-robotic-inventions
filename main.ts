@@ -389,8 +389,7 @@ namespace sb {
         red = Math.constrain(red, 0, 100);
         green = Math.constrain(green, 0, 100);
         blue = Math.constrain(blue, 0, 100);
-        neoInstance().setPixelColor(neoPixel, getHexColorFromRGB(red, green, blue));
-        neoInstance().show();
+        setNeoPixelColor(neoPixel, getHexColorFromRGB(red, green, blue));
     }
 
     /**
@@ -413,8 +412,7 @@ namespace sb {
         hue = Math.constrain(hue, 0, 100);
         saturation = Math.constrain(saturation, 0, 100);
         brightness = Math.constrain(brightness, 0, 100);
-        neoInstance().setPixelColor(neoPixel, getHexColorFromHSB(hue, saturation, brightness));
-        neoInstance().show();
+        setNeoPixelColor(neoPixel, getHexColorFromHSB(hue, saturation, brightness));
     }
 
     /**
@@ -429,6 +427,7 @@ namespace sb {
     //% inlineInputMode=inline
     export function setNeoPixelColor(neoPixel: number, color: number): void {
         neoInstance().setPixelColor(neoPixel, color);
+        control.waitMicros(200);
         neoInstance().show();
     }
 
