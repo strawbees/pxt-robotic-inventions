@@ -9,7 +9,9 @@
     },
     "files": [
         "README.md",
-        "main.ts"
+        "main.ts",
+        "_locales/nl/Strawbees Robotic Inventions-strings",
+        "_locales/nl/Strawbees Robotic Inventions-jsdoc-strings"
     ],
     "testFiles": [
         "test.ts"
