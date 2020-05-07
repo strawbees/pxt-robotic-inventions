@@ -1,5 +1,5 @@
-# Strawbees Robotic Inventions for the micro:bit
-![Strawbees Robotic Inventions for the micro:bit](https://github.com/strawbees/pxt-strawbees-microbit/raw/master/cover.png?1)
+# Strawbees Robotic Inventions for micro:bit
+![Strawbees Robotic Inventions for micro:bit](https://github.com/strawbees/pxt-strawbees-microbit/raw/master/cover.png?1)
 
 This package allows you to program the micro:bit to use it with our kit
 *[Robotic Inventions for micro:bit](https://strawbees.com/product/robotic-inventions-add-on_for-the-microbit-add-on-kit-single-pack/)*.
