@@ -1,14 +1,14 @@
 # Strawbees Robotic Inventions for the micro:bit
 ![Strawbees Robotic Inventions for the micro:bit](https://github.com/strawbees/pxt-strawbees-microbit/raw/master/cover.png?1)
 
-This package allows you to program the micro:bit to use it with the
-*[Strawbees Robotic Inventions for the micro:bit](https://strawbees.com/product/robotic-inventions-add-on_for-the-microbit-add-on-kit-single-pack/)*.
+This package allows you to program the micro:bit to use it with our kit
+*[Robotic Inventions for micro:bit](https://strawbees.com/product/robotic-inventions-add-on_for-the-microbit-add-on-kit-single-pack/)*.
 
 The kit allows you to control up to three servos (standard or continuous) and
-two built-in RGB rgbLeds (a special type of LED that you can control the color).
+two built-in RGB LEDs.
 
 If you want to learn how to use this kit in the classroom, please visit our
-[learning platform](https://learning.strawbees.com).
+[learning platform](https://learning.strawbees.com/product/microbit/).
 
 -------------------------------------------------------------------------------
 
@@ -236,57 +236,57 @@ sb.turnOffServo(sb.servo(SBServo.ServoA))
 ```
 
 ## sb.setRgbLedColorRGB
-Sets the color of an individual rgbLed by specifying the amount of red,
+Sets the color of an individual RGB LED by specifying the amount of red,
 green and blue in the color. The amounts range from `0%` to `100%`.
 ```sig
 sb.setRgbLedColorRGB(sb.rgbLed(SBRgbLed.RgbLedA), 100, 100, 100)
 ```
 
 ### Parameters
-* `rgbLed` - Which rgbLed (`A` or `B`) to set the color.
+* `rgbLed` - Which RGB LED (`A` or `B`) to set the color.
 * `red` - Amount of red in color, ranging from `0%` to `100%`.
 * `green` - Amount of green in color, ranging from `0%` to `100%`.
 * `blue` - Amount of blue in color, ranging from `0%` to `100%`.
 
 ### Example
-Sets the rgbLed `A` to red, by specifing the color as percentages of red
+Sets the RGB LED `A` to red, by specifing the color as percentages of red
 (`100%`), green (`0%`) and blue (`0%`).
 ```blocks
-sb.setRgbLedColorHSB(sb.rgbLed(SBRgbLed.RgbLedA), 100, 100, 100)
+sb.setRgbLedColorRGB(sb.rgbLed(SBRgbLed.RgbLedA), 100, 0, 0)
 ```
 
 ## sb.setRgbLedColorHSB
-Sets the color of an individual rgbLed by specifying the amount of hue,
+Sets the color of an individual RGB LED by specifying the amount of hue,
 saturation and brightness in the color. The amounts range from `0%` to `100%`.
 ```sig
 sb.setRgbLedColorHSB(sb.rgbLed(SBRgbLed.RgbLedA), 100, 100, 100)
 ```
 
 ### Parameters
-* `rgbLed` - Which rgbLed (`A` or `B`) to set the color.
+* `rgbLed` - Which RGB LED (`A` or `B`) to set the color.
 * `hue` - Hue of the color, ranging from `0%` to `100%`.
 * `saturation` - Saturation of the color, ranging from `0%` to `100%`.
 * `brightness` - Brightness of the color, ranging from `0%` to `100%`.
 
 ### Example
-Sets the rgbLed `B` to red, by specifing the color as percentages of hue
+Sets the RGB LED `B` to red, by specifing the color as percentages of hue
 (`0%`), saturation (`100%`) and brightness (`100%`).
 ```blocks
 sb.setRgbLedColorHSB(sb.rgbLed(SBRgbLed.RgbLedB), 0, 100, 100)
 ```
 
 ## sb.setRgbLedColor
-Sets the color of an individual rgbLed by specifying the color by name.
+Sets the color of an individual RGB LED by specifying the color by name.
 ```sig
 sb.setRgbLedColor(sb.rgbLed(SBRgbLed.RgbLedA), sb.color(SBColor.Red))
 ```
 
 ### Parameters
-* `rgbLed` - Which rgbLed (`A` or `B`) to set the color.
+* `rgbLed` - Which RGB LED (`A` or `B`) to set the color.
 * `color` - The name of the color from a list of color labels.
 
 ### Example
-Sets rgbLeds `A` and `B`, to yellow and green respectively, by selecting the
+Sets RGB LEDs `A` and `B`, to yellow and green respectively, by selecting the
 colors by name from a pre-defined list.
 ```blocks
 sb.setRgbLedColor(sb.rgbLed(SBRgbLed.RgbLedA), sb.color(SBColor.Yellow))
