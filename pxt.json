@@ -1,5 +1,5 @@
 {
-    "name": "Strawbees Robotic Inventions",
+    "name": "robotic-inventions",
     "version": "0.0.10",
     "description": "Strawbees Robotic Inventions for the micro:bit",
     "dependencies": {
@@ -10,8 +10,8 @@
     "files": [
         "README.md",
         "main.ts",
-        "_locales/nl/Strawbees Robotic Inventions-strings",
-        "_locales/nl/Strawbees Robotic Inventions-jsdoc-strings"
+        "_locales/nl/robotic-inventions-strings",
+        "_locales/nl/robotic-inventions-jsdoc-strings"
     ],
     "testFiles": [
         "test.ts"
