@@ -271,4 +271,13 @@
 	basic.pause(200)
 	sb.setRgbLedColor(sb.rgbLed(SBRgbLed.RgbLedA), sb.color(SBColor.Black))
 	sb.setRgbLedColor(sb.rgbLed(SBRgbLed.RgbLedB), sb.color(SBColor.Black))
+
+	// wave
+	sb.wave(sb.waveType(SBWaveType.Sine), 1, 0, 0)
+	sb.wave(sb.waveType(SBWaveType.Cosine), 1, 0, 0)
+	sb.wave(sb.waveType(SBWaveType.Triangular), 1, 0, 0)
+	sb.wave(sb.waveType(SBWaveType.RampUp), 1, 0, 0)
+	sb.wave(sb.waveType(SBWaveType.RampDown), 1, 0, 0)
+	sb.wave(sb.waveType(SBWaveType.Square), 1, 0, 0)
+	sb.wave(sb.waveType(SBWaveType.Pulse), 1, 0, 0)
 }
