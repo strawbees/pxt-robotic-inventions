@@ -11,13 +11,13 @@ enum SBServo {
 }
 
 /**
-* NeoPixel labels
+* RGB LED labels
 */
-enum SBNeoPixel {
+enum SBRgbLed {
     //% block="A"
-    NeoPixelA = 0,
+    RgbLedA = 0,
     //% block="B"
-    NeoPixelB = 1
+    RgbLedB = 1
 }
 
 /**
@@ -135,7 +135,7 @@ enum SBEasing {
 }
 
 /**
- * Controls the Strawbees Robotic Inventions for the micro:bit board
+ * Strawbees Robotic Inventions
  */
  //% block="Strawbees"
 //% weight=100 color="#f443b0" icon="\u24C8" blockGap=8
@@ -353,80 +353,80 @@ namespace sb {
     }
 
     ////////////////////////////////////////////////////////////////////////////
-    // NeoPixels
+    // RGB LEDs
     ////////////////////////////////////////////////////////////////////////////
     let _neo: neopixel.Strip;
     _neo = neopixel.create(DigitalPin.P8, 2, NeoPixelMode.RGB);
     _neo.setBrightness(20);
     _neo.clear();
-    basic.pause(10); // BUG: without this delay, Neopixel A gets green sometimes
+    basic.pause(10); // BUG: without this delay, RGB LED A gets green sometimes
     _neo.show();
 
     /**
-     * Access the NeoPixel instace.
+     * Access the RGB LED instace.
      */
     function neoInstance(): neopixel.Strip {
         return _neo;
     }
 
     /**
-     * Sets the color of an individual NeoPixel by specifying the amount of
+     * Sets the color of an individual RGB LED by specifying the amount of
      * red, green and blue in the color. The amounts range from `0%` to
      * `100%`.
-     * @param neoPixel Which NeoPixel to set the color.
+     * @param rgbLed Which RGB LED to set the color.
      * @param red Amount of red in color ranging, from `0%` to `100%`.
      * @param green Amount of green in color ranging, from `0%` to `100%`.
      * @param blue Amount of blue in color ranging, from `0%` to `100%`.
      */
-    //% blockId="sb_setNeoPixelColorRGB"
-    //% block="set NeoPixel %neoPixel to red %red\\% green %green\\% blue %blue\\%"
-    //% neoPixel.shadow=sb_neoPixel
+    //% blockId="sb_setRgbLedColorRGB"
+    //% block="set RGB LED %rgbLed to red %red\\% green %green\\% blue %blue\\%"
+    //% rgbLed.shadow=sb_rgbLed
     //% red.min=0 red.max=100 red.defl=100
     //% green.min=0 green.max=100 green.defl=0
     //% blue.min=0 blue.max=100 blue.defl=0
     //% inlineInputMode=inline
-    export function setNeoPixelColorRGB(neoPixel: number, red: number, green: number, blue: number): void {
+    export function setRgbLedColorRGB(rgbLed: number, red: number, green: number, blue: number): void {
         red = Math.constrain(red, 0, 100);
         green = Math.constrain(green, 0, 100);
         blue = Math.constrain(blue, 0, 100);
-        setNeoPixelColor(neoPixel, getHexColorFromRGB(red, green, blue));
+        setRgbLedColor(rgbLed, getHexColorFromRGB(red, green, blue));
     }
 
     /**
-     * Sets the color of an individual NeoPixel by specifying the amount of
+     * Sets the color of an individual RGB LED by specifying the amount of
      * hue, saturation and brightness in the color. The amounts range from
      * `0%` to `100%`.
-     * @param neoPixel Which NeoPixel to set the color.
+     * @param rgbLed Which RGB LED to set the color.
      * @param hue Hue of the color, ranging from `0%` to `100%`.
      * @param saturation Saturation of the color, ranging from `0%` to `100%`.
      * @param brightness Brightness of the color, ranging from `0%` to `100%`.
      */
-    //% blockId="sb_setNeoPixelColorHSB"
-    //% block="set NeoPixel %neoPixel to hue %hue\\% saturation %saturation\\% brightness %brightness\\%"
-    //% neoPixel.shadow=sb_neoPixel
+    //% blockId="sb_setRgbLedColorHSB"
+    //% block="set RGB LED %rgbLed to hue %hue\\% saturation %saturation\\% brightness %brightness\\%"
+    //% rgbLed.shadow=sb_rgbLed
     //% hue.min=0 hue.max=100 hue.defl=0
     //% saturation.min=0 saturation.max=100 saturation.defl=100
     //% brightness.min=0 brightness.max=100 brightness.defl=100
     //% inlineInputMode=inline
-    export function setNeoPixelColorHSB(neoPixel: number, hue: number, saturation: number, brightness: number): void {
+    export function setRgbLedColorHSB(rgbLed: number, hue: number, saturation: number, brightness: number): void {
         hue = Math.constrain(hue, 0, 100);
         saturation = Math.constrain(saturation, 0, 100);
         brightness = Math.constrain(brightness, 0, 100);
-        setNeoPixelColor(neoPixel, getHexColorFromHSB(hue, saturation, brightness));
+        setRgbLedColor(rgbLed, getHexColorFromHSB(hue, saturation, brightness));
     }
 
     /**
-     * Sets the color of an individual NeoPixel by specifying the color by name.
-     * @param neoPixel Which neoPixel to set the color.
+     * Sets the color of an individual RGB LED by specifying the color by name.
+     * @param rgbLed Which RGB LED to set the color.
      * @param color The name of the color from a list of color labels.
      */
-    //% blockId="sb_setNeoPixelColor"
-    //% block="set NeoPixel %neoPixel to %color"
-    //% neoPixel.shadow=sb_neoPixel
+    //% blockId="sb_setRgbLedColor"
+    //% block="set RGB LED %rgbLed to %color"
+    //% rgbLed.shadow=sb_rgbLed
     //% color.shadow=sb_color
     //% inlineInputMode=inline
-    export function setNeoPixelColor(neoPixel: number, color: number): void {
-        neoInstance().setPixelColor(neoPixel, color);
+    export function setRgbLedColor(rgbLed: number, color: number): void {
+        neoInstance().setPixelColor(rgbLed, color);
         control.waitMicros(200);
         neoInstance().show();
     }
@@ -435,17 +435,17 @@ namespace sb {
     // More
     ////////////////////////////////////////////////////////////////////////////
     /**
-     * A label of a NeoPixel.
-     * @param label NeoPixel label.
+     * A label of a RGB LED.
+     * @param label RGB LED label.
      */
-     //% blockId="sb_neoPixelLabel" block="NeoPixel %label"
+     //% blockId="sb_rgbLedLabel" block="RGB LED %label"
      //% advanced=true
-     export function neoPixelLabel(label: SBNeoPixel): number {
+     export function rgbLedLabel(label: SBRgbLed): number {
          return label;
      }
-    //% blockId="sb_neoPixel" block="%label"
+    //% blockId="sb_rgbLed" block="%label"
     //% blockHidden=true
-    export function neoPixel(label: SBNeoPixel): number {
+    export function rgbLed(label: SBRgbLed): number {
         return label;
     }
 

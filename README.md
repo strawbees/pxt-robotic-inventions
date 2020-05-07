@@ -1,14 +1,14 @@
-# Strawbees Robotic Inventions for the micro:bit
-![Strawbees Robotic Inventions for the micro:bit](https://github.com/strawbees/pxt-strawbees-microbit/raw/master/cover.png?1)
+# Strawbees Robotic Inventions for micro:bit
+![Strawbees Robotic Inventions for micro:bit](https://github.com/strawbees/pxt-strawbees-microbit/raw/master/cover.png?1)
 
-This package allows you to program the micro:bit to use it with the
-*[Strawbees Robotic Inventions for the micro:bit](https://strawbees.com/product/robotic-inventions-add-on_for-the-microbit-add-on-kit-single-pack/)*.
+This package allows you to program the micro:bit to use it with our kit
+*[Robotic Inventions for micro:bit](https://strawbees.com/product/robotic-inventions-add-on_for-the-microbit-add-on-kit-single-pack/)*.
 
 The kit allows you to control up to three servos (standard or continuous) and
-two built-in NeoPixels (a special type of LED that you can control the color).
+two built-in RGB LEDs.
 
 If you want to learn how to use this kit in the classroom, please visit our
-[learning platform](https://learning.strawbees.com).
+[learning platform](https://learning.strawbees.com/product/microbit/).
 
 -------------------------------------------------------------------------------
 
@@ -24,17 +24,17 @@ let position = 0
 basic.forever(function () {
     if (input.buttonIsPressed(Button.A)) {
         position += -1
-        sb.setNeoPixelColor(sb.neoPixel(SBNeoPixel.NeoPixelA), sb.color(SBColor.Red))
+        sb.setRgbLedColor(sb.rgbLed(SBRgbLed.RgbLedA), sb.color(SBColor.Red))
     } else {
-        sb.setNeoPixelColor(sb.neoPixel(SBNeoPixel.NeoPixelA), sb.color(SBColor.Blue))
+        sb.setRgbLedColor(sb.rgbLed(SBRgbLed.RgbLedA), sb.color(SBColor.Blue))
     }
 })
 basic.forever(function () {
     if (input.buttonIsPressed(Button.B)) {
         position += 1
-        sb.setNeoPixelColor(sb.neoPixel(SBNeoPixel.NeoPixelB), sb.color(SBColor.Red))
+        sb.setRgbLedColor(sb.rgbLed(SBRgbLed.RgbLedB), sb.color(SBColor.Red))
     } else {
-        sb.setNeoPixelColor(sb.neoPixel(SBNeoPixel.NeoPixelB), sb.color(SBColor.Blue))
+        sb.setRgbLedColor(sb.rgbLed(SBRgbLed.RgbLedB), sb.color(SBColor.Blue))
     }
 })
 basic.forever(function () {
@@ -235,62 +235,62 @@ basic.pause(100)
 sb.turnOffServo(sb.servo(SBServo.ServoA))
 ```
 
-## sb.setNeoPixelColorRGB
-Sets the color of an individual NeoPixel by specifying the amount of red,
+## sb.setRgbLedColorRGB
+Sets the color of an individual RGB LED by specifying the amount of red,
 green and blue in the color. The amounts range from `0%` to `100%`.
 ```sig
-sb.setNeoPixelColorRGB(sb.neoPixel(SBNeoPixel.NeoPixelA), 100, 100, 100)
+sb.setRgbLedColorRGB(sb.rgbLed(SBRgbLed.RgbLedA), 100, 100, 100)
 ```
 
 ### Parameters
-* `neoPixel` - Which NeoPixel (`A` or `B`) to set the color.
+* `rgbLed` - Which RGB LED (`A` or `B`) to set the color.
 * `red` - Amount of red in color, ranging from `0%` to `100%`.
 * `green` - Amount of green in color, ranging from `0%` to `100%`.
 * `blue` - Amount of blue in color, ranging from `0%` to `100%`.
 
 ### Example
-Sets the NeoPixel `A` to red, by specifing the color as percentages of red
+Sets the RGB LED `A` to red, by specifing the color as percentages of red
 (`100%`), green (`0%`) and blue (`0%`).
 ```blocks
-sb.setNeoPixelColorHSB(sb.neoPixel(SBNeoPixel.NeoPixelA), 100, 100, 100)
+sb.setRgbLedColorRGB(sb.rgbLed(SBRgbLed.RgbLedA), 100, 0, 0)
 ```
 
-## sb.setNeoPixelColorHSB
-Sets the color of an individual NeoPixel by specifying the amount of hue,
+## sb.setRgbLedColorHSB
+Sets the color of an individual RGB LED by specifying the amount of hue,
 saturation and brightness in the color. The amounts range from `0%` to `100%`.
 ```sig
-sb.setNeoPixelColorHSB(sb.neoPixel(SBNeoPixel.NeoPixelA), 100, 100, 100)
+sb.setRgbLedColorHSB(sb.rgbLed(SBRgbLed.RgbLedA), 100, 100, 100)
 ```
 
 ### Parameters
-* `neoPixel` - Which NeoPixel (`A` or `B`) to set the color.
+* `rgbLed` - Which RGB LED (`A` or `B`) to set the color.
 * `hue` - Hue of the color, ranging from `0%` to `100%`.
 * `saturation` - Saturation of the color, ranging from `0%` to `100%`.
 * `brightness` - Brightness of the color, ranging from `0%` to `100%`.
 
 ### Example
-Sets the NeoPixel `B` to red, by specifing the color as percentages of hue
+Sets the RGB LED `B` to red, by specifing the color as percentages of hue
 (`0%`), saturation (`100%`) and brightness (`100%`).
 ```blocks
-sb.setNeoPixelColorHSB(sb.neoPixel(SBNeoPixel.NeoPixelB), 0, 100, 100)
+sb.setRgbLedColorHSB(sb.rgbLed(SBRgbLed.RgbLedB), 0, 100, 100)
 ```
 
-## sb.setNeoPixelColor
-Sets the color of an individual NeoPixel by specifying the color by name.
+## sb.setRgbLedColor
+Sets the color of an individual RGB LED by specifying the color by name.
 ```sig
-sb.setNeoPixelColor(sb.neoPixel(SBNeoPixel.NeoPixelA), sb.color(SBColor.Red))
+sb.setRgbLedColor(sb.rgbLed(SBRgbLed.RgbLedA), sb.color(SBColor.Red))
 ```
 
 ### Parameters
-* `neoPixel` - Which NeoPixel (`A` or `B`) to set the color.
+* `rgbLed` - Which RGB LED (`A` or `B`) to set the color.
 * `color` - The name of the color from a list of color labels.
 
 ### Example
-Sets NeoPixels `A` and `B`, to yellow and green respectively, by selecting the
+Sets RGB LEDs `A` and `B`, to yellow and green respectively, by selecting the
 colors by name from a pre-defined list.
 ```blocks
-sb.setNeoPixelColor(sb.neoPixel(SBNeoPixel.NeoPixelA), sb.color(SBColor.Yellow))
-sb.setNeoPixelColor(sb.neoPixel(SBNeoPixel.NeoPixelB), sb.color(SBColor.Green))
+sb.setRgbLedColor(sb.rgbLed(SBRgbLed.RgbLedA), sb.color(SBColor.Yellow))
+sb.setRgbLedColor(sb.rgbLed(SBRgbLed.RgbLedB), sb.color(SBColor.Green))
 ```
 
 -------------------------------------------------------------------------------
