@@ -54,7 +54,7 @@
   "SBWaveType.Triangular|block": "driehoekig",
   "sb.colorLabel|block": "kleur %label",
   "sb.color|block": "%label",
-  "sb.easingLabel|block": "golfvorm %label",
+  "sb.easingLabel|block": "verloop %label",
   "sb.easing|block": "%label",
   "sb.getHexColorFromHSB|block": "tint %hue\\% verzadiging %saturation\\% helderheid %brightness\\%",
   "sb.getHexColorFromRGB|block": "rood %red\\% groen %green\\% blauw %blue\\%",
