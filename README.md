@@ -1,5 +1,5 @@
 # Strawbees Robotic Inventions for micro:bit
-![Strawbees Robotic Inventions for micro:bit](https://github.com/strawbees/pxt-strawbees-microbit/raw/master/cover.png?1)
+![Strawbees Robotic Inventions for micro:bit](https://github.com/strawbees/pxt-strawbees-microbit/raw/master/cover.png?2)
 
 This package allows you to program the micro:bit to use it with our kit
 *[Robotic Inventions for micro:bit](https://strawbees.com/product/robotic-inventions-add-on_for-the-microbit-add-on-kit-single-pack/)*.
@@ -63,7 +63,7 @@ for the first time. The guide will cover:
 - Installing and Getting Started with the Strawbees MakeCode extension.
 - Use the micro:bit Coding cards.
 
-[Download onboarding PDF](https://github.com/strawbees/pxt-strawbees-microbit/raw/develop/docs/Strawbees_Robotic_Inventions_for_microbit-onboarding.pdf)
+[Download onboarding PDF](https://github.com/strawbees/pxt-strawbees-microbit/raw/master/docs/Strawbees_Robotic_Inventions_for_microbit-onboarding.pdf)
 
 -------------------------------------------------------------------------------
 
@@ -108,11 +108,11 @@ combine the cards to get the expected result.
 
 The cards are grouped by the hardware in use:
 
-![Hardware icons](https://github.com/strawbees/pxt-strawbees-microbit/raw/develop/docs/coding-cards/Hardware_Icons-Strawbees_Robotic_Inventions_for_microbit.jpg)
+![Hardware icons](https://github.com/strawbees/pxt-strawbees-microbit/raw/master/docs/coding-cards/Hardware_Icons-Strawbees_Robotic_Inventions_for_microbit.jpg)
 
 
 ## Blink
-![Blink](https://github.com/strawbees/pxt-strawbees-microbit/raw/develop/docs/coding-cards/Coding_card-Blink-Strawbees_Robotic_Inventions_for_microbit.jpg)
+![Blink](https://github.com/strawbees/pxt-strawbees-microbit/raw/master/docs/coding-cards/Coding_card-Blink-Strawbees_Robotic_Inventions_for_microbit.jpg)
 
 ```blocks
 basic.forever(function () {
@@ -124,7 +124,7 @@ basic.forever(function () {
 ```
 
 ## Back and forth
-![Back and forth](https://github.com/strawbees/pxt-strawbees-microbit/raw/develop/docs/coding-cards/Coding_card-Back_and_forth-Strawbees_Robotic_Inventions_for_microbit.jpg)
+![Back and forth](https://github.com/strawbees/pxt-strawbees-microbit/raw/master/docs/coding-cards/Coding_card-Back_and_forth-Strawbees_Robotic_Inventions_for_microbit.jpg)
 
 ```blocks
 basic.forever(function () {
@@ -134,7 +134,7 @@ basic.forever(function () {
 ```
 
 ## Change color 10 times
-![Change color 10 times](https://github.com/strawbees/pxt-strawbees-microbit/raw/develop/docs/coding-cards/Coding_card-Change_color_10_times-Strawbees_Robotic_Inventions_for_microbit.jpg)
+![Change color 10 times](https://github.com/strawbees/pxt-strawbees-microbit/raw/master/docs/coding-cards/Coding_card-Change_color_10_times-Strawbees_Robotic_Inventions_for_microbit.jpg)
 
 ```blocks
 for (let index = 0; index < 10; index++) {
@@ -146,7 +146,7 @@ for (let index = 0; index < 10; index++) {
 sb.setRgbLedColorRGB(sb.rgbLed(SBRgbLed.RgbLedA), 0, 0, 0)
 ```
 ## Wave 10 times
-![Wave 10 times](https://github.com/strawbees/pxt-strawbees-microbit/raw/develop/docs/coding-cards/Coding_card-Wave_10_times-Strawbees_Robotic_Inventions_for_microbit.jpg)
+![Wave 10 times](https://github.com/strawbees/pxt-strawbees-microbit/raw/master/docs/coding-cards/Coding_card-Wave_10_times-Strawbees_Robotic_Inventions_for_microbit.jpg)
 
 ```blocks
 for (let index = 0; index < 10; index++) {
@@ -157,7 +157,7 @@ for (let index = 0; index < 10; index++) {
 }
 ```
 ## Gradually change brightness
-![Gradually change brightness](https://github.com/strawbees/pxt-strawbees-microbit/raw/develop/docs/coding-cards/Coding_card-Gradually_change_brightness-Strawbees_Robotic_Inventions_for_microbit.jpg)
+![Gradually change brightness](https://github.com/strawbees/pxt-strawbees-microbit/raw/master/docs/coding-cards/Coding_card-Gradually_change_brightness-Strawbees_Robotic_Inventions_for_microbit.jpg)
 
 ```blocks
 input.onButtonPressed(Button.A, function () {
@@ -171,7 +171,7 @@ basic.forever(function () {
 ```
 
 ## Gradually change position
-![Gradually change position](https://github.com/strawbees/pxt-strawbees-microbit/raw/develop/docs/coding-cards/Coding_card-Gradually_change_position-Strawbees_Robotic_Inventions_for_microbit.jpg)
+![Gradually change position](https://github.com/strawbees/pxt-strawbees-microbit/raw/master/docs/coding-cards/Coding_card-Gradually_change_position-Strawbees_Robotic_Inventions_for_microbit.jpg)
 
 ```blocks
 input.onButtonPressed(Button.A, function () {
@@ -185,7 +185,7 @@ basic.forever(function () {
 ```
 
 ## Change color while pressing button
-![Change color while pressing button](https://github.com/strawbees/pxt-strawbees-microbit/raw/develop/docs/coding-cards/Coding_card-Change_color_while_pressing_button-Strawbees_Robotic_Inventions_for_microbit.jpg)
+![Change color while pressing button](https://github.com/strawbees/pxt-strawbees-microbit/raw/master/docs/coding-cards/Coding_card-Change_color_while_pressing_button-Strawbees_Robotic_Inventions_for_microbit.jpg)
 
 ```blocks
 basic.forever(function () {
@@ -198,7 +198,7 @@ basic.forever(function () {
 ```
 
 ## Change position while pressing button
-![Change position while pressing button](https://github.com/strawbees/pxt-strawbees-microbit/raw/develop/docs/coding-cards/Coding_card-Change_position_while_pressing_button-Strawbees_Robotic_Inventions_for_microbit.jpg)
+![Change position while pressing button](https://github.com/strawbees/pxt-strawbees-microbit/raw/master/docs/coding-cards/Coding_card-Change_position_while_pressing_button-Strawbees_Robotic_Inventions_for_microbit.jpg)
 
 ```blocks
 basic.forever(function () {
@@ -211,7 +211,7 @@ basic.forever(function () {
 ```
 
 ## Shine in the dark
-![Shine in the dark](https://github.com/strawbees/pxt-strawbees-microbit/raw/develop/docs/coding-cards/Coding_card-Shine_in_the_dark-Strawbees_Robotic_Inventions_for_microbit.jpg)
+![Shine in the dark](https://github.com/strawbees/pxt-strawbees-microbit/raw/master/docs/coding-cards/Coding_card-Shine_in_the_dark-Strawbees_Robotic_Inventions_for_microbit.jpg)
 
 ```blocks
 basic.forever(function () {
@@ -224,7 +224,7 @@ basic.forever(function () {
 ```
 
 ## Move in the dark
-![Move in the dark](https://github.com/strawbees/pxt-strawbees-microbit/raw/develop/docs/coding-cards/Coding_card-Move_in_the_dark-Strawbees_Robotic_Inventions_for_microbit.jpg)
+![Move in the dark](https://github.com/strawbees/pxt-strawbees-microbit/raw/master/docs/coding-cards/Coding_card-Move_in_the_dark-Strawbees_Robotic_Inventions_for_microbit.jpg)
 
 ```blocks
 basic.forever(function () {
@@ -233,7 +233,7 @@ basic.forever(function () {
 ```
 
 ## Color party
-![Color party](https://github.com/strawbees/pxt-strawbees-microbit/raw/develop/docs/coding-cards/Coding_card-Color_party-Strawbees_Robotic_Inventions_for_microbit.jpg)
+![Color party](https://github.com/strawbees/pxt-strawbees-microbit/raw/master/docs/coding-cards/Coding_card-Color_party-Strawbees_Robotic_Inventions_for_microbit.jpg)
 
 ```blocks
 basic.forever(function () {
@@ -243,7 +243,7 @@ basic.forever(function () {
 ```
 
 ## Shake
-![Shake](https://github.com/strawbees/pxt-strawbees-microbit/raw/develop/docs/coding-cards/Coding_card-Shake-Strawbees_Robotic_Inventions_for_microbit.jpg)
+![Shake](https://github.com/strawbees/pxt-strawbees-microbit/raw/master/docs/coding-cards/Coding_card-Shake-Strawbees_Robotic_Inventions_for_microbit.jpg)
 
 ```blocks
 basic.forever(function () {
@@ -252,7 +252,7 @@ basic.forever(function () {
 ```
 
 ## Rainbow
-![Rainbow](https://github.com/strawbees/pxt-strawbees-microbit/raw/develop/docs/coding-cards/Coding_card-Rainbow-Strawbees_Robotic_Inventions_for_microbit.jpg)
+![Rainbow](https://github.com/strawbees/pxt-strawbees-microbit/raw/master/docs/coding-cards/Coding_card-Rainbow-Strawbees_Robotic_Inventions_for_microbit.jpg)
 
 ```blocks
 basic.forever(function () {
@@ -264,7 +264,7 @@ basic.forever(function () {
 ```
 
 ## Sweep motor
-![Sweep motor](https://github.com/strawbees/pxt-strawbees-microbit/raw/develop/docs/coding-cards/Coding_card-Sweep_motor-Strawbees_Robotic_Inventions_for_microbit.jpg)
+![Sweep motor](https://github.com/strawbees/pxt-strawbees-microbit/raw/master/docs/coding-cards/Coding_card-Sweep_motor-Strawbees_Robotic_Inventions_for_microbit.jpg)
 
 ```blocks
 basic.forever(function () {
@@ -276,7 +276,7 @@ basic.forever(function () {
 ```
 
 ## Loop over a list of colors
-![Loop over a list of colors](https://github.com/strawbees/pxt-strawbees-microbit/raw/develop/docs/coding-cards/Coding_card-Loop_over_a_list_of_colors-Strawbees_Robotic_Inventions_for_microbit.jpg)
+![Loop over a list of colors](https://github.com/strawbees/pxt-strawbees-microbit/raw/master/docs/coding-cards/Coding_card-Loop_over_a_list_of_colors-Strawbees_Robotic_Inventions_for_microbit.jpg)
 
 ```blocks
 let list = [sb.colorLabel(SBColor.Red), sb.colorLabel(SBColor.Green), sb.colorLabel(SBColor.Blue)]
@@ -289,7 +289,7 @@ basic.forever(function () {
 ```
 
 ## Loop over a list of positions
-![Loop over a list of positions](https://github.com/strawbees/pxt-strawbees-microbit/raw/develop/docs/coding-cards/Coding_card-Loop_over_a_list_of_positions-Strawbees_Robotic_Inventions_for_microbit.jpg)
+![Loop over a list of positions](https://github.com/strawbees/pxt-strawbees-microbit/raw/master/docs/coding-cards/Coding_card-Loop_over_a_list_of_positions-Strawbees_Robotic_Inventions_for_microbit.jpg)
 
 ```blocks
 let list = [0, 50, 100]
@@ -302,7 +302,7 @@ basic.forever(function () {
 ```
 
 ## Light switch
-![Light switch](https://github.com/strawbees/pxt-strawbees-microbit/raw/develop/docs/coding-cards/Coding_card-Light_switch-Strawbees_Robotic_Inventions_for_microbit.jpg)
+![Light switch](https://github.com/strawbees/pxt-strawbees-microbit/raw/master/docs/coding-cards/Coding_card-Light_switch-Strawbees_Robotic_Inventions_for_microbit.jpg)
 
 ```blocks
 let toggle = 0
@@ -318,7 +318,7 @@ input.onButtonPressed(Button.A, function () {
 ```
 
 ## Press button to toggle position
-![Press button to toggle position](https://github.com/strawbees/pxt-strawbees-microbit/raw/develop/docs/coding-cards/Coding_card-Press_button_to_toggle_position-Strawbees_Robotic_Inventions_for_microbit.jpg)
+![Press button to toggle position](https://github.com/strawbees/pxt-strawbees-microbit/raw/master/docs/coding-cards/Coding_card-Press_button_to_toggle_position-Strawbees_Robotic_Inventions_for_microbit.jpg)
 
 ```blocks
 let toggle = 0
@@ -334,7 +334,7 @@ input.onButtonPressed(Button.A, function () {
 ```
 
 ## Tilt to change color
-![Tilt to change color](https://github.com/strawbees/pxt-strawbees-microbit/raw/develop/docs/coding-cards/Coding_card-Tilt_to_change_color-Strawbees_Robotic_Inventions_for_microbit.jpg)
+![Tilt to change color](https://github.com/strawbees/pxt-strawbees-microbit/raw/master/docs/coding-cards/Coding_card-Tilt_to_change_color-Strawbees_Robotic_Inventions_for_microbit.jpg)
 
 ```blocks
 let movement = 0
@@ -347,7 +347,7 @@ basic.forever(function () {
 ```
 
 ## Tilt to move
-![Tilt to move](https://github.com/strawbees/pxt-strawbees-microbit/raw/develop/docs/coding-cards/Coding_card-Tilt_to_move-Strawbees_Robotic_Inventions_for_microbit.jpg)
+![Tilt to move](https://github.com/strawbees/pxt-strawbees-microbit/raw/master/docs/coding-cards/Coding_card-Tilt_to_move-Strawbees_Robotic_Inventions_for_microbit.jpg)
 
 ```blocks
 let movement = 0
@@ -360,7 +360,7 @@ basic.forever(function () {
 ```
 
 ## Light alarm
-![Light alarm](https://github.com/strawbees/pxt-strawbees-microbit/raw/develop/docs/coding-cards/Coding_card-Light_alarm-Strawbees_Robotic_Inventions_for_microbit.jpg)
+![Light alarm](https://github.com/strawbees/pxt-strawbees-microbit/raw/master/docs/coding-cards/Coding_card-Light_alarm-Strawbees_Robotic_Inventions_for_microbit.jpg)
 
 ```blocks
 basic.forever(function () {
@@ -373,7 +373,7 @@ basic.forever(function () {
 ```
 
 ## Move when moved
-![Move when moved](https://github.com/strawbees/pxt-strawbees-microbit/raw/develop/docs/coding-cards/Coding_card-Move_when_moved-Strawbees_Robotic_Inventions_for_microbit.jpg)
+![Move when moved](https://github.com/strawbees/pxt-strawbees-microbit/raw/master/docs/coding-cards/Coding_card-Move_when_moved-Strawbees_Robotic_Inventions_for_microbit.jpg)
 
 ```blocks
 basic.forever(function () {
@@ -385,7 +385,7 @@ basic.forever(function () {
 ```
 
 ## Send/Receive color: Sender
-![Send/Receive color: Sender](https://github.com/strawbees/pxt-strawbees-microbit/raw/develop/docs/coding-cards/Coding_card-Send-receive_color-sender-Strawbees_Robotic_Inventions_for_microbit.jpg)
+![Send/Receive color: Sender](https://github.com/strawbees/pxt-strawbees-microbit/raw/master/docs/coding-cards/Coding_card-Send-receive_color-sender-Strawbees_Robotic_Inventions_for_microbit.jpg)
 
 ```blocks
 radio.setGroup(1)
@@ -399,7 +399,7 @@ basic.forever(function () {
 ```
 
 ## Send/Receive color: Receiver
-![Send/Receive color: Receiver](https://github.com/strawbees/pxt-strawbees-microbit/raw/develop/docs/coding-cards/Coding_card-Send-receive_color-receiver-Strawbees_Robotic_Inventions_for_microbit.jpg)
+![Send/Receive color: Receiver](https://github.com/strawbees/pxt-strawbees-microbit/raw/master/docs/coding-cards/Coding_card-Send-receive_color-receiver-Strawbees_Robotic_Inventions_for_microbit.jpg)
 
 ```blocks
 radio.onReceivedValue(function (name, value) {
@@ -411,7 +411,7 @@ radio.setGroup(1)
 ```
 
 ## Remote control motor: Sender
-![Remote control motor: Sender](https://github.com/strawbees/pxt-strawbees-microbit/raw/develop/docs/coding-cards/Coding_card-Remote_control_motor-sender-Strawbees_Robotic_Inventions_for_microbit.jpg)
+![Remote control motor: Sender](https://github.com/strawbees/pxt-strawbees-microbit/raw/master/docs/coding-cards/Coding_card-Remote_control_motor-sender-Strawbees_Robotic_Inventions_for_microbit.jpg)
 
 ```blocks
 let movement = 0
@@ -423,7 +423,7 @@ basic.forever(function () {
 ```
 
 ## Remote control motor: Receiver
-![Remote control motor: Receiver](https://github.com/strawbees/pxt-strawbees-microbit/raw/develop/docs/coding-cards/Coding_card-Remote_control_motor-receiver-Strawbees_Robotic_Inventions_for_microbit.jpg)
+![Remote control motor: Receiver](https://github.com/strawbees/pxt-strawbees-microbit/raw/master/docs/coding-cards/Coding_card-Remote_control_motor-receiver-Strawbees_Robotic_Inventions_for_microbit.jpg)
 
 ```blocks
 radio.onReceivedValue(function (name, value) {
