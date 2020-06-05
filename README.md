@@ -11,8 +11,63 @@ If you want to learn how to use this kit in the classroom, please visit our
 [learning platform](https://learning.strawbees.com/product/microbit/).
 
 -------------------------------------------------------------------------------
+### Table of contents
+- [Getting started](#getting-started)
+- [First program](#first-program)
+- [Coding Cards](#coding-cards)
+    - [Blink](#blink)
+    - [Back and forth](#back-and-forth)
+    - [Change color 10 times](#change-color-10-times)
+    - [Wave 10 times](#wave-10-times)
+    - [Gradually change brightness](#gradually-change-brightness)
+    - [Gradually change position](#gradually-change-position)
+    - [Change color while pressing button](#change-color-while-pressing-button)
+    - [Change position while pressing button](#change-position-while-pressing-button)
+    - [Move in the dark](#move-in-the-dark)
+    - [Color party](#color-party)
+    - [Shake](#shake)
+    - [Rainbow](#rainbow)
+    - [Sweep motor](#sweep-motor)
+    - [Loop over a list of colors](#loop-over-a-list-of-colors)
+    - [Loop over a list of positions](#loop-over-a-list-of-positions)
+    - [Light switch](#light-switch)
+    - [Press button to toggle position](#press-button-to-toggle-position)
+    - [Tilt to change color](#tilt-to-change-color)
+    - [Tilt to move](#tilt-to-move)
+    - [Light alarm](#light-alarm)
+    - [Move when moved](#move-when-moved)
+    - [Send/Receive color: Sender](#sendreceive-color-sender)
+    - [Send/Receive color: Receiver](#sendreceive-color-receiver)
+    - [Remote control motor: Sender](#remote-control-motor-sender)
+    - [Remote control motor: Receiver](#remote-control-motor-receiver)
+- [Documentation](#documentation)
+    - [sb.setServoPosition](#sbsetservoposition)
+    - [sb.transitionServoPosition](#sbtransitionservoposition)
+    - [sb.setContinuousServoSpeed](#sbsetcontinuousservospeed)
+    - [sb.turnOffServo](#sbturnoffservo)
+    - [sb.setRgbLedColorRGB](#sbsetrgbledcolorrgb)
+    - [sb.setRgbLedColorHSB](#sbsetrgbledcolorhsb)
+    - [sb.setRgbLedColor](#sbsetrgbledcolor)
 
-# Hello, World!
+
+-------------------------------------------------------------------------------
+
+# Getting started
+We have prepared an onboarding guide that will help you get started with the
+*Robotic Inventions for micro:bit*. Make sure to check it before using the kit
+for the first time. The guide will cover:
+- Assemble the Strawbees Robotics Board for the micro:bit.
+- Use a battery to power the micro:bit.
+- Use motors with the Robotics Board and the micro:bit.
+- Connect the micro:bit to Strawbees structures.
+- Installing and Getting Started with the Strawbees MakeCode extension.
+- Use the micro:bit Coding cards.
+
+[Download onboarding PDF](https://github.com/strawbees/pxt-strawbees-microbit/raw/develop/docs/Strawbees_Robotic_Inventions_for_microbit-onboarding.pdf)
+
+-------------------------------------------------------------------------------
+
+# First program
 If this is your first time using the kit (or if you are preparing it to use it
 in the classroom for the first time), we recommend that you start by
 programming the micro:bit with the example below. It allows you to control the
@@ -45,106 +100,338 @@ basic.forever(function () {
 
 -------------------------------------------------------------------------------
 # Coding Cards
-The easiest way to learn how to program with the kit is to try it! For that we
-have prepared a few examples that you can use to learn the basics and build
-upon. Just pick any card and try it out!
+Coding cards are small snippets of code that can be used to explore different
+concepts.
 
-## Coding card 1
-Press a button to move the servo to a random position.
+They are not meant to be used as they are but for you to tweak the numbers and
+combine the cards to get the expected result.
+
+The cards are grouped by the hardware in use:
+
+![Hardware icons](https://github.com/strawbees/pxt-strawbees-microbit/raw/develop/docs/coding-cards/Hardware_Icons-Strawbees_Robotic_Inventions_for_microbit.jpg)
+
+
+## Blink
+![Blink](https://github.com/strawbees/pxt-strawbees-microbit/raw/develop/docs/coding-cards/Coding_card-Blink-Strawbees_Robotic_Inventions_for_microbit.jpg)
+
 ```blocks
-input.onButtonPressed(Button.A, function () {
-    sb.setServoPosition(sb.servo(SBServo.ServoA), Math.randomRange(0, 100))
+basic.forever(function () {
+    sb.setRgbLedColor(sb.rgbLed(SBRgbLed.RgbLedA), sb.color(SBColor.White))
+    basic.pause(1000)
+    sb.setRgbLedColor(sb.rgbLed(SBRgbLed.RgbLedA), sb.color(SBColor.Black))
+    basic.pause(1000)
 })
 ```
 
-## Coding card 2
-Move the servo between two positions with buttons.
+## Back and forth
+![Back and forth](https://github.com/strawbees/pxt-strawbees-microbit/raw/develop/docs/coding-cards/Coding_card-Back_and_forth-Strawbees_Robotic_Inventions_for_microbit.jpg)
+
 ```blocks
-input.onButtonPressed(Button.A, function () {
-    sb.setServoPosition(sb.servo(SBServo.ServoA), 25)
-})
-input.onButtonPressed(Button.B, function () {
-    sb.setServoPosition(sb.servo(SBServo.ServoA), 75)
+basic.forever(function () {
+    sb.transitionServoPosition(sb.servo(SBServo.ServoA), 0, 1, sb.easing(SBEasing.Linear))
+    sb.transitionServoPosition(sb.servo(SBServo.ServoA), 100, 1, sb.easing(SBEasing.Linear))
 })
 ```
 
-## Coding card 3
-Move the servo gradually by pressing a button.
+## Change color 10 times
+![Change color 10 times](https://github.com/strawbees/pxt-strawbees-microbit/raw/develop/docs/coding-cards/Coding_card-Change_color_10_times-Strawbees_Robotic_Inventions_for_microbit.jpg)
+
 ```blocks
+for (let index = 0; index < 10; index++) {
+    sb.setRgbLedColorRGB(sb.rgbLed(SBRgbLed.RgbLedA), 100, 0, 0)
+    basic.pause(500)
+    sb.setRgbLedColorRGB(sb.rgbLed(SBRgbLed.RgbLedA), 0, 0, 100)
+    basic.pause(500)
+}
+sb.setRgbLedColorRGB(sb.rgbLed(SBRgbLed.RgbLedA), 0, 0, 0)
+```
+## Wave 10 times
+![Wave 10 times](https://github.com/strawbees/pxt-strawbees-microbit/raw/develop/docs/coding-cards/Coding_card-Wave_10_times-Strawbees_Robotic_Inventions_for_microbit.jpg)
+
+```blocks
+for (let index = 0; index < 10; index++) {
+    sb.setServoPosition(sb.servo(SBServo.ServoA), 20)
+    basic.pause(1000)
+    sb.setServoPosition(sb.servo(SBServo.ServoA), 80)
+    basic.pause(1000)
+}
+```
+## Gradually change brightness
+![Gradually change brightness](https://github.com/strawbees/pxt-strawbees-microbit/raw/develop/docs/coding-cards/Coding_card-Gradually_change_brightness-Strawbees_Robotic_Inventions_for_microbit.jpg)
+
+```blocks
+input.onButtonPressed(Button.A, function () {
+    brightness = Math.constrain(brightness + 4, 0, 100)
+})
+let brightness = 0
+brightness = 0
+basic.forever(function () {
+    sb.setRgbLedColorHSB(sb.rgbLed(SBRgbLed.RgbLedA), 0, 100, brightness)
+})
+```
+
+## Gradually change position
+![Gradually change position](https://github.com/strawbees/pxt-strawbees-microbit/raw/develop/docs/coding-cards/Coding_card-Gradually_change_position-Strawbees_Robotic_Inventions_for_microbit.jpg)
+
+```blocks
+input.onButtonPressed(Button.A, function () {
+    position = Math.constrain(position + 4, 0, 100)
+})
 let position = 0
-input.onButtonPressed(Button.A, function () {
-    position += 5
-})
+position = 0
 basic.forever(function () {
     sb.setServoPosition(sb.servo(SBServo.ServoA), position)
 })
 ```
 
-## Coding card 4
-Repeat a sequence of servo movements when a button is pressed.
+## Change color while pressing button
+![Change color while pressing button](https://github.com/strawbees/pxt-strawbees-microbit/raw/develop/docs/coding-cards/Coding_card-Change_color_while_pressing_button-Strawbees_Robotic_Inventions_for_microbit.jpg)
+
 ```blocks
-input.onButtonPressed(Button.A, function () {
-    for (let index = 0; index < 4; index++) {
-        sb.setServoPosition(sb.servo(SBServo.ServoA), 25)
-        basic.pause(200)
-        sb.setServoPosition(sb.servo(SBServo.ServoA), 75)
-        basic.pause(500)
+basic.forever(function () {
+    if (input.buttonIsPressed(Button.A)) {
+        sb.setRgbLedColorRGB(sb.rgbLed(SBRgbLed.RgbLedA), 100, 0, 0)
+    } else {
+        sb.setRgbLedColorRGB(sb.rgbLed(SBRgbLed.RgbLedA), 0, 0, 100)
     }
 })
 ```
 
-## Coding card 5
-Periodic servo movement.
+## Change position while pressing button
+![Change position while pressing button](https://github.com/strawbees/pxt-strawbees-microbit/raw/develop/docs/coding-cards/Coding_card-Change_position_while_pressing_button-Strawbees_Robotic_Inventions_for_microbit.jpg)
+
 ```blocks
 basic.forever(function () {
-    sb.setServoPosition(sb.servo(SBServo.ServoA), 40)
-    basic.pause(200)
-    sb.setServoPosition(sb.servo(SBServo.ServoA), 60)
-    basic.pause(200)
-})
-```
-
-## Coding card 6
-Servo movement transition.
-```blocks
-basic.forever(function () {
-    sb.transitionServoPosition(sb.servo(SBServo.ServoA), 50, 1, sb.easing(SBEasing.QuadOut))
-    sb.transitionServoPosition(sb.servo(SBServo.ServoA), 0, 1, sb.easing(SBEasing.QuadIn))
-})
-```
-
-## Coding card 7
-Shake to trigger a movement.
-```blocks
-input.onGesture(Gesture.Shake, function () {
-    for (let index = 0; index < 10; index++) {
-        sb.setServoPosition(sb.servo(SBServo.ServoA), 40)
-        basic.pause(100)
-        sb.setServoPosition(sb.servo(SBServo.ServoA), 60)
-        basic.pause(100)
-    }
-})
-```
-
-## Coding card 8
-Tilt back and forth to move the servo.
-```blocks
-basic.forever(function () {
-    sb.setServoPosition(sb.servo(SBServo.ServoA), Math.map(input.acceleration(Dimension.Y), 0, 1023, 0, 100))
-})
-```
-
-## Coding card 9
-Use a radio message to move the servo.
-```blocks
-input.onButtonPressed(Button.A, function () {
-    radio.sendString("move left")
-})
-radio.onReceivedString(function (receivedString) {
-    if (receivedString == "move left") {
+    if (input.buttonIsPressed(Button.A)) {
         sb.setServoPosition(sb.servo(SBServo.ServoA), 0)
+    } else {
+        sb.setServoPosition(sb.servo(SBServo.ServoA), 100)
     }
 })
+```
+
+## Shine in the dark
+![Shine in the dark](https://github.com/strawbees/pxt-strawbees-microbit/raw/develop/docs/coding-cards/Coding_card-Shine_in_the_dark-Strawbees_Robotic_Inventions_for_microbit.jpg)
+
+```blocks
+basic.forever(function () {
+    if (input.lightLevel() < 50) {
+        sb.setRgbLedColorRGB(sb.rgbLed(SBRgbLed.RgbLedA), 100, 0, 0)
+    } else {
+
+    }
+})
+```
+
+## Move in the dark
+![Move in the dark](https://github.com/strawbees/pxt-strawbees-microbit/raw/develop/docs/coding-cards/Coding_card-Move_in_the_dark-Strawbees_Robotic_Inventions_for_microbit.jpg)
+
+```blocks
+basic.forever(function () {
+    sb.setServoPosition(sb.servo(SBServo.ServoA), Math.constrain(input.lightLevel(), 0, 100))
+})
+```
+
+## Color party
+![Color party](https://github.com/strawbees/pxt-strawbees-microbit/raw/develop/docs/coding-cards/Coding_card-Color_party-Strawbees_Robotic_Inventions_for_microbit.jpg)
+
+```blocks
+basic.forever(function () {
+    sb.setNeoPixelColorHSB(sb.neoPixel(SBNeoPixel.NeoPixelA), Math.randomRange(0, 100), 100, 100)
+    basic.pause(200)
+})
+```
+
+## Shake
+![Shake](https://github.com/strawbees/pxt-strawbees-microbit/raw/develop/docs/coding-cards/Coding_card-Shake-Strawbees_Robotic_Inventions_for_microbit.jpg)
+
+```blocks
+basic.forever(function () {
+    sb.setServoPosition(sb.servo(SBServo.ServoA), Math.randomRange(0, 100))
+})
+```
+
+## Rainbow
+![Rainbow](https://github.com/strawbees/pxt-strawbees-microbit/raw/develop/docs/coding-cards/Coding_card-Rainbow-Strawbees_Robotic_Inventions_for_microbit.jpg)
+
+```blocks
+basic.forever(function () {
+    for (let index = 0; index <= 100; index++) {
+        sb.setRgbLedColorHSB(sb.rgbLed(SBRgbLed.RgbLedA), index, 100, 100)
+        basic.pause(100)
+    }
+})
+```
+
+## Sweep motor
+![Sweep motor](https://github.com/strawbees/pxt-strawbees-microbit/raw/develop/docs/coding-cards/Coding_card-Sweep_motor-Strawbees_Robotic_Inventions_for_microbit.jpg)
+
+```blocks
+basic.forever(function () {
+    for (let index = 0; index <= 100; index++) {
+        sb.setServoPosition(sb.servo(SBServo.ServoA), index)
+        basic.pause(100)
+    }
+})
+```
+
+## Loop over a list of colors
+![Loop over a list of colors](https://github.com/strawbees/pxt-strawbees-microbit/raw/develop/docs/coding-cards/Coding_card-Loop_over_a_list_of_colors-Strawbees_Robotic_Inventions_for_microbit.jpg)
+
+```blocks
+let list = [sb.colorLabel(SBColor.Red), sb.colorLabel(SBColor.Green), sb.colorLabel(SBColor.Blue)]
+basic.forever(function () {
+    for (let value of list) {
+        sb.setRgbLedColor(sb.rgbLed(SBRgbLed.RgbLedA), value)
+        basic.pause(1000)
+    }
+})
+```
+
+## Loop over a list of positions
+![Loop over a list of positions](https://github.com/strawbees/pxt-strawbees-microbit/raw/develop/docs/coding-cards/Coding_card-Loop_over_a_list_of_positions-Strawbees_Robotic_Inventions_for_microbit.jpg)
+
+```blocks
+let list = [0, 50, 100]
+basic.forever(function () {
+    for (let value of list) {
+        sb.setServoPosition(sb.servo(SBServo.ServoA), value)
+        basic.pause(1000)
+    }
+})
+```
+
+## Light switch
+![Light switch](https://github.com/strawbees/pxt-strawbees-microbit/raw/develop/docs/coding-cards/Coding_card-Light_switch-Strawbees_Robotic_Inventions_for_microbit.jpg)
+
+```blocks
+let toggle = 0
+input.onButtonPressed(Button.A, function () {
+    if (toggle == 0) {
+        sb.setRgbLedColorRGB(sb.rgbLed(SBRgbLed.RgbLedA), 100, 0, 0)
+        toggle = 1
+    } else {
+        sb.setRgbLedColorRGB(sb.rgbLed(SBRgbLed.RgbLedA), 0, 0, 0)
+        toggle = 0
+    }
+})
+```
+
+## Press button to toggle position
+![Press button to toggle position](https://github.com/strawbees/pxt-strawbees-microbit/raw/develop/docs/coding-cards/Coding_card-Press_button_to_toggle_position-Strawbees_Robotic_Inventions_for_microbit.jpg)
+
+```blocks
+let toggle = 0
+input.onButtonPressed(Button.A, function () {
+    if (toggle == 0) {
+        sb.setServoPosition(sb.servo(SBServo.ServoA), 20)
+        toggle = 1
+    } else {
+        sb.setServoPosition(sb.servo(SBServo.ServoA), 80)
+        toggle = 0
+    }
+})
+```
+
+## Tilt to change color
+![Tilt to change color](https://github.com/strawbees/pxt-strawbees-microbit/raw/develop/docs/coding-cards/Coding_card-Tilt_to_change_color-Strawbees_Robotic_Inventions_for_microbit.jpg)
+
+```blocks
+let movement = 0
+let hue = 0
+basic.forever(function () {
+    movement = input.acceleration(Dimension.X)
+    hue = Math.map(movement, -1023, 1023, 0, 100)
+    sb.setRgbLedColorHSB(sb.rgbLed(SBRgbLed.RgbLedA), hue, 100, 100)
+})
+```
+
+## Tilt to move
+![Tilt to move](https://github.com/strawbees/pxt-strawbees-microbit/raw/develop/docs/coding-cards/Coding_card-Tilt_to_move-Strawbees_Robotic_Inventions_for_microbit.jpg)
+
+```blocks
+let movement = 0
+let position = 0
+basic.forever(function () {
+    movement = input.acceleration(Dimension.X)
+    position = Math.map(movement, -1023, 1023, 0, 100)
+    sb.setServoPosition(sb.servo(SBServo.ServoA), position)
+})
+```
+
+## Light alarm
+![Light alarm](https://github.com/strawbees/pxt-strawbees-microbit/raw/develop/docs/coding-cards/Coding_card-Light_alarm-Strawbees_Robotic_Inventions_for_microbit.jpg)
+
+```blocks
+basic.forever(function () {
+    sb.setRgbLedColorRGB(sb.rgbLed(SBRgbLed.RgbLedA), 0, 0, 0)
+    if (input.acceleration(Dimension.Strength) > 1100) {
+        sb.setRgbLedColorRGB(sb.rgbLed(SBRgbLed.RgbLedA), 100, 0, 0)
+        basic.pause(4000)
+    }
+})
+```
+
+## Move when moved
+![Move when moved](https://github.com/strawbees/pxt-strawbees-microbit/raw/develop/docs/coding-cards/Coding_card-Move_when_moved-Strawbees_Robotic_Inventions_for_microbit.jpg)
+
+```blocks
+basic.forever(function () {
+    if (input.acceleration(Dimension.Strength) > 1200) {
+        sb.transitionServoPosition(sb.servo(SBServo.ServoA), 100, 1, sb.easing(SBEasing.Linear))
+        sb.transitionServoPosition(sb.servo(SBServo.ServoA), 0, 1, sb.easing(SBEasing.Linear))
+    }
+})
+```
+
+## Send/Receive color: Sender
+![Send/Receive color: Sender](https://github.com/strawbees/pxt-strawbees-microbit/raw/develop/docs/coding-cards/Coding_card-Send-receive_color-sender-Strawbees_Robotic_Inventions_for_microbit.jpg)
+
+```blocks
+radio.setGroup(1)
+basic.forever(function () {
+    if (input.buttonIsPressed(Button.A)) {
+        radio.sendValue("light", 100)
+    } else {
+        radio.sendValue("light", 0)
+    }
+})
+```
+
+## Send/Receive color: Receiver
+![Send/Receive color: Receiver](https://github.com/strawbees/pxt-strawbees-microbit/raw/develop/docs/coding-cards/Coding_card-Send-receive_color-receiver-Strawbees_Robotic_Inventions_for_microbit.jpg)
+
+```blocks
+radio.onReceivedValue(function (name, value) {
+    if (name == "light") {
+        sb.setRgbLedColorRGB(sb.rgbLed(SBRgbLed.RgbLedA), 0, value, 0)
+    }
+})
+radio.setGroup(1)
+```
+
+## Remote control motor: Sender
+![Remote control motor: Sender](https://github.com/strawbees/pxt-strawbees-microbit/raw/develop/docs/coding-cards/Coding_card-Remote_control_motor-sender-Strawbees_Robotic_Inventions_for_microbit.jpg)
+
+```blocks
+let movement = 0
+radio.setGroup(1)
+basic.forever(function () {
+    movement = Math.map(input.acceleration(Dimension.X), -1023, 1023, 0, 100)
+    radio.sendValue("movement", movement)
+})
+```
+
+## Remote control motor: Receiver
+![Remote control motor: Receiver](https://github.com/strawbees/pxt-strawbees-microbit/raw/develop/docs/coding-cards/Coding_card-Remote_control_motor-receiver-Strawbees_Robotic_Inventions_for_microbit.jpg)
+
+```blocks
+radio.onReceivedValue(function (name, value) {
+    if (name == "movement") {
+        sb.setServoPosition(sb.servo(SBServo.ServoA), value)
+    }
+})
+radio.setGroup(1)
 ```
 
 -------------------------------------------------------------------------------
