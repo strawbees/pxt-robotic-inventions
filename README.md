@@ -237,7 +237,7 @@ basic.forever(function () {
 
 ```blocks
 basic.forever(function () {
-    sb.setNeoPixelColorHSB(sb.neoPixel(SBNeoPixel.NeoPixelA), Math.randomRange(0, 100), 100, 100)
+    sb.setRgbLedColorHSB(sb.rgbLed(SBRgbLed.RgbLedA), Math.randomRange(0, 100), 100, 100)
     basic.pause(200)
 })
 ```
