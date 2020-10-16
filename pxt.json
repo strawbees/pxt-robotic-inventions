@@ -11,7 +11,9 @@
         "README.md",
         "main.ts",
         "_locales/nl/Strawbees Robotic Inventions-strings.json",
-        "_locales/nl/Strawbees Robotic Inventions-jsdoc-strings.json"
+        "_locales/nl/Strawbees Robotic Inventions-jsdoc-strings.json",
+        "_locales/zh-CN/Strawbees Robotic Inventions-strings.json",
+        "_locales/zh-CN/Strawbees Robotic Inventions-jsdoc-strings.json"
     ],
     "testFiles": [
         "test.ts"
