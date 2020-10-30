@@ -4,11 +4,7 @@
   "SBRgbLed": "RGB LED labels",
   "SBServo": "Servo labels",
   "SBWaveType": "Wave type labels",
-<<<<<<< HEAD:_locales/Strawbees Robotic Inventions-jsdoc-strings.json
-  "sb": "Controls the Strawbees Robotic Inventions for the micro:bit board",
-=======
   "sb": "Strawbees Robotic Inventions",
->>>>>>> release/v0.1.0:_locales/Strawbees Robotic Inventions-jsdoc-strings.json
   "sb.colorLabel": "A label of a color.",
   "sb.colorLabel|param|label": "Color label.",
   "sb.easingLabel": "A label of an easing function.",
