@@ -63,7 +63,7 @@
   "sb.servoLabel|block": "servo %label",
   "sb.servo|block": "%label",
   "sb.setContinuousServoSpeed|block": "sätt kontinuerligt servo %servo hastighet till %speed\\%",
-  "sb.setRgbLedColorHSB|block": "sätt RGB LED %rgbLed till nyans %hue\\% mättnad %saturation\\% brightness %brightness\\%",
+  "sb.setRgbLedColorHSB|block": "sätt RGB LED %rgbLed till nyans %hue\\% mättnad %saturation\\% ljusstyrka %brightness\\%",
   "sb.setRgbLedColorRGB|block": "sätt RGB LED %rgbLed till röd %red\\% grön %green\\% blå %blue\\%",
   "sb.setRgbLedColor|block": "sätt RGB LED %rgbLed till %color",
   "sb.setServoPosition|block": "sätt servo %servo position till %position\\%",
