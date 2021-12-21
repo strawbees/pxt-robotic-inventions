@@ -1,6 +1,6 @@
 {
     "name": "Strawbees Robotic Inventions",
-    "version": "0.1.8",
+    "version": "0.1.9",
     "description": "Strawbees Robotic Inventions for the micro:bit",
     "dependencies": {
         "core": "*",
@@ -10,6 +10,7 @@
     "files": [
         "README.md",
         "main.ts",
+        "main.blocks",
         "_locales/nl/Strawbees Robotic Inventions-strings.json",
         "_locales/nl/Strawbees Robotic Inventions-jsdoc-strings.json",
         "_locales/zh-CN/Strawbees Robotic Inventions-strings.json",
