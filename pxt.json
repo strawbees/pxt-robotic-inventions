@@ -10,6 +10,8 @@
     "files": [
         "README.md",
         "main.ts",
+        "_locales/nb/Strawbees Robotic Inventions-strings.json",
+        "_locales/nb/Strawbees Robotic Inventions-jsdoc-strings.json",
         "_locales/nl/Strawbees Robotic Inventions-strings.json",
         "_locales/nl/Strawbees Robotic Inventions-jsdoc-strings.json",
         "_locales/zh-CN/Strawbees Robotic Inventions-strings.json",
