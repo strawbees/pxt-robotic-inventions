@@ -41,7 +41,7 @@
   "sb.setServoPosition": "Setter posisjonen til servoen ved å sette en verdi fra  `0%` til\n`100%`.",
   "sb.setServoPosition|param|position": "Posisjonen fra `0%` til `100%`.",
   "sb.setServoPosition|param|servo": "Hvilken servo som skal ha endret posisjon",
-  "sb.transitionServoPosition": "Endre posisjonen til en servo over en gitt tid (I sekunder).\n"Formen\" på overgangen er definer ved å velge \n overgangsfunksjon.",
+  "sb.transitionServoPosition": "Endre posisjonen til en servo over en gitt tid (I sekunder).\n\"Formen\" på overgangen er definer ved å velge \n overgangsfunksjon.",
   "sb.transitionServoPosition|param|duration": "Varigheten på overgangen oppgitt i sekunder.",
   "sb.transitionServoPosition|param|easing": "\"Formen\" på overgangen.",
   "sb.transitionServoPosition|param|position": "Posisjon fra `0%` til `100%`.",
