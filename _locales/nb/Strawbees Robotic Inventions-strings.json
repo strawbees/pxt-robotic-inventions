@@ -65,7 +65,7 @@
   "sb.setContinuousServoSpeed|block": "sett kontinuerlig servo %servo far til %speed\\%",
   "sb.setRgbLedColorHSB|block": "sett RGB LED %rgbLed til fargetone %hue\\% metning %saturation\\% lysstyrke %brightness\\%",
   "sb.setRgbLedColorRGB|block": "sett RGB LED %rgbLed til rød %red\\% grønn %green\\% blå %blue\\%",
-  "sb.setRgbLedColor|block": "set RGB LED %rgbLed til %color",
+  "sb.setRgbLedColor|block": "sett RGB LED %rgbLed til %color",
   "sb.setServoPosition|block": "sett servo %servo posisjon til %position\\%",
   "sb.transitionServoPosition|block": "sett servo %servo position to %position\\% over %duration sekunder %easing",
   "sb.turnOffServo|block": "skru av servo %servo",
