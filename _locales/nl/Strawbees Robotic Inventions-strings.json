@@ -73,5 +73,7 @@
   "sb.waveType|block": "%label",
   "sb.wave|block": "golfvorm %waveType duur %length seconde amplitude %amplitude offset %offset",
   "sb|block": "Strawbees",
-  "{id:category}Sb": "Sb"
+  "{id:category}Sb": "Sb",
+  "{id:group}Light": "Light",
+  "{id:group}Movement": "Movement"
 }

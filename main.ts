@@ -137,7 +137,7 @@ enum SBEasing {
 /**
  * Strawbees Robotic Inventions
  */
- //% block="Strawbees"
+//% block="Strawbees"
 //% weight=100 color="#f443b0" icon="\u24C8" blockGap=8
 namespace sb {
     ////////////////////////////////////////////////////////////////////////////
@@ -234,6 +234,7 @@ namespace sb {
      * @param servo Which servo to set the position to.
      * @param position The position ranging from `0%` to `100%`.
      */
+    //% group="Movement"
     //% blockId=sb_setServoPosition
     //% block="set servo %servo position to %position\\%"
     //% servo.shadow=sb_servo
@@ -255,6 +256,7 @@ namespace sb {
      * @param duration The duration of the transition, in seconds.
      * @param easing The "shape" of the transition.
      */
+    //% group="Movement"
     //% blockId=sb_transitionServoPosition
     //% block="transition servo %servo position to %position\\% over %duration seconds %easing"
     //% servo.shadow=sb_servo
@@ -327,6 +329,7 @@ namespace sb {
      * @param servo Which continuous servo to set the speed to.
      * @param speed The speed ranging from `-100%` to `100%`.
      */
+    //% group="Movement"
     //% blockId=sb_setContinuousServoSpeed block="set continuous servo %servo speed to %speed\\%"
     //% servo.shadow=sb_servo
     //% speed.shadow=speedPicker
@@ -342,12 +345,12 @@ namespace sb {
      * manually. This saves battery.
      * @param servo Which servo to turn off.
      */
+    //% group="Movement"
     //% blockId=sb_turnOffServo
     //% block="turn off servo %servo"
     //% servo.shadow=sb_servo
     //% inlineInputMode=inline
     //% parts=microservo trackArgs=0
-    //% blockGap=32
     export function turnOffServo(servo: number) {
         servoInstance(servo).stop();
     }
@@ -378,6 +381,7 @@ namespace sb {
      * @param green Amount of green in color ranging, from `0%` to `100%`.
      * @param blue Amount of blue in color ranging, from `0%` to `100%`.
      */
+    //% group="Light"
     //% blockId="sb_setRgbLedColorRGB"
     //% block="set RGB LED %rgbLed to red %red\\% green %green\\% blue %blue\\%"
     //% rgbLed.shadow=sb_rgbLed
@@ -401,6 +405,7 @@ namespace sb {
      * @param saturation Saturation of the color, ranging from `0%` to `100%`.
      * @param brightness Brightness of the color, ranging from `0%` to `100%`.
      */
+    //% group="Light"
     //% blockId="sb_setRgbLedColorHSB"
     //% block="set RGB LED %rgbLed to hue %hue\\% saturation %saturation\\% brightness %brightness\\%"
     //% rgbLed.shadow=sb_rgbLed
@@ -420,6 +425,7 @@ namespace sb {
      * @param rgbLed Which RGB LED to set the color.
      * @param color The name of the color from a list of color labels.
      */
+    //% group="Light"
     //% blockId="sb_setRgbLedColor"
     //% block="set RGB LED %rgbLed to %color"
     //% rgbLed.shadow=sb_rgbLed
