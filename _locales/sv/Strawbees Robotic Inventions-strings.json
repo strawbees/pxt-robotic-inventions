@@ -73,5 +73,7 @@
   "sb.waveType|block": "%label",
   "sb.wave|block": "vågform %waveType längd %length sekunder amplitud %amplitude förskjutning %offset",
   "sb|block": "Strawbees",
-  "{id:category}Sb": "Sb"
+  "{id:category}Sb": "Sb",
+  "{id:group}Light": "Light",
+  "{id:group}Movement": "Movement"
 }

@@ -73,5 +73,7 @@
   "sb.waveType|block": "%label",
   "sb.wave|block": "波形 %waveType 时长 %length 秒 振幅 %amplitude 偏移 %offset",
   "sb|block": "Strawbees",
-  "{id:category}Sb": "Sb"
+  "{id:category}Sb": "Sb",
+  "{id:group}Light": "Light",
+  "{id:group}Movement": "Movement"
 }
